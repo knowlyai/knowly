@@ -1,1 +1,24 @@
 @import 'tailwindcss';
+
+@theme {
+  /* Colors */
+  --color-purple-60: #a071c0;
+  --color-purple-80: #8048a4;
+  --color-purple-100: #5a3374;
+
+  --color-background-60: #495098;
+  --color-background-80: #2a2e58;
+  --color-background-100: #0b0c17;
+
+  --color-green-60: #59a8c3;
+  --color-green-80: #378099;
+  --color-green-100: #235262;
+
+  --color-gray-60: #9ea4b1;
+  --color-gray-80: #7e8698;
+  --color-gray-100: #61697a;
+
+  --color-blue-60: #a071c0;
+  --color-blue-80: #8048a4;
+  --color-blue-100: #5a3374;
+}
