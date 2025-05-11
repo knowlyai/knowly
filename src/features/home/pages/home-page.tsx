@@ -102,8 +102,11 @@ export function HomePage() {
           </div>
         </motion.section>
 
-        <section className="flex h-screen flex-col items-center justify-center">
-          <h1 className="mb-10 text-6xl font-semibold">How Knowly Works</h1>
+        <section
+          id="how-knowly-works"
+          className="flex h-screen flex-col items-center justify-center"
+        >
+          <h1 className="text-6xl font-semibold">How Knowly Works</h1>
           <div className="flex w-full max-w-6xl justify-between gap-8">
             {/* Parte da Esquerda */}
             <div className="flex flex-col items-center">

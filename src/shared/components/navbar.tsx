@@ -21,7 +21,7 @@ export function Navbar() {
           <p className="text-lg">Knowly</p>
         </div>
         <div className="flex items-center gap-8">
-          <a href="">Our product</a>
+          <a href="#how-knowly-works">Our product</a>
           <a href="">About us</a>
           <a href="">Pricing</a>
           <a href="">FAQ</a>
