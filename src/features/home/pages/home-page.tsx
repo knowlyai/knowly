@@ -103,7 +103,7 @@ export function HomePage() {
         </motion.section>
 
         <section className="flex h-screen flex-col items-center justify-center">
-          <h1 className="mb-12 text-6xl font-semibold">How Knowly Works</h1>
+          <h1 className="mb-10 text-6xl font-semibold">How Knowly Works</h1>
           <div className="flex w-full max-w-6xl justify-between gap-8">
             {/* Parte da Esquerda */}
             <div className="flex flex-col items-center">
@@ -114,7 +114,7 @@ export function HomePage() {
                   autoplay
                 />
               </div>
-              <h1 className="mb-4 text-xl font-semibold">You Upload</h1>
+              <h1 className="mb-4 text-3xl font-semibold">You Upload</h1>
               <p className="text-center text-xl break-words text-white/50">
                 Upload the PDF files you wish to make up the knowledge base
               </p>
@@ -129,7 +129,7 @@ export function HomePage() {
                   segment={[70, 278]}
                 />
               </div>
-              <h1 className="mb-4 text-xl font-semibold">We Build</h1>
+              <h1 className="mb-4 text-3xl font-semibold">We Build</h1>
               <p className="text-center text-xl break-words text-white/50">
                 We use the files to train a Gen AI model
               </p>
@@ -144,7 +144,7 @@ export function HomePage() {
                   autoplay
                 />
               </div>
-              <h1 className="mb-4 text-xl font-semibold">You Enjoy</h1>
+              <h1 className="mb-4 text-3xl font-semibold">You Enjoy</h1>
               <p className="text-center text-xl break-words text-white/50">
                 After the model is done, you can try it and use it as you wish
               </p>
