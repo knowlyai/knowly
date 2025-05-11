@@ -108,9 +108,9 @@ export function HomePage() {
             {/* Parte da Esquerda */}
             <div className="flex flex-col items-center">
               <div className="text-6xl text-purple-500">
-                <div className="h-32 w-32">
+                <div className="h-100 w-100">
                   <DotLottieReact
-                    src="https://lottie.host/d4f25be6-2e47-4e49-82ca-517529fc25c2/YpWU0ldqXy.lottie"
+                    src="https://lottie.host/ade48407-0fab-452b-8257-6bde53c7dc0c/QXs4qptUZD.lottie"
                     loop
                     autoplay
                   />
@@ -125,9 +125,9 @@ export function HomePage() {
             {/* Parte do Meio */}
             <div className="flex flex-col items-center">
               <div className="text-6xl text-purple-500">
-                <div className="h-32 w-32">
+                <div className="h-100 w-100">
                   <DotLottieReact
-                    src="https://lottie.host/082eeee1-96a1-43a9-9ebf-d92337ba3837/jL0xkv0gV8.lottie"
+                    src="https://lottie.host/e10d7ded-6bde-4049-afd0-1d902c61d1d2/oSwowUt9Qm.lottie"
                     loop
                     autoplay
                     segment={[70, 278]}
@@ -144,7 +144,7 @@ export function HomePage() {
             {/* Parte da Direita */}
             <div className="flex flex-col items-center">
               <div className="text-6xl text-purple-500">
-                <div className="h-32 w-32">
+                <div className="h-100 w-100">
                   <DotLottieReact
                     src="https://lottie.host/b7378989-ff8f-4b8c-9c37-757ee8dba602/tpegrUB3wi.lottie"
                     loop
