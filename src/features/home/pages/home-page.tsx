@@ -100,11 +100,45 @@ export function HomePage() {
             </a>
           </div>
         </motion.section>
-        <section className="flex h-screen items-center justify-center">
-          <h1>How Knowly works</h1>
-          <div></div>
-          <div></div>
-          <div></div>
+
+        <section className="flex h-screen flex-col items-center justify-center">
+          <h1 className="mb-12 text-6xl font-semibold">How Knowly Works</h1>
+          <div className="flex w-full max-w-6xl justify-between gap-8">
+            {/* Parte da Esquerda */}
+            <div className="flex flex-col items-center">
+              <div className="text-6xl text-purple-500">
+                {/* Ícone */}
+                <i className="fas fa-brain"></i>
+              </div>
+              <h1 className="mb-4 text-xl font-semibold">Título 1</h1>
+              <p className="text-center text-xl break-words text-gray-600">
+                Texto
+              </p>
+            </div>
+            {/* Parte do Meio */}
+            <div className="flex flex-col items-center">
+              <div className="text-6xl text-purple-500">
+                {/* Ícone */}
+                <i className="fas fa-cogs"></i>
+              </div>
+              <h1 className="mb-4 text-xl font-semibold">Título 2</h1>
+              <p className="text-center text-xl break-words text-gray-600">
+                Texto
+              </p>
+            </div>
+
+            {/* Parte da Direita */}
+            <div className="flex flex-col items-center">
+              <div className="text-6xl text-purple-500">
+                {/* Ícone */}
+                <i className="fas fa-shield-alt"></i>
+              </div>
+              <h1 className="mb-4 text-xl font-semibold">Título 3</h1>
+              <p className="text-center text-xl break-words text-gray-600">
+                Texto
+              </p>
+            </div>
+          </div>
         </section>
         <section className="flex h-screen items-center justify-center">
           <h1>Pricing</h1>
