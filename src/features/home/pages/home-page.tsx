@@ -107,54 +107,45 @@ export function HomePage() {
           <div className="flex w-full max-w-6xl justify-between gap-8">
             {/* Parte da Esquerda */}
             <div className="flex flex-col items-center">
-              <div className="text-6xl text-purple-500">
-                <div className="h-100 w-100">
-                  <DotLottieReact
-                    src="https://lottie.host/ade48407-0fab-452b-8257-6bde53c7dc0c/QXs4qptUZD.lottie"
-                    loop
-                    autoplay
-                  />
-                </div>
-                <i className="fas fa-brain"></i>
+              <div className="h-100 w-100">
+                <DotLottieReact
+                  src="https://lottie.host/ade48407-0fab-452b-8257-6bde53c7dc0c/QXs4qptUZD.lottie"
+                  loop
+                  autoplay
+                />
               </div>
-              <h1 className="mb-4 text-xl font-semibold">You upload</h1>
-              <p className="text-center text-xl break-words text-gray-600">
+              <h1 className="mb-4 text-xl font-semibold">You Upload</h1>
+              <p className="text-center text-xl break-words text-white/50">
                 Upload the PDF files you wish to make up the knowledge base
               </p>
             </div>
             {/* Parte do Meio */}
             <div className="flex flex-col items-center">
-              <div className="text-6xl text-purple-500">
-                <div className="h-100 w-100">
-                  <DotLottieReact
-                    src="https://lottie.host/e10d7ded-6bde-4049-afd0-1d902c61d1d2/oSwowUt9Qm.lottie"
-                    loop
-                    autoplay
-                    segment={[70, 278]}
-                  />
-                </div>
-                <i className="fas fa-cogs"></i>
+              <div className="h-100 w-100">
+                <DotLottieReact
+                  src="https://lottie.host/e10d7ded-6bde-4049-afd0-1d902c61d1d2/oSwowUt9Qm.lottie"
+                  loop
+                  autoplay
+                  segment={[70, 278]}
+                />
               </div>
-              <h1 className="mb-4 text-xl font-semibold">We build</h1>
-              <p className="text-center text-xl break-words text-gray-600">
+              <h1 className="mb-4 text-xl font-semibold">We Build</h1>
+              <p className="text-center text-xl break-words text-white/50">
                 We use the files to train a Gen AI model
               </p>
             </div>
 
             {/* Parte da Direita */}
             <div className="flex flex-col items-center">
-              <div className="text-6xl text-purple-500">
-                <div className="h-100 w-100">
-                  <DotLottieReact
-                    src="https://lottie.host/b7378989-ff8f-4b8c-9c37-757ee8dba602/tpegrUB3wi.lottie"
-                    loop
-                    autoplay
-                  />
-                </div>
-                <i className="fas fa-shield-alt"></i>
+              <div className="h-100 w-100">
+                <DotLottieReact
+                  src="https://lottie.host/e84fe9c7-0ada-4dcb-a6c0-3e5ae46e1354/GgsWdQCrtV.lottie"
+                  loop
+                  autoplay
+                />
               </div>
-              <h1 className="mb-4 text-xl font-semibold">You enjoy</h1>
-              <p className="text-center text-xl break-words text-gray-600">
+              <h1 className="mb-4 text-xl font-semibold">You Enjoy</h1>
+              <p className="text-center text-xl break-words text-white/50">
                 After the model is done, you can try it and use it as you wish
               </p>
             </div>
