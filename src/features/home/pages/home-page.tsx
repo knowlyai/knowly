@@ -3,6 +3,7 @@ import { Background } from '@/shared/components/background'
 import { Layout } from '@/shared/components/layout'
 import { motion } from 'framer-motion'
 import { Button } from '@/shared/components/button'
+import { DotLottieReact } from '@lottiefiles/dotlottie-react'
 
 function BackgroundBlobs() {
   return (
@@ -107,7 +108,13 @@ export function HomePage() {
             {/* Parte da Esquerda */}
             <div className="flex flex-col items-center">
               <div className="text-6xl text-purple-500">
-                {/* Ícone */}
+                <div className="h-32 w-32">
+                  <DotLottieReact
+                    src="https://lottie.host/d4f25be6-2e47-4e49-82ca-517529fc25c2/YpWU0ldqXy.lottie"
+                    loop
+                    autoplay
+                  />
+                </div>
                 <i className="fas fa-brain"></i>
               </div>
               <h1 className="mb-4 text-xl font-semibold">You upload</h1>
@@ -118,6 +125,14 @@ export function HomePage() {
             {/* Parte do Meio */}
             <div className="flex flex-col items-center">
               <div className="text-6xl text-purple-500">
+                <div className="h-32 w-32">
+                  <DotLottieReact
+                    src="https://lottie.host/082eeee1-96a1-43a9-9ebf-d92337ba3837/jL0xkv0gV8.lottie"
+                    loop
+                    autoplay
+                    segment={[70, 278]}
+                  />
+                </div>
                 <i className="fas fa-cogs"></i>
               </div>
               <h1 className="mb-4 text-xl font-semibold">We build</h1>
@@ -129,7 +144,13 @@ export function HomePage() {
             {/* Parte da Direita */}
             <div className="flex flex-col items-center">
               <div className="text-6xl text-purple-500">
-                {/* Ícone */}
+                <div className="h-32 w-32">
+                  <DotLottieReact
+                    src="https://lottie.host/b7378989-ff8f-4b8c-9c37-757ee8dba602/tpegrUB3wi.lottie"
+                    loop
+                    autoplay
+                  />
+                </div>
                 <i className="fas fa-shield-alt"></i>
               </div>
               <h1 className="mb-4 text-xl font-semibold">You enjoy</h1>
