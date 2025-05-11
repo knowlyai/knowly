@@ -110,20 +110,19 @@ export function HomePage() {
                 {/* Ícone */}
                 <i className="fas fa-brain"></i>
               </div>
-              <h1 className="mb-4 text-xl font-semibold">Título 1</h1>
+              <h1 className="mb-4 text-xl font-semibold">You upload</h1>
               <p className="text-center text-xl break-words text-gray-600">
-                Texto
+                Upload the PDF files you wish to make up the knowledge base
               </p>
             </div>
             {/* Parte do Meio */}
             <div className="flex flex-col items-center">
               <div className="text-6xl text-purple-500">
-                {/* Ícone */}
                 <i className="fas fa-cogs"></i>
               </div>
-              <h1 className="mb-4 text-xl font-semibold">Título 2</h1>
+              <h1 className="mb-4 text-xl font-semibold">We build</h1>
               <p className="text-center text-xl break-words text-gray-600">
-                Texto
+                We use the files to train a Gen AI model
               </p>
             </div>
 
@@ -133,9 +132,9 @@ export function HomePage() {
                 {/* Ícone */}
                 <i className="fas fa-shield-alt"></i>
               </div>
-              <h1 className="mb-4 text-xl font-semibold">Título 3</h1>
+              <h1 className="mb-4 text-xl font-semibold">You enjoy</h1>
               <p className="text-center text-xl break-words text-gray-600">
-                Texto
+                After the model is done, you can try it and use it as you wish
               </p>
             </div>
           </div>
