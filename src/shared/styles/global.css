@@ -22,3 +22,7 @@
   --color-blue-80: #8048a4;
   --color-blue-100: #5a3374;
 }
+
+html {
+  scroll-behavior: smooth;
+}
