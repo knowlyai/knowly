@@ -121,7 +121,7 @@ export function HomePage() {
           */}
         </section>
         <section
-          id="#about-us"
+          id="about-us"
           className="flex h-screen flex-col items-center justify-center"
         >
           <h1 className="mb-8 text-6xl font-semibold">About Us</h1>

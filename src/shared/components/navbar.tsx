@@ -22,7 +22,7 @@ export function Navbar() {
         </div>
         <div className="flex items-center gap-8">
           <a href="">Our product</a>
-          <a href="">About us</a>
+          <a href="#about-us">About us</a>
           <a href="">Pricing</a>
           <a href="">FAQ</a>
           <Button className="px-6">Login</Button>
