@@ -2,13 +2,9 @@ import React, { useState } from 'react'
 import { cn } from '../utils/cn'
 
 export type AccordionItemProps = {
-  /** Texto da pergunta ou título do item */
   title: string
-  /** Conteúdo que será exibido quando o item estiver aberto */
   children: React.ReactNode
-  /** Defina se o item deve vir aberto por padrão */
   defaultOpen?: boolean
-  /** Classe adicional para estilização */
   className?: string
 }
 
@@ -67,9 +63,7 @@ export const AccordionItem = React.forwardRef<
 AccordionItem.displayName = 'AccordionItem'
 
 export type AccordionProps = {
-  /** Array de itens a serem renderizados */
   children: React.ReactElement<AccordionItemProps>[]
-  /** Classe adicional para o container */
   className?: string
 }
 
