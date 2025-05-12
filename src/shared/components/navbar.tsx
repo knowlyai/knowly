@@ -24,7 +24,7 @@ export function Navbar() {
           <a href="#how-knowly-works">Our product</a>
           <a href="">About us</a>
           <a href="">Pricing</a>
-          <a href="">FAQ</a>
+          <a href="#faq">FAQ</a>
           <Button className="px-6">Login</Button>
         </div>
       </div>
