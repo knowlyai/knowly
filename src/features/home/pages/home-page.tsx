@@ -5,6 +5,24 @@ import { motion } from 'framer-motion'
 import { Button } from '@/shared/components/button'
 import { Accordion, AccordionItem } from '@/shared/components/accordion'
 
+const faqs = [
+  {
+    title: 'What kind of file can I upload?',
+    content:
+      'Currently, you can upload PDF files. We are working on adding support for other file types in the future.'
+  },
+  {
+    title: 'Can I create more than one model?',
+    content:
+      'Yes, you can create multiple models with different knowledge bases.'
+  },
+  {
+    title: 'Do I need to code?',
+    content:
+      'No, you only need to upload the files and we take care of the rest.'
+  }
+]
+
 function BackgroundBlobs() {
   return (
     <>
@@ -121,10 +139,12 @@ export function HomePage() {
           className="flex h-screen flex-col items-center justify-center"
         >
           <h1 className="mb-12 text-6xl font-semibold">FAQ</h1>
-          <Accordion>
-            <AccordionItem title="Pergunta 1">Resposta 1</AccordionItem>
-            <AccordionItem title="Pergunta 2">Resposta 2</AccordionItem>
-            <AccordionItem title="Pergunta 3">Resposta 3</AccordionItem>
+          <Accordion className="w-250">
+            {faqs.map((faq, i) => (
+              <AccordionItem key={i} title={faq.title}>
+                {faq.content}
+              </AccordionItem>
+            ))}
           </Accordion>
         </section>
       </Layout>
