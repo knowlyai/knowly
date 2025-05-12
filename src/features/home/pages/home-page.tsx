@@ -3,6 +3,11 @@ import { Background } from '@/shared/components/background'
 import { Layout } from '@/shared/components/layout'
 import { motion } from 'framer-motion'
 import { Button } from '@/shared/components/button'
+import berti from '@/assets/berti.jfif'
+import izabel from '@/assets/izabel.jfif'
+import rubio from '@/assets/rubio.jfif'
+import julia from '@/assets/julia.jfif'
+import sakamoto from '@/assets/Sakamoto.jfif'
 
 function BackgroundBlobs() {
   return (
@@ -114,6 +119,39 @@ export function HomePage() {
           <Card></Card>
           <Card></Card>
           */}
+        </section>
+        <section
+          id="#about-us"
+          className="flex h-screen flex-col items-center justify-center"
+        >
+          <h1 className="mb-8 text-6xl font-semibold">About Us</h1>
+          <div className="mx-auto grid max-w-2xl grid-cols-3 grid-rows-3 items-center justify-items-center gap-4">
+            <img
+              src={sakamoto}
+              alt="Enzo Sakamoto"
+              className="col-start-1 row-start-1 h-24 w-24 rounded-full object-cover shadow-lg"
+            />
+            <img
+              src={izabel}
+              alt="Izabel Sampaio Goes"
+              className="col-start-3 row-start-1 h-24 w-24 rounded-full object-cover shadow-lg"
+            />
+            <img
+              src={rubio}
+              alt="Rafael Rúbio Carnes"
+              className="col-start-2 row-start-2 h-24 w-24 rounded-full object-cover shadow-lg"
+            />
+            <img
+              src={julia}
+              alt="Júlia Galhardi Cerqueira"
+              className="col-start-1 row-start-3 h-24 w-24 rounded-full object-cover shadow-lg"
+            />
+            <img
+              src={berti}
+              alt="Vinícius Berti"
+              className="col-start-3 row-start-3 h-24 w-24 rounded-full object-cover shadow-lg"
+            />
+          </div>
         </section>
       </Layout>
     </Background>
