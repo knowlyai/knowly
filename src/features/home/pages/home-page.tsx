@@ -241,6 +241,7 @@ export function HomePage() {
               Vinícius Berti
             </span>
           </div>
+        </section>
         <section
           id="faq"
           className="flex h-screen flex-col items-center justify-center"
