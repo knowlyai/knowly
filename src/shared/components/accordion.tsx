@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { cn } from '../utils/cn'
 
 export type AccordionItemProps = {
@@ -13,6 +13,15 @@ export const AccordionItem = React.forwardRef<
   AccordionItemProps
 >(({ title, children, defaultOpen = false, className }, ref) => {
   const [isOpen, setIsOpen] = useState(defaultOpen)
+  const contentRef = useRef<HTMLDivElement>(null)
+  const [maxHeight, setMaxHeight] = useState<string>('0px')
+
+  useEffect(() => {
+    if (contentRef.current) {
+      const scrollHeight = contentRef.current.scrollHeight
+      setMaxHeight(isOpen ? `${scrollHeight}px` : '0px')
+    }
+  }, [isOpen, children])
 
   return (
     <div
@@ -53,9 +62,13 @@ export const AccordionItem = React.forwardRef<
         </span>
       </button>
 
-      {isOpen && (
+      <div
+        ref={contentRef}
+        style={{ maxHeight }}
+        className="transition-max-height overflow-hidden duration-300 ease-in-out"
+      >
         <div className="mt-2 font-medium text-white/70">{children}</div>
-      )}
+      </div>
     </div>
   )
 })
