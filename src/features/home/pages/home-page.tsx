@@ -7,7 +7,7 @@ import berti from '@/assets/berti.jfif'
 import izabel from '@/assets/izabel.jfif'
 import rubio from '@/assets/rubio.jfif'
 import julia from '@/assets/julia.jfif'
-import sakamoto from '@/assets/Sakamoto.jfif'
+import sakamoto from '@/assets/sakamoto.jfif'
 import { Accordion, AccordionItem } from '@/shared/components/accordion'
 import { DotLottieReact } from '@lottiefiles/dotlottie-react'
 
