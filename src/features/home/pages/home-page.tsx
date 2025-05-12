@@ -8,6 +8,26 @@ import izabel from '@/assets/izabel.jfif'
 import rubio from '@/assets/rubio.jfif'
 import julia from '@/assets/julia.jfif'
 import sakamoto from '@/assets/Sakamoto.jfif'
+import { Accordion, AccordionItem } from '@/shared/components/accordion'
+import { DotLottieReact } from '@lottiefiles/dotlottie-react'
+
+const faqs = [
+  {
+    title: 'What kind of file can I upload?',
+    content:
+      'Currently, you can upload PDF files. We are working on adding support for other file types in the future.'
+  },
+  {
+    title: 'Can I create more than one model?',
+    content:
+      'Yes, you can create multiple models with different knowledge bases.'
+  },
+  {
+    title: 'Do I need to code?',
+    content:
+      'No, you only need to upload the files and we take care of the rest.'
+  }
+]
 
 function BackgroundBlobs() {
   return (
@@ -105,11 +125,58 @@ export function HomePage() {
             </a>
           </div>
         </motion.section>
-        <section className="flex h-screen items-center justify-center">
-          <h1>How Knowly works</h1>
-          <div></div>
-          <div></div>
-          <div></div>
+
+        <section
+          id="how-knowly-works"
+          className="flex h-screen flex-col items-center justify-center"
+        >
+          <h1 className="text-6xl font-semibold">How Knowly Works</h1>
+          <div className="flex w-full max-w-6xl justify-between gap-8">
+            {/* Parte da Esquerda */}
+            <div className="flex flex-col items-center">
+              <div className="h-100 w-100">
+                <DotLottieReact
+                  src="https://lottie.host/ade48407-0fab-452b-8257-6bde53c7dc0c/QXs4qptUZD.lottie"
+                  loop
+                  autoplay
+                />
+              </div>
+              <h1 className="mb-4 text-3xl font-semibold">You Upload</h1>
+              <p className="text-center text-xl break-words text-white/50">
+                Upload the PDF files you wish to make up the knowledge base
+              </p>
+            </div>
+            {/* Parte do Meio */}
+            <div className="flex flex-col items-center">
+              <div className="h-100 w-100">
+                <DotLottieReact
+                  src="https://lottie.host/e10d7ded-6bde-4049-afd0-1d902c61d1d2/oSwowUt9Qm.lottie"
+                  loop
+                  autoplay
+                  segment={[70, 278]}
+                />
+              </div>
+              <h1 className="mb-4 text-3xl font-semibold">We Build</h1>
+              <p className="text-center text-xl break-words text-white/50">
+                We use the files to train a Gen AI model
+              </p>
+            </div>
+
+            {/* Parte da Direita */}
+            <div className="flex flex-col items-center">
+              <div className="h-100 w-100">
+                <DotLottieReact
+                  src="https://lottie.host/e84fe9c7-0ada-4dcb-a6c0-3e5ae46e1354/GgsWdQCrtV.lottie"
+                  loop
+                  autoplay
+                />
+              </div>
+              <h1 className="mb-4 text-3xl font-semibold">You Enjoy</h1>
+              <p className="text-center text-xl break-words text-white/50">
+                After the model is done, you can try it and use it as you wish
+              </p>
+            </div>
+          </div>
         </section>
         <section className="flex h-screen items-center justify-center">
           <h1>Pricing</h1>
@@ -174,6 +241,18 @@ export function HomePage() {
               Vinícius Berti
             </span>
           </div>
+        <section
+          id="faq"
+          className="flex h-screen flex-col items-center justify-center"
+        >
+          <h1 className="mb-12 text-6xl font-semibold">FAQ</h1>
+          <Accordion className="w-250">
+            {faqs.map((faq, i) => (
+              <AccordionItem key={i} title={faq.title}>
+                {faq.content}
+              </AccordionItem>
+            ))}
+          </Accordion>
         </section>
       </Layout>
     </Background>

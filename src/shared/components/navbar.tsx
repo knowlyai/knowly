@@ -21,10 +21,10 @@ export function Navbar() {
           <p className="text-lg">Knowly</p>
         </div>
         <div className="flex items-center gap-8">
-          <a href="">Our product</a>
+          <a href="#how-knowly-works">Our product</a>
           <a href="#about-us">About us</a>
           <a href="">Pricing</a>
-          <a href="">FAQ</a>
+          <a href="#faq">FAQ</a>
           <Button className="px-6">Login</Button>
         </div>
       </div>
