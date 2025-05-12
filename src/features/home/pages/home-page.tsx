@@ -3,13 +3,13 @@ import { Background } from '@/shared/components/background'
 import { Layout } from '@/shared/components/layout'
 import { motion } from 'framer-motion'
 import { Button } from '@/shared/components/button'
+import { Accordion, AccordionItem } from '@/shared/components/accordion'
+import { DotLottieReact } from '@lottiefiles/dotlottie-react'
 import berti from '@/assets/berti.jfif'
 import izabel from '@/assets/izabel.jfif'
 import rubio from '@/assets/rubio.jfif'
 import julia from '@/assets/julia.jfif'
 import sakamoto from '@/assets/sakamoto.jfif'
-import { Accordion, AccordionItem } from '@/shared/components/accordion'
-import { DotLottieReact } from '@lottiefiles/dotlottie-react'
 
 const faqs = [
   {
@@ -188,6 +188,19 @@ export function HomePage() {
           */}
         </section>
         <section
+          id="faq"
+          className="flex h-screen flex-col items-center justify-center"
+        >
+          <h1 className="mb-12 text-6xl font-semibold">FAQ</h1>
+          <Accordion className="w-250">
+            {faqs.map((faq, i) => (
+              <AccordionItem key={i} title={faq.title}>
+                {faq.content}
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </section>
+        <section
           id="about-us"
           className="flex h-screen flex-col items-center justify-center"
         >
@@ -241,19 +254,6 @@ export function HomePage() {
               Vinícius Berti
             </span>
           </div>
-        </section>
-        <section
-          id="faq"
-          className="flex h-screen flex-col items-center justify-center"
-        >
-          <h1 className="mb-12 text-6xl font-semibold">FAQ</h1>
-          <Accordion className="w-250">
-            {faqs.map((faq, i) => (
-              <AccordionItem key={i} title={faq.title}>
-                {faq.content}
-              </AccordionItem>
-            ))}
-          </Accordion>
         </section>
       </Layout>
     </Background>
