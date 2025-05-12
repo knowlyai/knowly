@@ -45,7 +45,7 @@ export const AccordionItem = React.forwardRef<
         </svg>
         <span
           className={cn(
-            'font-semibold transition-colors',
+            'ml-2 flex-1 text-left font-semibold transition-colors',
             isOpen ? 'text-white' : 'text-white/80'
           )}
         >
@@ -74,7 +74,7 @@ export const Accordion: React.FC<AccordionProps> = ({
   return (
     <div
       className={cn(
-        'w-full max-w-2xl rounded-2xl bg-[#2c2c54]/60 p-6 shadow-lg backdrop-blur-md',
+        'w-full rounded-2xl bg-[#2c2c54]/60 p-6 shadow-lg backdrop-blur-md',
         className
       )}
     >
