@@ -5,6 +5,11 @@ import { motion } from 'framer-motion'
 import { Button } from '@/shared/components/button'
 import { Accordion, AccordionItem } from '@/shared/components/accordion'
 import { DotLottieReact } from '@lottiefiles/dotlottie-react'
+import berti from '@/assets/berti.jfif'
+import izabel from '@/assets/izabel.jfif'
+import rubio from '@/assets/rubio.jfif'
+import julia from '@/assets/julia.jfif'
+import sakamoto from '@/assets/sakamoto.jfif'
 
 const faqs = [
   {
@@ -194,6 +199,61 @@ export function HomePage() {
               </AccordionItem>
             ))}
           </Accordion>
+        </section>
+        <section
+          id="about-us"
+          className="flex h-screen flex-col items-center justify-center"
+        >
+          <h1 className="mb-8 text-6xl font-semibold">About Us</h1>
+          <div className="mb-8 text-center md:text-center">
+            <p className="text-lg">
+              Knowly was created by a group of five Computer Engineering
+              students during their final year of university at Instituto Mauá
+              de Tecnologia.
+            </p>
+          </div>
+          <div className="mx-auto grid max-w-2xl grid-cols-5 grid-rows-1 items-center justify-items-center gap-4">
+            <img
+              src={sakamoto}
+              alt="Enzo Sakamoto"
+              className="col-start-1 row-start-1 h-24 w-24 rounded-full object-cover shadow-lg"
+            />
+            <span className="mt-2 text-center text-sm font-medium">
+              Enzo Sakamoto
+            </span>
+            <img
+              src={izabel}
+              alt="Izabel Sampaio Goes"
+              className="col-start-2 row-start-1 h-24 w-24 rounded-full object-cover shadow-lg"
+            />
+            <span className="mt-2 text-center text-sm font-medium">
+              Izabel Sampaio Goes
+            </span>
+            <img
+              src={rubio}
+              alt="Rafael Rúbio Carnes"
+              className="col-start-3 row-start-1 h-24 w-24 rounded-full object-cover shadow-lg"
+            />
+            <span className="mt-2 text-center text-sm font-medium">
+              Rafael Rúbio Carnes
+            </span>
+            <img
+              src={julia}
+              alt="Júlia Galhardi Cerqueira"
+              className="col-start-4 row-start-1 h-24 w-24 rounded-full object-cover shadow-lg"
+            />
+            <span className="mt-2 text-center text-sm font-medium">
+              Júlia Galhardi Cerqueira
+            </span>
+            <img
+              src={berti}
+              alt="Vinícius Berti"
+              className="col-start-5 row-start-1 h-24 w-24 rounded-full object-cover shadow-lg"
+            />
+            <span className="mt-2 text-center text-sm font-medium">
+              Vinícius Berti
+            </span>
+          </div>
         </section>
       </Layout>
     </Background>
