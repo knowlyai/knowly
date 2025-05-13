@@ -3,6 +3,7 @@ import { Background } from '@/shared/components/background'
 import { Layout } from '@/shared/components/layout'
 import { motion } from 'framer-motion'
 import { Button } from '@/shared/components/button'
+import { Card } from '@/shared/components/card'
 import { Accordion, AccordionItem } from '@/shared/components/accordion'
 import { DotLottieReact } from '@lottiefiles/dotlottie-react'
 import berti from '@/assets/berti.jfif'
@@ -10,6 +11,32 @@ import izabel from '@/assets/izabel.jfif'
 import rubio from '@/assets/rubio.jfif'
 import julia from '@/assets/julia.jfif'
 import sakamoto from '@/assets/sakamoto.jfif'
+
+const plans = [
+  {
+    title: 'Personal',
+    price: '$5',
+    features: ['1 project', 'Analytics', 'Insights Panel', 'Share Features'],
+    buttonText: 'Get Started'
+  },
+  {
+    title: 'Professional',
+    price: '$10',
+    features: ['2 projects', 'Analytics', 'Insights Panel', 'Share Features'],
+    buttonText: 'Get Started'
+  },
+  {
+    title: 'Business',
+    price: '$50',
+    features: [
+      'Unlimited Projects',
+      'Analytics',
+      'Insights Panel',
+      'Share Features'
+    ],
+    buttonText: 'Get Started'
+  }
+]
 
 const faqs = [
   {
@@ -178,14 +205,27 @@ export function HomePage() {
             </div>
           </div>
         </section>
-        <section className="flex h-screen items-center justify-center">
-          <h1>Pricing</h1>
-          {/* Criar componente card para o princing na feature de home - usa o Button que já existe na shared */}
-          {/*
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          */}
+        <section
+          id="pricing"
+          className="flex h-screen flex-col items-center justify-center"
+        >
+          <div className="container mx-auto px-4 text-center">
+            <h1 className="mb-12 text-6xl font-semibold">Pricing</h1>
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+              {plans.map((plan, idx) => (
+                <Card
+                  key={idx}
+                  title={plan.title}
+                  price={plan.price}
+                  features={plan.features}
+                  buttonText={plan.buttonText}
+                  onButtonClick={() =>
+                    console.log(`Selected plan: ${plan.title}`)
+                  }
+                />
+              ))}
+            </div>
+          </div>
         </section>
         <section
           id="faq"
