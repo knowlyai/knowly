@@ -21,17 +21,20 @@ export function Card({
   onButtonClick
 }: CardProps) {
   return (
-    <div className="flex flex-col justify-between rounded-xl bg-gradient-to-b from-gray-800 to-gray-900 p-6 shadow-lg ring-1 ring-transparent transition-shadow duration-300 hover:shadow-2xl hover:ring-indigo-400">
+    <div className="hover:shadow-4xl flex w-[300px] flex-col rounded-xl bg-gradient-to-b from-[var(--color-purple-100)] to-[var(--color-background-100)] p-6 shadow-lg ring-1 ring-transparent transition-shadow duration-300 hover:ring-[var(--color-green-60)]">
       <div>
-        <h4 className="text-sm font-medium text-gray-400 uppercase">{title}</h4>
-        <div className="mt-4 flex items-baseline gap-x-1">
+        <h4 className="text-sm font-medium text-white/50 uppercase">{title}</h4>
+        <div className="mt-4 flex items-baseline justify-center gap-x-1">
           <span className="text-4xl font-extrabold text-white">{price}</span>
-          <span className="text-lg text-gray-400">{period}</span>
+          <span className="text-center text-lg text-white/50">{period}</span>
         </div>
-        <ul className="mt-6 space-y-3">
+        <ul className="mt-6 space-y-5 text-left">
           {features.map((feature, idx) => (
-            <li key={idx} className="flex items-center gap-x-2 text-gray-300">
-              <CheckIcon className="h-5 w-5 text-indigo-400" />
+            <li
+              key={idx}
+              className="flex items-center gap-x-4 text-left text-white/50"
+            >
+              <CheckIcon className="text-green-60 h-5 w-5" />
               {feature}
             </li>
           ))}
