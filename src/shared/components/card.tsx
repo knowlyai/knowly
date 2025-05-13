@@ -1,4 +1,3 @@
-import React from 'react'
 import { Button } from '@/shared/components/button'
 import { CheckIcon } from 'lucide-react' // ou outro pacote de ícones SVG
 
