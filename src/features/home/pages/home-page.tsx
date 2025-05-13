@@ -3,6 +3,7 @@ import { Background } from '@/shared/components/background'
 import { Layout } from '@/shared/components/layout'
 import { motion } from 'framer-motion'
 import { Button } from '@/shared/components/button'
+import { Card } from '@/shared/components/card'
 import { Accordion, AccordionItem } from '@/shared/components/accordion'
 import { DotLottieReact } from '@lottiefiles/dotlottie-react'
 import berti from '@/assets/berti.jfif'
@@ -10,6 +11,27 @@ import izabel from '@/assets/izabel.jfif'
 import rubio from '@/assets/rubio.jfif'
 import julia from '@/assets/julia.jfif'
 import sakamoto from '@/assets/sakamoto.jfif'
+
+const plans = [
+  {
+    title: 'Personal',
+    price: '$5',
+    features: ['2 Knowledge Bases', 'Sandbox', 'Single AI model'],
+    buttonText: 'Get Started'
+  },
+  {
+    title: 'Professional',
+    price: '$10',
+    features: ['10 Knowledge Bases', 'Sandbox', 'Up to 5 AI models'],
+    buttonText: 'Get Started'
+  },
+  {
+    title: 'Business',
+    price: '$50',
+    features: ['50 Knowledge Bases', 'Sandbox', 'Any AI model available'],
+    buttonText: 'Get Started'
+  }
+]
 
 const faqs = [
   {
@@ -132,7 +154,6 @@ export function HomePage() {
         >
           <h1 className="text-6xl font-semibold">How Knowly Works</h1>
           <div className="flex w-full max-w-6xl justify-between gap-8">
-            {/* Parte da Esquerda */}
             <div className="flex flex-col items-center">
               <div className="h-100 w-100">
                 <DotLottieReact
@@ -146,7 +167,6 @@ export function HomePage() {
                 Upload the PDF files you wish to make up the knowledge base
               </p>
             </div>
-            {/* Parte do Meio */}
             <div className="flex flex-col items-center">
               <div className="h-100 w-100">
                 <DotLottieReact
@@ -161,8 +181,6 @@ export function HomePage() {
                 We use the files to train a Gen AI model
               </p>
             </div>
-
-            {/* Parte da Direita */}
             <div className="flex flex-col items-center">
               <div className="h-100 w-100">
                 <DotLottieReact
@@ -178,14 +196,27 @@ export function HomePage() {
             </div>
           </div>
         </section>
-        <section className="flex h-screen items-center justify-center">
-          <h1>Pricing</h1>
-          {/* Criar componente card para o princing na feature de home - usa o Button que já existe na shared */}
-          {/*
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          */}
+        <section
+          id="pricing"
+          className="flex h-screen flex-col items-center justify-center"
+        >
+          <div className="container mx-auto px-4 text-center">
+            <h1 className="mb-12 text-6xl font-semibold">Pricing</h1>
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+              {plans.map((plan, idx) => (
+                <Card
+                  key={idx}
+                  title={plan.title}
+                  price={plan.price}
+                  features={plan.features}
+                  buttonText={plan.buttonText}
+                  onButtonClick={() =>
+                    console.log(`Selected plan: ${plan.title}`)
+                  }
+                />
+              ))}
+            </div>
+          </div>
         </section>
         <section
           id="faq"

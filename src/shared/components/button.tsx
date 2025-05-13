@@ -14,7 +14,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const variants: { [key: string]: string } = {
-      default: 'bg-gradient-to-b from-blue-60 to-blue-80 ',
+      default: 'bg-gradient-to-b from-purple-60 to-purple-80 ',
       muted: 'bg-gray-80',
       icon: 'min-w-[50px] bg-gray p-2 place-items-center'
     }
