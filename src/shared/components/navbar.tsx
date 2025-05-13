@@ -18,7 +18,9 @@ export function Navbar() {
           }
         >
           <img src={brain} alt="Brain" className="w-14" />
-          <p className="text-lg">Knowly</p>
+          <a href="#home" className="text-lg">
+            Knowly
+          </a>
         </div>
         <div className="flex items-center gap-8">
           <a href="#how-knowly-works">Our product</a>

@@ -120,6 +120,7 @@ export function HomePage() {
       <BackgroundBlobs />
       <Layout className="z-10 min-h-screen">
         <motion.section
+          id="home"
           className="flex h-screen flex-col items-center justify-center gap-6"
           initial={{ opacity: 0 }}
           animate={{
@@ -153,7 +154,7 @@ export function HomePage() {
           className="flex h-screen flex-col items-center justify-center"
         >
           <h1 className="text-6xl font-semibold">How Knowly Works</h1>
-          <div className="flex w-full max-w-6xl justify-between gap-8">
+          <div className="flex w-full justify-between gap-8">
             <div className="flex flex-col items-center">
               <div className="h-100 w-100">
                 <DotLottieReact
