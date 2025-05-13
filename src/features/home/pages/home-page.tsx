@@ -159,7 +159,6 @@ export function HomePage() {
         >
           <h1 className="text-6xl font-semibold">How Knowly Works</h1>
           <div className="flex w-full max-w-6xl justify-between gap-8">
-            {/* Parte da Esquerda */}
             <div className="flex flex-col items-center">
               <div className="h-100 w-100">
                 <DotLottieReact
@@ -173,7 +172,6 @@ export function HomePage() {
                 Upload the PDF files you wish to make up the knowledge base
               </p>
             </div>
-            {/* Parte do Meio */}
             <div className="flex flex-col items-center">
               <div className="h-100 w-100">
                 <DotLottieReact
@@ -188,8 +186,6 @@ export function HomePage() {
                 We use the files to train a Gen AI model
               </p>
             </div>
-
-            {/* Parte da Direita */}
             <div className="flex flex-col items-center">
               <div className="h-100 w-100">
                 <DotLottieReact
