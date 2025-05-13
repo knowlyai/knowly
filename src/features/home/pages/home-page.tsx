@@ -16,24 +16,19 @@ const plans = [
   {
     title: 'Personal',
     price: '$5',
-    features: ['1 project', 'Analytics', 'Insights Panel', 'Share Features'],
+    features: ['2 Knowledge Bases', 'Sandbox', 'Single AI model'],
     buttonText: 'Get Started'
   },
   {
     title: 'Professional',
     price: '$10',
-    features: ['2 projects', 'Analytics', 'Insights Panel', 'Share Features'],
+    features: ['10 Knowledge Bases', 'Sandbox', 'Up to 5 AI models'],
     buttonText: 'Get Started'
   },
   {
     title: 'Business',
     price: '$50',
-    features: [
-      'Unlimited Projects',
-      'Analytics',
-      'Insights Panel',
-      'Share Features'
-    ],
+    features: ['50 Knowledge Bases', 'Sandbox', 'Any AI model available'],
     buttonText: 'Get Started'
   }
 ]
