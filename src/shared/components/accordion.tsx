@@ -33,12 +33,12 @@ export const AccordionItem = React.forwardRef<
     >
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full items-center justify-between text-left"
+        className="flex w-full cursor-pointer items-center justify-between text-left"
       >
         <svg
           className={cn(
             'h-6 w-6 transform transition-transform',
-            isOpen ? 'rotate-45 text-white' : 'text-white/80'
+            isOpen ? 'rotate-45' : 'opacity-80'
           )}
           fill="none"
           stroke="currentColor"
@@ -55,7 +55,7 @@ export const AccordionItem = React.forwardRef<
         <span
           className={cn(
             'ml-2 flex-1 text-left font-semibold transition-colors',
-            isOpen ? 'text-white' : 'text-white/80'
+            isOpen && 'opacity-80'
           )}
         >
           {title}
@@ -67,7 +67,7 @@ export const AccordionItem = React.forwardRef<
         style={{ maxHeight }}
         className="transition-max-height overflow-hidden duration-300 ease-in-out"
       >
-        <div className="mt-2 font-medium text-white/70">{children}</div>
+        <div className="mt-2 font-medium">{children}</div>
       </div>
     </div>
   )
@@ -80,14 +80,11 @@ export type AccordionProps = {
   className?: string
 }
 
-export const Accordion: React.FC<AccordionProps> = ({
-  children,
-  className
-}) => {
+export const Accordion = ({ children, className }: AccordionProps) => {
   return (
     <div
       className={cn(
-        'w-full rounded-2xl bg-[#2c2c54]/60 p-6 shadow-lg backdrop-blur-md',
+        'bg-background w-full rounded-2xl p-6 shadow-lg backdrop-blur-md',
         className
       )}
     >
