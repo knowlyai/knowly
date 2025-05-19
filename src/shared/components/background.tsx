@@ -8,7 +8,7 @@ export function Background({ children, className, ...props }: BackgroundProps) {
   return (
     <div
       className={cn(
-        'bg-background-100 flex h-auto min-h-screen w-full flex-col items-center text-white',
+        'bg-background text-foreground flex h-auto min-h-screen w-full flex-col items-center transition-colors duration-300',
         className
       )}
       {...props}

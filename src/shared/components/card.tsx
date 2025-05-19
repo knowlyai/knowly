@@ -1,54 +1,78 @@
-import { Button } from '@/shared/components/button'
-import { CheckIcon } from 'lucide-react'
+import * as React from 'react'
+import { cn } from '@/shared/utils/cn'
 
-type CardProps = {
-  title: string
-  price: string
-  period?: string
-  features: string[]
-  buttonText: string
-  onButtonClick?: () => void
-}
+const Card = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn(
+      'bg-card text-card-foreground rounded-lg border shadow-sm',
+      className
+    )}
+    {...props}
+  />
+))
+Card.displayName = 'Card'
 
-export function Card({
-  title,
-  price,
-  period = 'p/month',
-  features,
-  buttonText,
-  onButtonClick
-}: CardProps) {
-  return (
-    <div className="hover:shadow-4xl flex w-[300px] flex-col rounded-xl bg-gradient-to-b from-[var(--color-purple-100)] to-[var(--color-background-100)] p-6 shadow-lg ring-1 ring-transparent transition-shadow duration-300 hover:ring-[var(--color-green-60)]">
-      <div>
-        <h4 className="text-sm font-medium text-white/50 uppercase">{title}</h4>
-        <div className="mt-4 flex items-baseline justify-center gap-x-1">
-          <span className="text-4xl font-extrabold text-white">{price}</span>
-          <span className="text-center text-lg text-white/50">{period}</span>
-        </div>
-        <ul className="mt-6 space-y-5 text-left">
-          {features.map((feature, idx) => (
-            <li
-              key={idx}
-              className="flex items-center gap-x-4 text-left text-white/50"
-            >
-              <CheckIcon className="text-green-60 h-5 w-5" />
-              {feature}
-            </li>
-          ))}
-        </ul>
-      </div>
+const CardHeader = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn('flex flex-col space-y-1.5 p-6', className)}
+    {...props}
+  />
+))
+CardHeader.displayName = 'CardHeader'
 
-      <div className="mt-6">
-        <Button
-          variant="default"
-          size="md"
-          onClick={onButtonClick}
-          className="w-full"
-        >
-          {buttonText}
-        </Button>
-      </div>
-    </div>
-  )
-}
+const CardTitle = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn(
+      'text-2xl leading-none font-semibold tracking-tight',
+      className
+    )}
+    {...props}
+  />
+))
+CardTitle.displayName = 'CardTitle'
+
+const CardDescription = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn('text-muted-foreground text-sm', className)}
+    {...props}
+  />
+))
+CardDescription.displayName = 'CardDescription'
+
+const CardContent = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div ref={ref} className={cn('p-6 pt-0', className)} {...props} />
+))
+CardContent.displayName = 'CardContent'
+
+const CardFooter = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn('flex items-center p-6 pt-0', className)}
+    {...props}
+  />
+))
+CardFooter.displayName = 'CardFooter'
+
+export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }
