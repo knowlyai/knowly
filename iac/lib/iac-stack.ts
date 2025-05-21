@@ -13,9 +13,9 @@ export class IacStack extends cdk.Stack {
     super(scope, id, props)
 
     const stage = process.env.GITHUB_REF_NAME || 'dev'
-    const acmCertificateArn =
-      process.env.ACM_CERTIFICATE_ARN ||
-      'arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012'
+    const prodCertArn = process.env.ACM_CERTIFICATE_ARN as string
+    const devCertArn = process.env.ACM_CERTIFICATE_ARN_2 as string
+    const acmCertificateArn = stage === 'prod' ? prodCertArn : devCertArn
 
     let alternativeDomains: string[] = []
     if (
