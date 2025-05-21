@@ -41,39 +41,36 @@ export class IacStack extends cdk.Stack {
       autoDeleteObjects: true
     })
 
-    const oac = new cloudfront.CfnOriginAccessControl(this, 'AOC', {
-      originAccessControlConfig: {
-        name: 'Knowly Front Bucket OAC ' + stage,
-        originAccessControlOriginType: 's3',
-        signingBehavior: 'always',
-        signingProtocol: 'sigv4'
-      }
+    const oac = new cloudfront.S3OriginAccessControl(this, 'KnowlyOAC', {
+      originAccessControlName: `KnowlyFrontOAC-${stage}`,
+      signing: cloudfront.Signing.SIGV4_ALWAYS
     })
 
-    let certificate
-    if (alternativeDomains.length > 0) {
-      certificate = Certificate.fromCertificateArn(
-        this,
-        `KnowlyFrontCertificate-${stage}`,
-        acmCertificateArn
-      )
-    }
+    const s3Origin = origins.S3BucketOrigin.withOriginAccessControl(s3Bucket, {
+      originAccessControl: oac
+    })
+
+    const certificate = Certificate.fromCertificateArn(
+      this,
+      `KnowlyCert-${stage}`,
+      acmCertificateArn
+    )
 
     const distribution = new cloudfront.Distribution(this, 'CDN', {
-      comment: 'Knowly Front Distribution ' + stage,
+      comment: `Knowly Front Distribution ${stage}`,
       defaultBehavior: {
-        origin: new origins.S3Origin(s3Bucket),
+        origin: s3Origin,
+        viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
         cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD,
-        compress: true,
-        viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         cachePolicy: new cloudfront.CachePolicy(this, 'CachePolicy', {
           defaultTtl: cdk.Duration.seconds(3600),
           minTtl: cdk.Duration.seconds(0),
           maxTtl: cdk.Duration.seconds(86400),
           enableAcceptEncodingGzip: true,
           enableAcceptEncodingBrotli: true
-        })
+        }),
+        compress: true
       },
       errorResponses: [
         {
@@ -84,22 +81,13 @@ export class IacStack extends cdk.Stack {
         }
       ],
       domainNames: alternativeDomains,
-      certificate: Certificate.fromCertificateArn(
-        this,
-        'ReservationFrontCertificate-' + stage,
-        acmCertificateArn
-      ),
+      certificate,
       sslSupportMethod: cloudfront.SSLMethod.SNI,
       minimumProtocolVersion: cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021
     })
 
     const cfnDistribution = distribution.node
       .defaultChild as cloudfront.CfnDistribution
-
-    cfnDistribution.addPropertyOverride(
-      'DistributionConfig.Origins.0.OriginAccessControlId',
-      oac.getAtt('Id')
-    )
 
     s3Bucket.addToResourcePolicy(
       new iam.PolicyStatement({
