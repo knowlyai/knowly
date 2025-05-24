@@ -12,7 +12,6 @@ const variants = {
 
 export function ForgotPasswordPage() {
   const EMAIL_ERROR_MESSAGE = 'Digite um e-mail válido'
-  
   const [email, setEmail] = useState('')
   const [emailError, setEmailError] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
@@ -68,7 +67,7 @@ export function ForgotPasswordPage() {
             <div>
               <input
                 type="email"
-                placeholder="Digite seu e-mail"
+                placeholder="Digite o e-mail cadastrado"
                 className={`w-full rounded-md border px-4 py-2 ${emailError ? 'border-red-500' : ''}`}
                 value={email}
                 onChange={(e) => {
