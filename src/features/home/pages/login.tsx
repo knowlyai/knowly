@@ -33,7 +33,7 @@ export function LoginPage() {
             transition={transition}
             variants={variants}
           >
-            Login to Knowly
+            Seja bem-vindo!
           </motion.h1>
           <motion.form
             className="flex flex-col gap-6 w-full"
@@ -43,7 +43,7 @@ export function LoginPage() {
           >
             <input
               type="email"
-              placeholder="Email"
+              placeholder="E-mail"
               className="rounded-md border px-4 py-2"
               value={email}
               onChange={e => setEmail(e.target.value)}
@@ -51,7 +51,7 @@ export function LoginPage() {
             />
             <input
               type="password"
-              placeholder="Password"
+              placeholder="Senha"
               className="rounded-md border px-4 py-2"
               value={password}
               onChange={e => setPassword(e.target.value)}
