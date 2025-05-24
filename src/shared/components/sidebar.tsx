@@ -22,7 +22,7 @@ export function Sidebar({
   onLogout
 }: SidebarProps) {
   return (
-    <aside className="bg-background border-border fixed top-0 left-0 z-10 flex h-full w-64 flex-col justify-between border-r px-4 py-8">
+    <aside className="bg-background border-border fixed top-16 left-0 z-10 flex h-[calc(100vh-4rem)] w-64 flex-col justify-between border-r px-4 py-8">
       <nav className="flex flex-col gap-2">
         {items.map((item) => (
           <button
