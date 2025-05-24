@@ -78,7 +78,9 @@ export function Navbar() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          <Button className="px-6">Login</Button>
+          <Button className="px-6" onClick={() => navigate('/login')}>
+            Login
+          </Button>
         </motion.div>
       </div>
     </motion.nav>
