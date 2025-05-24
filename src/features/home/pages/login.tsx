@@ -13,9 +13,19 @@ const variants = {
 export function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [emailError, setEmailError] = useState('')
+
+  const validateEmail = (value: string) => {
+    return /^(\S+)@((?:(?:(?!-)[a-zA-Z0-9-]{1,62}[a-zA-Z0-9])\.)+[a-zA-Z0-9]{2,12})$/.test(value)
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    if (!validateEmail(email)) {
+      setEmailError('Digite um e-mail válido')
+      return
+    }
+    setEmailError('')
     // Adicione aqui a lógica de autenticação
   }
 
@@ -40,15 +50,38 @@ export function LoginPage() {
             onSubmit={handleSubmit}
             transition={transition}
             variants={variants}
+            noValidate
           >
             <input
               type="email"
               placeholder="E-mail"
-              className="rounded-md border px-4 py-2"
+              className={`rounded-md border px-4 py-2 ${emailError ? 'border-red-500' : ''}`}
               value={email}
-              onChange={e => setEmail(e.target.value)}
+              onChange={e => {
+                setEmail(e.target.value)
+                if (!validateEmail(e.target.value)) {
+                  setEmailError('Digite um e-mail válido')
+                }
+                else {
+                  setEmailError('')
+                }
+              }}
+              onBlur={e => {
+                setEmail(e.target.value)
+                if (!validateEmail(e.target.value)) {
+                  setEmailError('Digite um e-mail válido')
+                }
+                else {
+                  setEmailError('')
+                }
+              }}
               required
             />
+            {emailError && (
+            <span className="text-red-600 text-xs block font-semibold">
+                {emailError}
+            </span>
+            )}
             <div className="relative mb-6">
               <input
                 type="password"
