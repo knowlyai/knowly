@@ -12,12 +12,14 @@ const variants = {
 }
 
 export function LoginPage() {
-    const EMAIL_ERROR_MESSAGE = 'Digite um e-mail válido'
+  const EMAIL_ERROR_MESSAGE = 'Digite um e-mail válido'
+  const LOGIN_ERROR_MESSAGE = 'Login ou senha inválidos'
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [emailError, setEmailError] = useState('')
   const [showPassword, setShowPassword] = useState(false)
+  const [authError, setAuthError] = useState('')
 
   const validateEmail = (value: string) => {
     return /^(\S+)@((?:(?:(?!-)[a-zA-Z0-9-]{1,62}[a-zA-Z0-9])\.)+[a-zA-Z0-9]{2,12})$/.test(value)
@@ -30,6 +32,7 @@ export function LoginPage() {
       return
     }
     setEmailError('')
+    setAuthError(LOGIN_ERROR_MESSAGE) // Simulação de erro de autenticação
     // Adicione aqui a lógica de autenticação
   }
 
@@ -56,6 +59,11 @@ export function LoginPage() {
             variants={variants}
             noValidate
           >
+            {authError && (
+            <div className="w-full rounded text-red-600 px-4 py-2 text-center font-semibold">
+              {authError}
+            </div>
+          )}
             <div>
             <input
               type="email"
