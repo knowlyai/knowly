@@ -1,4 +1,5 @@
 import { HomePage } from '@/features/home/pages/home-page'
+import { UserInfoPage } from '@/features/home/pages/user-info'
 import { Page } from '@/shared/components/page'
 import { Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
@@ -9,6 +10,7 @@ export function AppRoutes() {
       <Routes>
         <Route element={<Page />}>
           <Route path="/" element={<HomePage />} />
+          <Route path="/user-info/:userId" element={<UserInfoPage />} />
         </Route>
       </Routes>
     </Suspense>
