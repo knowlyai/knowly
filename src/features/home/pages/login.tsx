@@ -49,17 +49,32 @@ export function LoginPage() {
               onChange={e => setEmail(e.target.value)}
               required
             />
-            <input
-              type="password"
-              placeholder="Senha"
-              className="rounded-md border px-4 py-2"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              required
-            />
+            <div className="relative mb-6">
+              <input
+                type="password"
+                placeholder="Senha"
+                className="rounded-md border px-4 py-2 w-full"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                required
+              />
+              <a
+                href="/forgot-password"
+                className="absolute right-0 text-sm text-primary hover:underline"
+                style={{ bottom: '-1.8rem' }}
+              >
+                Esqueci minha senha
+              </a>
+            </div>
             <Button type="submit" className="w-full">
               Login
             </Button>
+            <div className="text-center mt-2 text-sm text-foreground/70">
+              Ainda não tem uma conta?{' '}
+              <a href="/register" className="text-primary font-medium hover:underline">
+                Cadastre-se aqui
+              </a>
+            </div>
           </motion.form>
         </motion.section>
       </Layout>
