@@ -26,14 +26,14 @@ export function UserInfoPage() {
   const user = mockUsers.find((u) => u.id === userId) || mockUsers[0]
 
   return (
-    <Layout className="bg-background flex min-h-screen">
+    <Layout className="bg-background min-h-screen min-w-screen">
       <Sidebar
         items={sidebarItems}
         selected={selected}
         setSelected={setSelected}
         onLogout={() => navigate('/')}
       />
-      <main className="ml-64 flex flex-1 flex-col items-center justify-center p-12">
+      <main className="flex flex-1 flex-col items-center justify-center p-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
