@@ -3,6 +3,7 @@ import { Layout } from '@/shared/components/layout'
 import { motion } from 'framer-motion'
 import { Button } from '@/shared/components/button'
 import { useState } from 'react'
+import { Eye, EyeOff } from 'lucide-react'
 
 const transition = { duration: 1, ease: [0.25, 0.1, 0.25, 1] }
 const variants = {
@@ -16,6 +17,7 @@ export function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [emailError, setEmailError] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
 
   const validateEmail = (value: string) => {
     return /^(\S+)@((?:(?:(?!-)[a-zA-Z0-9-]{1,62}[a-zA-Z0-9])\.)+[a-zA-Z0-9]{2,12})$/.test(value)
@@ -88,13 +90,26 @@ export function LoginPage() {
             </div>
             <div className="relative mb-6">
               <input
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 placeholder="Senha"
                 className="rounded-md border px-4 py-2 w-full"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 required
               />
+              <button
+                type="button"
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-1"
+                tabIndex={-1}
+                onClick={() => setShowPassword((prev) => !prev)}
+                aria-label={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
+              >
+                {showPassword ? (
+                  <EyeOff className="h-5 w-5 text-gray-500" />
+                ) : (
+                  <Eye className="h-5 w-5 text-gray-500" />
+                )}
+              </button>
               <a
                 href="/forgot-password"
                 className="absolute right-0 text-sm text-primary hover:underline"
