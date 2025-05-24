@@ -11,6 +11,8 @@ const variants = {
 }
 
 export function LoginPage() {
+    const EMAIL_ERROR_MESSAGE = 'Digite um e-mail válido'
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [emailError, setEmailError] = useState('')
@@ -22,7 +24,7 @@ export function LoginPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (!validateEmail(email)) {
-      setEmailError('Digite um e-mail válido')
+      setEmailError(EMAIL_ERROR_MESSAGE)
       return
     }
     setEmailError('')
@@ -46,21 +48,22 @@ export function LoginPage() {
             Seja bem-vindo!
           </motion.h1>
           <motion.form
-            className="flex flex-col gap-6 w-full"
+            className="flex flex-col gap-4 w-full"
             onSubmit={handleSubmit}
             transition={transition}
             variants={variants}
             noValidate
           >
+            <div>
             <input
               type="email"
               placeholder="E-mail"
-              className={`rounded-md border px-4 py-2 ${emailError ? 'border-red-500' : ''}`}
+              className={`rounded-md w-full border px-4 py-2 ${emailError ? 'border-red-500' : ''}`}
               value={email}
               onChange={e => {
                 setEmail(e.target.value)
                 if (!validateEmail(e.target.value)) {
-                  setEmailError('Digite um e-mail válido')
+                  setEmailError(EMAIL_ERROR_MESSAGE)
                 }
                 else {
                   setEmailError('')
@@ -69,7 +72,7 @@ export function LoginPage() {
               onBlur={e => {
                 setEmail(e.target.value)
                 if (!validateEmail(e.target.value)) {
-                  setEmailError('Digite um e-mail válido')
+                  setEmailError(EMAIL_ERROR_MESSAGE)
                 }
                 else {
                   setEmailError('')
@@ -78,10 +81,11 @@ export function LoginPage() {
               required
             />
             {emailError && (
-            <span className="text-red-600 text-xs block font-semibold">
+            <span className="text-red-600 text-xs block mt-1 font-semibold">
                 {emailError}
             </span>
             )}
+            </div>
             <div className="relative mb-6">
               <input
                 type="password"
