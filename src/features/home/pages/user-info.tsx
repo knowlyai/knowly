@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Layout } from '@/shared/components/layout'
 import { motion } from 'framer-motion'
-import { Database, User } from 'lucide-react'
+import { BrainCircuit, User, Pencil } from 'lucide-react'
 import { Sidebar, SidebarItem } from '@/shared/components/sidebar'
 import { Button } from '@/shared/components/button'
 
@@ -14,7 +14,7 @@ const mockUsers = [
 
 const sidebarItems: SidebarItem[] = [
   { label: 'Dados de cadastro', icon: <User />, key: 'dados' },
-  { label: 'Minhas bases', icon: <Database />, key: 'bases' }
+  { label: 'Minhas bases', icon: <BrainCircuit />, key: 'bases' }
 ]
 
 export function UserInfoPage() {
@@ -24,6 +24,11 @@ export function UserInfoPage() {
 
   // Simula busca do usuário pelo id da URL
   const user = mockUsers.find((u) => u.id === userId) || mockUsers[0]
+  // Estados de edição
+  const [editNome, setEditNome] = useState(false)
+  const [editEmail, setEditEmail] = useState(false)
+  const [nome, setNome] = useState(user.nome)
+  const [email, setEmail] = useState(user.email)
 
   return (
     <Layout className="bg-background min-h-screen min-w-screen">
@@ -50,23 +55,47 @@ export function UserInfoPage() {
                   <label className="text-foreground/80 mb-1 block text-lg font-medium">
                     Nome
                   </label>
-                  <input
-                    type="text"
-                    className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
-                    placeholder="Seu nome"
-                    defaultValue={user.nome}
-                  />
+                  <div className="relative flex items-center">
+                    <input
+                      type="text"
+                      className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 pr-10 text-xl"
+                      placeholder="Seu nome"
+                      value={nome}
+                      disabled={!editNome}
+                      onChange={(e) => setNome(e.target.value)}
+                    />
+                    <button
+                      type="button"
+                      className="text-muted-foreground hover:text-primary absolute top-1/2 right-3 -translate-y-1/2"
+                      onClick={() => setEditNome((v) => !v)}
+                      tabIndex={-1}
+                    >
+                      <Pencil size={20} />
+                    </button>
+                  </div>
                 </div>
                 <div>
                   <label className="text-foreground/80 mb-1 block text-lg font-medium">
                     E-mail
                   </label>
-                  <input
-                    type="email"
-                    className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
-                    placeholder="seu@email.com"
-                    defaultValue={user.email}
-                  />
+                  <div className="relative flex items-center">
+                    <input
+                      type="email"
+                      className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 pr-10 text-xl"
+                      placeholder="seu@email.com"
+                      value={email}
+                      disabled={!editEmail}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <button
+                      type="button"
+                      className="text-muted-foreground hover:text-primary absolute top-1/2 right-3 -translate-y-1/2"
+                      onClick={() => setEditEmail((v) => !v)}
+                      tabIndex={-1}
+                    >
+                      <Pencil size={20} />
+                    </button>
+                  </div>
                 </div>
                 <Button type="submit" className="mt-6 w-full text-lg">
                   Salvar
