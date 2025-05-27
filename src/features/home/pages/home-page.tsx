@@ -226,7 +226,7 @@ export function HomePage() {
             {process.map((content, idx) => (
               <Card
                 key={idx}
-                className="bg-background relative flex flex-col items-center border-none"
+                className="bg-background relative flex flex-col items-center"
               >
                 <CardHeader>
                   <CardTitle className="text-foreground mb-4 text-3xl font-semibold">
@@ -276,7 +276,7 @@ export function HomePage() {
             {plans.map((plan, idx) => (
               <Card
                 key={idx}
-                className="from-background to-background/80 w-full border-none bg-gradient-to-b text-center"
+                className="from-background to-background/80 w-full bg-gradient-to-b text-center"
               >
                 <CardHeader>
                   <CardDescription>{plan.title}</CardDescription>
