@@ -187,9 +187,10 @@ export function SignUpPage() {
                               <Checkbox
                                 id="type-individual"
                                 checked={field.value === 'individual'}
-                                onCheckedChange={() =>
+                                onCheckedChange={() => {
                                   field.onChange('individual')
-                                }
+                                  form.setValue('document', '')
+                                }}
                               />
                               Pessoa física
                             </Label>
@@ -200,9 +201,11 @@ export function SignUpPage() {
                               <Checkbox
                                 id="type-business"
                                 checked={field.value === 'business'}
-                                onCheckedChange={() =>
+                                onCheckedChange={() => {
                                   field.onChange('business')
-                                }
+                                  form.setValue('document', '')
+                                  form.setValue('birthDate', undefined)
+                                }}
                               />
                               Pessoa jurídica
                             </Label>
