@@ -35,8 +35,9 @@ import {
 import toast from 'react-hot-toast'
 import { BackgroundBlobs } from '@/shared/components/background-blobs'
 import { motion } from 'framer-motion'
-import { Eye, EyeClosed } from 'lucide-react'
+import { Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
+import { containerVariants, cardVariants } from '@/shared/utils/animations'
 
 export function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false)
@@ -75,33 +76,6 @@ export function SignUpPage() {
   function onSubmit(values: SignUpFormData) {
     console.log(values)
     toast.success('Conta criada com sucesso!')
-  }
-
-  const transitionCard = { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2
-      }
-    }
-  }
-
-  const cardVariants = {
-    hidden: {
-      filter: 'blur(10px)',
-      transform: 'translateY(30px) scale(0.95)',
-      opacity: 0
-    },
-    visible: {
-      filter: 'blur(0)',
-      transform: 'translateY(0) scale(1)',
-      opacity: 1,
-      transition: transitionCard
-    }
   }
 
   return (
@@ -299,7 +273,7 @@ export function SignUpPage() {
                               onClick={() => setShowPassword(!showPassword)}
                             >
                               {!showPassword ? (
-                                <EyeClosed className="h-4 w-4" />
+                                <EyeOff className="h-4 w-4" />
                               ) : (
                                 <Eye className="h-4 w-4" />
                               )}
@@ -333,7 +307,7 @@ export function SignUpPage() {
                               }
                             >
                               {!showConfirmPassword ? (
-                                <EyeClosed className="h-4 w-4" />
+                                <EyeOff className="h-4 w-4" />
                               ) : (
                                 <Eye className="h-4 w-4" />
                               )}
