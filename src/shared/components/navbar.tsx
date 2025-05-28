@@ -54,10 +54,10 @@ export function Navbar() {
           transition={transition}
           variants={variants}
         >
-          <a href="#how-knowly-works">Our product</a>
-          <a href="#pricing">Pricing</a>
-          <a href="#faq">FAQ</a>
-          <a href="#about-us">About us</a>
+          <a href="/#how-knowly-works">Our product</a>
+          <a href="/#pricing">Pricing</a>
+          <a href="/#faq">FAQ</a>
+          <a href="/#about-us">About us</a>
           <DropdownMenu>
             <DropdownMenuTrigger className="outline-none">
               {theme === 'dark' ? (
@@ -78,7 +78,9 @@ export function Navbar() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          <Button className="px-6">Login</Button>
+          <Button className="px-6" onClick={() => navigate('/login')}>
+            Login
+          </Button>
         </motion.div>
       </div>
     </motion.nav>
