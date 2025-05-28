@@ -1,5 +1,5 @@
 import { HomePage } from '@/features/home/pages/home-page'
-import { LoginPage } from '@/features/home/pages/login'
+import { LoginPage } from '@/features/login/pages/login'
 import { SignUpPage } from '@/features/sign-up/pages/sign-up-page'
 import { Page } from '@/shared/components/page'
 import { Suspense } from 'react'
