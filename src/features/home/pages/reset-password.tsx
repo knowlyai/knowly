@@ -3,6 +3,7 @@ import { Layout } from '@/shared/components/layout'
 import { motion } from 'framer-motion'
 import { Button } from '@/shared/components/button'
 import { useState } from 'react'
+import { Eye, EyeOff } from 'lucide-react'
 
 const transition = { duration: 1, ease: [0.25, 0.1, 0.25, 1] }
 const variants = {
@@ -15,6 +16,7 @@ export function ResetPasswordPage() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [passwordError, setPasswordError] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const [successMessage, setSuccessMessage] = useState('')
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -57,25 +59,51 @@ export function ResetPasswordPage() {
                 {successMessage}
               </div>
             )}
-            <div>
+            <div className="relative mb-2">
               <input
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 placeholder="Nova senha"
                 className={`w-full rounded-md border px-4 py-2`}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+              <button
+                type="button"
+                className="absolute top-1/2 right-3 -translate-y-1/2 p-1"
+                tabIndex={-1}
+                onClick={() => setShowPassword((prev) => !prev)}
+                aria-label={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
+              >
+                {showPassword ? (
+                  <EyeOff className="h-5 w-5 text-gray-500" />
+                ) : (
+                  <Eye className="h-5 w-5 text-gray-500" />
+                )}
+              </button>
             </div>
-            <div>
+            <div className="relative mb-2">
               <input
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 placeholder="Confirme a nova senha"
                 className={`w-full rounded-md border px-4 py-2 ${passwordError ? 'border-red-500' : ''}`}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
               />
+              <button
+                type="button"
+                className="absolute top-1/2 right-3 -translate-y-1/2 p-1"
+                tabIndex={-1}
+                onClick={() => setShowPassword((prev) => !prev)}
+                aria-label={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
+              >
+                {showPassword ? (
+                  <EyeOff className="h-5 w-5 text-gray-500" />
+                ) : (
+                  <Eye className="h-5 w-5 text-gray-500" />
+                )}
+              </button>
               {passwordError && (
                 <span className="mt-1 block text-xs font-semibold text-red-600">
                   {passwordError}
