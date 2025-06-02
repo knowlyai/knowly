@@ -1,6 +1,6 @@
 import { HomePage } from '@/features/home/pages/home-page'
-import { ForgotPasswordPage } from '@/features/home/pages/forgot-password'
-import { ResetPasswordPage } from '@/features/home/pages/reset-password'
+import { ForgotPasswordPage } from '@/features/forgot-password/pages/forgot-password'
+import { ResetPasswordPage } from '@/features/reset-password/pages/reset-password'
 import { Page } from '@/shared/components/page'
 import { Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
