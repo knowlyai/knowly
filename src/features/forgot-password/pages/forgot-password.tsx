@@ -2,95 +2,107 @@ import { Background } from '@/shared/components/background'
 import { Layout } from '@/shared/components/layout'
 import { motion } from 'framer-motion'
 import { Button } from '@/shared/components/button'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
   forgotPasswordFormSchema,
   ForgotPasswordFormData
 } from '../types/forgot-password-schema'
-
-const transition = { duration: 1, ease: [0.25, 0.1, 0.25, 1] }
-const variants = {
-  hidden: { filter: 'blur(10px)', transform: 'translateY(20%)', opacity: 0 },
-  visible: { filter: 'blur(0)', transform: 'translateY(0)', opacity: 1 }
-}
+import toast from 'react-hot-toast'
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage
+} from '@/shared/components/form'
+import { Input } from '@/shared/components/input'
+import { cardVariants, containerVariants } from '@/shared/utils/animations'
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from '@/shared/components/card'
+import { BackgroundBlobs } from '@/shared/components/background-blobs'
 
 export function ForgotPasswordPage() {
-  const [successMessage, setSuccessMessage] = useState('')
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset
-  } = useForm<ForgotPasswordFormData>({
-    resolver: zodResolver(forgotPasswordFormSchema)
+  const form = useForm<ForgotPasswordFormData>({
+    resolver: zodResolver(forgotPasswordFormSchema),
+    defaultValues: {
+      email: ''
+    },
+    mode: 'onBlur'
   })
 
-  const onSubmit = () => {
-    setSuccessMessage(
-      'Se o e-mail estiver cadastrado, você receberá as instruções para redefinir sua senha.'
+  const onSubmit = (values: ForgotPasswordFormData) => {
+    console.log(values)
+    toast.success(
+      'Se o e-mail estiver cadastrado, você receberá as instruções para redefinir sua senha.',
+      {
+        duration: 5000
+      }
     )
-    reset()
+    form.resetField('email')
   }
 
   return (
-    <Background className="to-background/90 from-background relative isolate flex flex-col items-center justify-center overflow-hidden bg-gradient-to-b">
-      <Layout className="flex min-h-screen flex-col items-center justify-center">
-        <motion.section
-          className="bg-background/80 flex w-full max-w-md flex-col items-center justify-center gap-8 rounded-xl p-8 shadow-lg"
-          initial="hidden"
-          animate="visible"
-          transition={{ staggerChildren: 0.04 }}
-        >
-          <motion.h1
-            className="text-center text-3xl font-semibold tracking-tight drop-shadow-xl"
-            transition={transition}
-            variants={variants}
-          >
-            Esqueci minha senha
-          </motion.h1>
+    <Background className="relative isolate overflow-hidden py-32">
+      <BackgroundBlobs />
+      <Layout>
+        <Form {...form}>
           <motion.form
-            className="flex w-full flex-col gap-4"
-            onSubmit={handleSubmit(onSubmit)}
-            transition={transition}
-            variants={variants}
-            noValidate
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="flex h-full w-full items-center justify-center"
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
           >
-            {successMessage && (
-              <div className="mb-2 w-full rounded px-4 py-2 text-center font-semibold text-green-600">
-                {successMessage}
-              </div>
-            )}
-            <div>
-              <input
-                type="email"
-                placeholder="Digite o e-mail cadastrado"
-                className={`w-full rounded-md border px-4 py-2 ${errors.email ? 'border-red-500' : ''}`}
-                {...register('email')}
-                required
-              />
-              {errors.email && (
-                <span className="mt-1 block text-xs font-semibold text-red-600">
-                  {errors.email.message}
-                </span>
-              )}
-            </div>
-            <Button type="submit" className="w-full">
-              Enviar instruções
-            </Button>
-            <div className="text-foreground/70 mt-2 text-center text-sm">
-              Lembrou sua senha?{' '}
-              <a
-                href="/login"
-                className="text-primary font-medium hover:underline"
-              >
-                Voltar para login
-              </a>
-            </div>
+            <motion.div
+              variants={cardVariants}
+              className="flex h-full w-full items-center justify-center"
+            >
+              <Card className="w-11/12 max-w-lg sm:w-2/3 md:w-1/2">
+                <CardHeader>
+                  <CardTitle className="text-center">
+                    Esqueci minha senha
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-5">
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <Input {...field} placeholder="Digite seu e-mail" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <div className="text-foreground/70 text-center text-sm">
+                    Lembrou sua senha?{' '}
+                    <a
+                      href="/login"
+                      className="text-primary font-medium hover:underline"
+                    >
+                      Voltar para login
+                    </a>
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <Button type="submit" className="w-full">
+                    Enviar instruções
+                  </Button>
+                </CardFooter>
+              </Card>
+            </motion.div>
           </motion.form>
-        </motion.section>
+        </Form>
       </Layout>
     </Background>
   )
