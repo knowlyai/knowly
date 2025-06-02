@@ -3,6 +3,12 @@ import { Layout } from '@/shared/components/layout'
 import { motion } from 'framer-motion'
 import { Button } from '@/shared/components/button'
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import {
+  forgotPasswordFormSchema,
+  ForgotPasswordFormData
+} from '../types/forgot-password-schema'
 
 const transition = { duration: 1, ease: [0.25, 0.1, 0.25, 1] }
 const variants = {
@@ -11,29 +17,22 @@ const variants = {
 }
 
 export function ForgotPasswordPage() {
-  const EMAIL_ERROR_MESSAGE = 'Digite um e-mail válido'
-  const [email, setEmail] = useState('')
-  const [emailError, setEmailError] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
 
-  const validateEmail = (value: string) => {
-    return /^(\S+)@((?:(?:(?!-)[a-zA-Z0-9-]{1,62}[a-zA-Z0-9])\.)+[a-zA-Z0-9]{2,12})$/.test(
-      value
-    )
-  }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset
+  } = useForm<ForgotPasswordFormData>({
+    resolver: zodResolver(forgotPasswordFormSchema)
+  })
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!validateEmail(email)) {
-      setEmailError(EMAIL_ERROR_MESSAGE)
-      setSuccessMessage('')
-      return
-    }
-    setEmailError('')
-    // Aqui você pode adicionar a lógica de envio de e-mail de recuperação
+  const onSubmit = () => {
     setSuccessMessage(
       'Se o e-mail estiver cadastrado, você receberá as instruções para redefinir sua senha.'
     )
+    reset()
   }
 
   return (
@@ -54,7 +53,7 @@ export function ForgotPasswordPage() {
           </motion.h1>
           <motion.form
             className="flex w-full flex-col gap-4"
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit(onSubmit)}
             transition={transition}
             variants={variants}
             noValidate
@@ -68,25 +67,13 @@ export function ForgotPasswordPage() {
               <input
                 type="email"
                 placeholder="Digite o e-mail cadastrado"
-                className={`w-full rounded-md border px-4 py-2 ${emailError ? 'border-red-500' : ''}`}
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value)
-                  if (emailError && validateEmail(e.target.value))
-                    setEmailError('')
-                }}
-                onBlur={(e) => {
-                  if (!validateEmail(e.target.value)) {
-                    setEmailError(EMAIL_ERROR_MESSAGE)
-                  } else {
-                    setEmailError('')
-                  }
-                }}
+                className={`w-full rounded-md border px-4 py-2 ${errors.email ? 'border-red-500' : ''}`}
+                {...register('email')}
                 required
               />
-              {emailError && (
+              {errors.email && (
                 <span className="mt-1 block text-xs font-semibold text-red-600">
-                  {emailError}
+                  {errors.email.message}
                 </span>
               )}
             </div>
