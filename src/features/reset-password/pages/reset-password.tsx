@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { Button } from '@/shared/components/button'
 import { useState } from 'react'
 import { Eye, EyeOff } from 'lucide-react'
+import { resetPasswordFormSchema } from '../types/reset-password-schema'
 
 const transition = { duration: 1, ease: [0.25, 0.1, 0.25, 1] }
 const variants = {
@@ -12,7 +13,6 @@ const variants = {
 }
 
 export function ResetPasswordPage() {
-  const PASSWORD_ERROR_MESSAGE = 'As senhas não coincidem'
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [passwordError, setPasswordError] = useState('')
@@ -21,14 +21,23 @@ export function ResetPasswordPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (password !== confirmPassword) {
-      setPasswordError(PASSWORD_ERROR_MESSAGE)
-      setSuccessMessage('')
+    const result = resetPasswordFormSchema.safeParse({
+      password,
+      confirmPassword
+    })
+
+    if (!result.success) {
+      // Mostra o primeiro erro encontrado
+      const issues = result.error.flatten().fieldErrors
+      if (issues.password) setPasswordError(issues.password[0])
+      else setPasswordError('')
+      if (issues.confirmPassword) setPasswordError(issues.confirmPassword[0])
       return
     }
+
     setPasswordError('')
-    // Aqui você pode adicionar a lógica de redefinição de senha
     setSuccessMessage('Senha redefinida com sucesso!')
+    // Aqui você pode adicionar a lógica de redefinição de senha
   }
 
   return (
