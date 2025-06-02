@@ -1,5 +1,6 @@
 import { HomePage } from '@/features/home/pages/home-page'
 import { ForgotPasswordPage } from '@/features/home/pages/forgot-password'
+import { ResetPasswordPage } from '@/features/home/pages/reset-password'
 import { Page } from '@/shared/components/page'
 import { Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
@@ -11,6 +12,7 @@ export function AppRoutes() {
         <Route element={<Page />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
         </Route>
       </Routes>
     </Suspense>
