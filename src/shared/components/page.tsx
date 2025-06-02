@@ -5,7 +5,7 @@ import { Toaster } from 'react-hot-toast'
 export function Page() {
   return (
     <>
-      <Toaster position="top-right" reverseOrder={false} />
+      <Toaster position="bottom-right" reverseOrder={false} />
       <Navbar />
       <Outlet />
     </>
