@@ -27,7 +27,7 @@ export const AccordionItem = React.forwardRef<
     <div
       ref={ref}
       className={cn(
-        'border-b border-white/10 py-4 transition-colors',
+        'border-b border-gray-100/20 py-4 transition-colors',
         className
       )}
     >
@@ -67,7 +67,7 @@ export const AccordionItem = React.forwardRef<
         style={{ maxHeight }}
         className="transition-max-height overflow-hidden duration-300 ease-in-out"
       >
-        <div className="mt-2 font-medium">{children}</div>
+        <div className="text-foreground/80 mt-2 font-light">{children}</div>
       </div>
     </div>
   )
