@@ -296,6 +296,12 @@ export function SignUpPage() {
                               {...field}
                               type={showConfirmPassword ? 'text' : 'password'}
                               className="pr-10"
+                              onPaste={(e) => {
+                                e.preventDefault()
+                                toast.error('Não é permitido colar neste campo')
+                              }}
+                              onCut={(e) => e.preventDefault()}
+                              onCopy={(e) => e.preventDefault()}
                             />
                             <Button
                               type="button"
