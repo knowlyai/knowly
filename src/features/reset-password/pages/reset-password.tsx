@@ -4,7 +4,12 @@ import { motion } from 'framer-motion'
 import { Button } from '@/shared/components/button'
 import { useState } from 'react'
 import { Eye, EyeOff } from 'lucide-react'
-import { resetPasswordFormSchema } from '../types/reset-password-schema'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import {
+  resetPasswordFormSchema,
+  ResetPasswordFormData
+} from '../types/reset-password-schema'
 
 const transition = { duration: 1, ease: [0.25, 0.1, 0.25, 1] }
 const variants = {
@@ -13,31 +18,22 @@ const variants = {
 }
 
 export function ResetPasswordPage() {
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [passwordError, setPasswordError] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [successMessage, setSuccessMessage] = useState('')
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    const result = resetPasswordFormSchema.safeParse({
-      password,
-      confirmPassword
-    })
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset
+  } = useForm<ResetPasswordFormData>({
+    resolver: zodResolver(resetPasswordFormSchema)
+  })
 
-    if (!result.success) {
-      // Mostra o primeiro erro encontrado
-      const issues = result.error.flatten().fieldErrors
-      if (issues.password) setPasswordError(issues.password[0])
-      else setPasswordError('')
-      if (issues.confirmPassword) setPasswordError(issues.confirmPassword[0])
-      return
-    }
-
-    setPasswordError('')
+  const onSubmit = (data: ResetPasswordFormData) => {
     setSuccessMessage('Senha redefinida com sucesso!')
-    // Aqui você pode adicionar a lógica de redefinição de senha
+    // Adicione aqui a lógica de redefinição de senha
+    reset()
   }
 
   return (
@@ -58,7 +54,7 @@ export function ResetPasswordPage() {
           </motion.h1>
           <motion.form
             className="flex w-full flex-col gap-4"
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit(onSubmit)}
             transition={transition}
             variants={variants}
             noValidate
@@ -72,9 +68,8 @@ export function ResetPasswordPage() {
               <input
                 type={showPassword ? 'text' : 'password'}
                 placeholder="Nova senha"
-                className={`w-full rounded-md border px-4 py-2`}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                className={`w-full rounded-md border px-4 py-2 ${errors.password ? 'border-red-500' : ''}`}
+                {...register('password')}
                 required
               />
               <button
@@ -95,9 +90,8 @@ export function ResetPasswordPage() {
               <input
                 type={showPassword ? 'text' : 'password'}
                 placeholder="Confirme a nova senha"
-                className={`w-full rounded-md border px-4 py-2 ${passwordError ? 'border-red-500' : ''}`}
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                className={`w-full rounded-md border px-4 py-2 ${errors.confirmPassword ? 'border-red-500' : ''}`}
+                {...register('confirmPassword')}
                 required
               />
               <button
@@ -113,9 +107,9 @@ export function ResetPasswordPage() {
                   <Eye className="h-5 w-5 text-gray-500" />
                 )}
               </button>
-              {passwordError && (
+              {errors.confirmPassword && (
                 <span className="mt-1 block text-xs font-semibold text-red-600">
-                  {passwordError}
+                  {errors.confirmPassword.message}
                 </span>
               )}
             </div>
