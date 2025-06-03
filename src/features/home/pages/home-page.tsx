@@ -112,7 +112,7 @@ const owners = [
     linkedin: 'https://www.linkedin.com/in/izabel-sampaio-goes/'
   },
   {
-    name: 'Rafael Rúbio Carnes',
+    name: 'Rafael Rubio',
     image: rubio,
     role: 'Estagiário de Desenvolvimento de Software na Socium',
     linkedin: 'https://www.linkedin.com/in/rafael-rubio-carnes-b2561b212/'
