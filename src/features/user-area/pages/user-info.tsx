@@ -52,6 +52,14 @@ export function UserInfoPage() {
   const [selected, setSelected] = useState('dados')
   const navigate = useNavigate()
 
+  function handleSidebarSelect(key: string) {
+    if (key === 'bases') {
+      navigate(`/user-bases/${userId}`)
+    } else {
+      setSelected(key)
+    }
+  }
+
   const user = mockUsers.find((u) => u.id === userId) || mockUsers[0]
 
   const [edit, setEdit] = useState({
@@ -139,7 +147,7 @@ export function UserInfoPage() {
       <Sidebar
         items={sidebarItems}
         selected={selected}
-        setSelected={setSelected}
+        setSelected={handleSidebarSelect}
         onLogout={() => navigate('/')}
       />
       <main className="mt-24 flex flex-1 flex-col items-center justify-center p-12">
@@ -411,16 +419,6 @@ export function UserInfoPage() {
                   Salvar
                 </Button>
               </form>
-            </section>
-          )}
-          {selected === 'bases' && (
-            <section>
-              <h1 className="text-foreground mb-6 text-center text-4xl font-semibold drop-shadow-xl sm:text-6xl">
-                Minhas bases
-              </h1>
-              <p className="text-foreground/70 text-center text-xl">
-                Aqui você verá suas bases cadastradas.
-              </p>
             </section>
           )}
         </motion.div>
