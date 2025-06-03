@@ -13,6 +13,16 @@ import { userInfoSchema, UserInfoData } from '../types/user-info-schema'
 // Mock de usuários para testes
 const mockUsers = [
   {
+    id: '-1',
+    // Usuário não encontrado (para teste de erro)
+    name: '',
+    email: '',
+    phone: '',
+    documentType: 'individual',
+    document: '',
+    birthDate: new Date()
+  },
+  {
     id: '1',
     name: 'Maria da Silva',
     email: 'maria@email.com',
@@ -43,6 +53,7 @@ export function UserInfoPage() {
   const navigate = useNavigate()
 
   const user = mockUsers.find((u) => u.id === userId) || mockUsers[0]
+
   const [edit, setEdit] = useState({
     name: false,
     email: false,
@@ -87,13 +98,11 @@ export function UserInfoPage() {
     setEdit((prev) => ({ ...prev, [field]: false }))
   }
 
-  // Função para ativar edição de um campo
   function handleEdit(field: keyof UserInfoData) {
     setEdit((prev) => ({ ...prev, [field]: true }))
   }
 
   function onSubmit(data: UserInfoData) {
-    // Aqui você pode enviar para o backend
     setEdit({
       name: false,
       email: false,
@@ -102,7 +111,7 @@ export function UserInfoPage() {
       document: false,
       birthDate: false
     })
-    // Exemplo: atualizar mockUsers (apenas para teste)
+    // Atualizar mockUsers (apenas para teste)
     const idx = mockUsers.findIndex((u) => u.id === user.id)
     if (idx !== -1) {
       mockUsers[idx] = {
@@ -112,7 +121,8 @@ export function UserInfoPage() {
       }
     }
   }
-  if (!user) {
+
+  if (user === mockUsers[0]) {
     return (
       <Layout className="bg-background min-h-screen min-w-screen">
         <main className="mt-24 flex flex-1 items-center justify-center">
