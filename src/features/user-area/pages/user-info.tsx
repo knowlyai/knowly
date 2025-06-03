@@ -9,8 +9,24 @@ import { Button } from '@/shared/components/button'
 // TODO: Remover mock de usuários e implementar chamada à API para buscar os dados do usuário
 // Mock de usuários para testes
 const mockUsers = [
-  { id: '1', name: 'Maria da Silva', email: 'maria@email.com' },
-  { id: '2', name: 'João Souza', email: 'joao@email.com' }
+  {
+    id: '1',
+    name: 'Maria da Silva',
+    email: 'maria@email.com',
+    documentType: 'CPF',
+    phone: '11912345678',
+    document: '23478193847',
+    birthDate: '09-08-2001'
+  },
+  {
+    id: '2',
+    name: 'João Souza',
+    email: 'joao@email.com',
+    documentType: 'CPF',
+    phone: '11912345678',
+    document: '23478193847',
+    birthDate: '09-08-2001'
+  }
 ]
 
 const sidebarItems: SidebarItem[] = [
@@ -30,6 +46,17 @@ export function UserInfoPage() {
   const [editEmail, setEditEmail] = useState(false)
   const [name, setName] = useState(user.name)
   const [email, setEmail] = useState(user.email)
+  const [editPhone, setEditPhone] = useState(false)
+  const [editDocumentType, setEditDocumentType] = useState(false)
+  const [editDocument, setEditDocument] = useState(false)
+  const [editBirthDate, setEditBirthDate] = useState(false)
+  const [phone, setPhone] = useState(user.phone || '')
+  const [documentType, setDocumentType] = useState(
+    user.documentType || 'individual'
+  )
+  const [document, setDocument] = useState(user.document || '')
+  const [birthDate, setBirthDate] = useState(user.birthDate || '')
+
   // Estados para restaurar valor original ao cancelar edição
   const [tempName, setTempName] = useState(user.name)
   const [tempEmail, setTempEmail] = useState(user.email)
@@ -78,7 +105,7 @@ export function UserInfoPage() {
         setSelected={setSelected}
         onLogout={() => navigate('/')}
       />
-      <main className="flex flex-1 flex-col items-center justify-center p-12">
+      <main className="mt-20 flex flex-1 flex-col items-center justify-center p-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -161,6 +188,170 @@ export function UserInfoPage() {
                         onClick={handleEditEmail}
                         tabIndex={-1}
                         aria-label="Editar e-mail"
+                      >
+                        <Pencil size={20} />
+                      </button>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <label className="text-foreground/80 mb-1 block text-lg font-medium">
+                    Telefone
+                  </label>
+                  <div className="relative flex items-center">
+                    <input
+                      type="text"
+                      className={`border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 pr-10 text-xl transition-colors ${
+                        editPhone ? 'bg-muted/40' : ''
+                      }`}
+                      placeholder="(11) 99999-9999"
+                      value={phone}
+                      disabled={!editPhone}
+                      onChange={(e) => setPhone(e.target.value)}
+                    />
+                    {editPhone ? (
+                      <button
+                        type="button"
+                        className="text-muted-foreground hover:text-destructive absolute top-1/2 right-3 -translate-y-1/2"
+                        onClick={() => {
+                          setPhone(user.phone || '')
+                          setEditPhone(false)
+                        }}
+                        tabIndex={-1}
+                        aria-label="Cancelar edição"
+                      >
+                        <X size={20} />
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        className="text-muted-foreground hover:text-primary absolute top-1/2 right-3 -translate-y-1/2"
+                        onClick={() => setEditPhone(true)}
+                        tabIndex={-1}
+                        aria-label="Editar telefone"
+                      >
+                        <Pencil size={20} />
+                      </button>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <label className="text-foreground/80 mb-1 block text-lg font-medium">
+                    Tipo de Pessoa
+                  </label>
+                  <div className="relative flex items-center">
+                    <select
+                      className={`border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 pr-10 text-xl transition-colors ${
+                        editDocumentType ? 'bg-muted/40' : ''
+                      }`}
+                      value={documentType}
+                      disabled={!editDocumentType}
+                      onChange={(e) => setDocumentType(e.target.value)}
+                    >
+                      <option value="individual">Pessoa Física</option>
+                      <option value="business">Pessoa Jurídica</option>
+                    </select>
+                    {editDocumentType ? (
+                      <button
+                        type="button"
+                        className="text-muted-foreground hover:text-destructive absolute top-1/2 right-3 -translate-y-1/2"
+                        onClick={() => {
+                          setDocumentType(user.documentType || 'individual')
+                          setEditDocumentType(false)
+                        }}
+                        tabIndex={-1}
+                        aria-label="Cancelar edição"
+                      >
+                        <X size={20} />
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        className="text-muted-foreground hover:text-primary absolute top-1/2 right-3 -translate-y-1/2"
+                        onClick={() => setEditDocumentType(true)}
+                        tabIndex={-1}
+                        aria-label="Editar tipo de pessoa"
+                      >
+                        <Pencil size={20} />
+                      </button>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <label className="text-foreground/80 mb-1 block text-lg font-medium">
+                    Documento
+                  </label>
+                  <div className="relative flex items-center">
+                    <input
+                      type="text"
+                      className={`border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 pr-10 text-xl transition-colors ${
+                        editDocument ? 'bg-muted/40' : ''
+                      }`}
+                      placeholder="Digite o documento"
+                      value={document}
+                      disabled={!editDocument}
+                      onChange={(e) => setDocument(e.target.value)}
+                    />
+                    {editDocument ? (
+                      <button
+                        type="button"
+                        className="text-muted-foreground hover:text-destructive absolute top-1/2 right-3 -translate-y-1/2"
+                        onClick={() => {
+                          setDocument(user.document || '')
+                          setEditDocument(false)
+                        }}
+                        tabIndex={-1}
+                        aria-label="Cancelar edição"
+                      >
+                        <X size={20} />
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        className="text-muted-foreground hover:text-primary absolute top-1/2 right-3 -translate-y-1/2"
+                        onClick={() => setEditDocument(true)}
+                        tabIndex={-1}
+                        aria-label="Editar documento"
+                      >
+                        <Pencil size={20} />
+                      </button>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <label className="text-foreground/80 mb-1 block text-lg font-medium">
+                    Data de Nascimento
+                  </label>
+                  <div className="relative flex items-center">
+                    <input
+                      type="date"
+                      className={`border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 pr-10 text-xl transition-colors ${
+                        editBirthDate ? 'bg-muted/40' : ''
+                      }`}
+                      value={birthDate}
+                      disabled={!editBirthDate}
+                      onChange={(e) => setBirthDate(e.target.value)}
+                    />
+                    {editBirthDate ? (
+                      <button
+                        type="button"
+                        className="text-muted-foreground hover:text-destructive absolute top-1/2 right-3 -translate-y-1/2"
+                        onClick={() => {
+                          setBirthDate(user.birthDate || '')
+                          setEditBirthDate(false)
+                        }}
+                        tabIndex={-1}
+                        aria-label="Cancelar edição"
+                      >
+                        <X size={20} />
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        className="text-muted-foreground hover:text-primary absolute top-1/2 right-3 -translate-y-1/2"
+                        onClick={() => setEditBirthDate(true)}
+                        tabIndex={-1}
+                        aria-label="Editar data de nascimento"
                       >
                         <Pencil size={20} />
                       </button>
