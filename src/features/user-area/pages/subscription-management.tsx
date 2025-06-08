@@ -76,12 +76,12 @@ export function SubscriptionManagementPage() {
           /* logout logic */
         }}
       />
-      <main className="mt-24 flex flex-1 flex-col items-center justify-center p-12">
+      <main className="mt-20 flex flex-1 flex-col items-center justify-center p-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="w-full max-w-xl"
+          className="w-full max-w-3xl"
         >
           <section>
             <h1 className="text-foreground mb-6 text-center text-4xl font-semibold drop-shadow-xl sm:text-6xl">
@@ -136,8 +136,8 @@ export function SubscriptionManagementPage() {
               </button>
             </div>
             {tab === 'current' && (
-              <div className="mb-8 space-y-6">
-                <div className="border-border bg-background flex flex-col gap-2 rounded-xl border p-6 shadow">
+              <div className="mb-8 flex flex-col gap-6 space-y-6 md:flex-row">
+                <div className="border-border bg-background flex flex-1 flex-col gap-2 rounded-xl border p-6 shadow">
                   <div className="mb-2 flex items-center justify-between">
                     <span className="text-foreground text-xl font-semibold">
                       Plano {plan.title}
@@ -183,7 +183,7 @@ export function SubscriptionManagementPage() {
                     </Button>
                   </div>
                 </div>
-                <div className="border-border bg-background flex flex-col gap-2 rounded-xl border p-6 shadow">
+                <div className="border-border bg-background shadowflex-1 border-border bg-background flex flex-col gap-2 rounded-xl border p-6 shadow">
                   <div className="text-foreground mb-2 text-xl font-semibold">
                     Método de pagamento
                   </div>
@@ -209,7 +209,7 @@ export function SubscriptionManagementPage() {
               </div>
             )}
             {tab === 'options' && (
-              <div className="grid w-full gap-8 md:grid-cols-2">
+              <div className="grid w-full gap-2 md:grid-cols-3">
                 {plans.map((planCard, idx) => {
                   const isCurrent = planCard.title === plan.title
                   return (
