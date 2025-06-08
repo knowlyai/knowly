@@ -3,11 +3,20 @@ import { Layout } from '@/shared/components/layout'
 import { Sidebar, SidebarItem } from '@/shared/components/sidebar'
 import { Button } from '@/shared/components/button'
 import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from '@/shared/components/card'
+import {
   CreditCard,
   User,
   BrainCircuit,
   BadgeDollarSign,
-  X
+  X,
+  Check
 } from 'lucide-react'
 import clsx from 'clsx'
 
@@ -19,47 +28,26 @@ const sidebarItems: SidebarItem[] = [
 
 const plans = [
   {
-    name: 'Basic',
-    price: '$9.99',
-    period: '/month',
-    description: 'Perfect for individuals and small projects',
-    features: [
-      'Up to 3 projects',
-      'Basic analytics',
-      'Email support',
-      '1 team member'
-    ],
-    action: 'Downgrade'
+    title: 'Pessoal',
+    price: 'R$25',
+    features: ['2 Bases de Conhecimento', 'Sandbox', '1 modelo de IA'],
+    buttonText: 'Get Started'
   },
   {
-    name: 'Professional',
-    price: '$29.99',
-    period: '/month',
-    description: 'For growing teams and businesses',
-    features: [
-      'Unlimited projects',
-      'Advanced analytics',
-      'Priority support',
-      'Up to 10 team members',
-      'Custom integrations'
-    ],
-    action: 'Current Plan',
-    popular: true
+    title: 'Profissional',
+    price: 'R$50',
+    features: ['10 Bases de Conhecimento', 'Sandbox', 'Até 5 modelos de IA'],
+    buttonText: 'Get Started'
   },
   {
-    name: 'Enterprise',
-    price: '$99.99',
-    period: '/month',
-    description: 'For large organizations with complex needs',
+    title: 'Empresarial',
+    price: 'R$250',
     features: [
-      'Unlimited everything',
-      'Enterprise-grade security',
-      'Dedicated account manager',
-      'Unlimited team members',
-      'Custom development',
-      'SLA guarantees'
+      '50 Bases de Conhecimento',
+      'Sandbox',
+      'Qualquer modelo de IA disponível'
     ],
-    action: 'Upgrade'
+    buttonText: 'Get Started'
   }
 ]
 
@@ -149,7 +137,7 @@ export function SubscriptionManagementPage() {
               <div className="border-border bg-background flex flex-col gap-2 rounded-xl border p-6 shadow">
                 <div className="mb-2 flex items-center justify-between">
                   <span className="text-xl font-semibold">
-                    {plan.name} Plan
+                    {plan.title} Plan
                   </span>
                   <span className="bg-primary/10 text-primary rounded-full px-3 py-1 text-xs font-semibold">
                     Active
@@ -217,87 +205,38 @@ export function SubscriptionManagementPage() {
             </div>
           )}
           {tab === 'options' && (
-            <>
-              <div className="mb-8 flex items-center justify-center gap-4">
-                <span className="font-medium">Monthly</span>
-                <button
-                  className={clsx(
-                    'border-primary rounded-full border px-4 py-1 font-medium transition-colors',
-                    billingType === 'monthly'
-                      ? 'bg-primary/90 text-primary-foreground'
-                      : 'bg-muted text-foreground/70 hover:bg-muted/70'
-                  )}
-                  onClick={() => setBillingType('monthly')}
+            <div className="grid w-full max-w-7xl grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {plans.map((plan, idx) => (
+                <Card
+                  key={idx}
+                  className="from-background to-background/80 w-full bg-gradient-to-b text-center"
                 >
-                  Monthly
-                </button>
-                <button
-                  className={clsx(
-                    'border-primary rounded-full border px-4 py-1 font-medium transition-colors',
-                    billingType === 'yearly'
-                      ? 'bg-primary/90 text-primary-foreground'
-                      : 'bg-muted text-foreground/70 hover:bg-muted/70'
-                  )}
-                  onClick={() => setBillingType('yearly')}
-                >
-                  Yearly{' '}
-                  <span className="ml-1 rounded-full bg-green-100 px-2 py-0.5 text-xs text-green-600">
-                    Save 16%
-                  </span>
-                </button>
-              </div>
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-                {plans.map((p, idx) => (
-                  <div
-                    key={p.name}
-                    className={clsx(
-                      'border-border bg-background flex flex-col items-center rounded-2xl border p-6 shadow',
-                      p.popular && 'border-primary ring-primary/30 ring-2'
-                    )}
-                  >
-                    <div className="mb-2 flex items-center gap-2">
-                      <span className="text-xl font-semibold">{p.name}</span>
-                      {p.popular && (
-                        <span className="bg-primary/10 text-primary rounded-full px-2 py-0.5 text-xs font-semibold">
-                          Popular
-                        </span>
-                      )}
-                    </div>
-                    <div className="text-muted-foreground mb-2 text-sm">
-                      {p.description}
-                    </div>
-                    <div className="text-foreground mb-2 text-3xl font-bold">
-                      {p.price}
+                  <CardHeader>
+                    <CardDescription>{plan.title}</CardDescription>
+                    <CardTitle className="text-4xl font-extrabold">
+                      {plan.price}{' '}
                       <span className="text-muted-foreground text-base font-normal">
-                        {p.period}
+                        p/month
                       </span>
-                    </div>
-                    <ul className="mt-2 mb-4 w-full space-y-2 text-left">
-                      {p.features.map((f, i) => (
-                        <li
-                          key={i}
-                          className="flex items-center gap-2 text-green-700"
-                        >
-                          <span className="text-green-600">✔</span>
-                          <span className="text-foreground/90">{f}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <Button
-                      className={clsx(
-                        'mt-auto w-full',
-                        p.action === 'Current Plan'
-                          ? 'bg-muted text-foreground/70 cursor-default'
-                          : 'bg-primary text-primary-foreground'
-                      )}
-                      disabled={p.action === 'Current Plan'}
-                    >
-                      {p.action}
-                    </Button>
-                  </div>
-                ))}
-              </div>
-            </>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    {plan.features.map((feature, idx) => (
+                      <div
+                        key={idx}
+                        className="text-primary/50 flex items-center gap-4 text-left"
+                      >
+                        <Check className="text-green-60 h-5 w-5" />
+                        {feature}
+                      </div>
+                    ))}
+                  </CardContent>
+                  <CardFooter>
+                    <Button className="w-full">{plan.buttonText}</Button>
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
           )}
           {tab === 'history' && (
             <div className="text-muted-foreground py-12 text-center">
