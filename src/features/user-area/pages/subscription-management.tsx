@@ -15,10 +15,9 @@ import {
   CreditCard,
   User,
   BrainCircuit,
-  BadgeDollarSign,
+  Wallet,
   X,
   Check,
-  MessageCircle,
   Bot,
   File
 } from 'lucide-react'
@@ -27,7 +26,7 @@ import clsx from 'clsx'
 const sidebarItems: SidebarItem[] = [
   { label: 'Dados de cadastro', icon: <User />, key: 'dados' },
   { label: 'Minhas bases', icon: <BrainCircuit />, key: 'bases' },
-  { label: 'Assinatura', icon: <BadgeDollarSign />, key: 'subscription' }
+  { label: 'Assinatura', icon: <Wallet />, key: 'subscription' }
 ]
 
 const plans = [
@@ -259,14 +258,13 @@ export function SubscriptionManagementPage() {
                     Utilização
                   </span>
                   <div className="text-muted-foreground text-sm">
-                    Seu uso é renovado todo mês.
+                    Seus créditos são renovados todo mês.
                   </div>
                 </div>
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-                  {/* Créditos de chat */}
                   <div className="border-border bg-background flex flex-col items-center rounded-xl border p-4 shadow">
                     <div className="bg-muted mb-2 flex h-10 w-10 items-center justify-center rounded-full">
-                      <MessageCircle className="text-primary h-6 w-6" />
+                      <Bot className="text-primary h-6 w-6" />
                     </div>
                     <div className="text-muted-foreground mb-1 text-xs">
                       Créditos de chat
@@ -281,13 +279,12 @@ export function SubscriptionManagementPage() {
                       />
                     </div>
                   </div>
-                  {/* Chatbots */}
                   <div className="border-border bg-background flex flex-col items-center rounded-xl border p-4 shadow">
                     <div className="bg-muted mb-2 flex h-10 w-10 items-center justify-center rounded-full">
-                      <Bot className="text-primary h-6 w-6" />
+                      <BrainCircuit className="text-primary h-6 w-6" />
                     </div>
                     <div className="text-muted-foreground mb-1 text-xs">
-                      Chatbots
+                      Bases de conhecimento
                     </div>
                     <div className="text-foreground mb-1 text-xl font-semibold">
                       1 de 3
@@ -299,13 +296,12 @@ export function SubscriptionManagementPage() {
                       />
                     </div>
                   </div>
-                  {/* Páginas de documentos */}
                   <div className="border-border bg-background flex flex-col items-center rounded-xl border p-4 shadow">
                     <div className="bg-muted mb-2 flex h-10 w-10 items-center justify-center rounded-full">
                       <File className="text-primary h-6 w-6" />
                     </div>
                     <div className="text-muted-foreground mb-1 text-xs">
-                      Páginas de documentos
+                      GB de armazenamento
                     </div>
                     <div className="text-foreground mb-1 text-xl font-semibold">
                       15 de 1000
