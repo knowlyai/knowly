@@ -38,7 +38,6 @@ export function UserInfoPage() {
   const [isEditing, setIsEditing] = useState(false)
   const [user, setUser] = useState(mockUser)
 
-  // react-hook-form + zod
   const form = useForm<UserInfoData>({
     resolver: zodResolver(userInfoSchema),
     defaultValues: {
@@ -181,9 +180,14 @@ export function UserInfoPage() {
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Nome</FormLabel>
+                        <FormLabel className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
+                          Nome
+                        </FormLabel>
                         <FormControl>
-                          <Input {...field} />
+                          <Input
+                            {...field}
+                            className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -194,9 +198,14 @@ export function UserInfoPage() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>E-mail</FormLabel>
+                        <FormLabel className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
+                          E-mail
+                        </FormLabel>
                         <FormControl>
-                          <Input {...field} />
+                          <Input
+                            {...field}
+                            className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -207,9 +216,14 @@ export function UserInfoPage() {
                     name="phone"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Telefone</FormLabel>
+                        <FormLabel className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
+                          Telefone
+                        </FormLabel>
                         <FormControl>
-                          <Input {...field} />
+                          <Input
+                            {...field}
+                            className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -220,7 +234,9 @@ export function UserInfoPage() {
                     name="documentType"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Tipo de Pessoa</FormLabel>
+                        <FormLabel className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
+                          Tipo de Pessoa
+                        </FormLabel>
                         <FormControl>
                           <select
                             {...field}
@@ -239,9 +255,14 @@ export function UserInfoPage() {
                     name="document"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Documento</FormLabel>
+                        <FormLabel className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
+                          Documento
+                        </FormLabel>
                         <FormControl>
-                          <Input {...field} />
+                          <Input
+                            {...field}
+                            className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -252,7 +273,9 @@ export function UserInfoPage() {
                     name="birthDate"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Data de Nascimento</FormLabel>
+                        <FormLabel className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
+                          Data de Nascimento
+                        </FormLabel>
                         <FormControl>
                           <Input
                             type="date"
@@ -266,6 +289,7 @@ export function UserInfoPage() {
                             onChange={(e) =>
                               field.onChange(new Date(e.target.value))
                             }
+                            className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
                           />
                         </FormControl>
                         <FormMessage />
