@@ -88,7 +88,7 @@ export function SubscriptionManagementPage() {
             <div className="mb-6 flex items-center justify-between">
               <div>
                 <span className="text-muted-foreground text-sm">
-                  Administre o pagamento do seu plano atual
+                  Administre a sua assinatura atual
                 </span>
               </div>
               <Button
