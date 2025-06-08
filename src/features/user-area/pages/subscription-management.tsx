@@ -136,8 +136,9 @@ export function SubscriptionManagementPage() {
               </button>
             </div>
             {tab === 'current' && (
-              <div className="mb-8 flex flex-col gap-6 space-y-6 md:flex-row">
-                <div className="border-border bg-background flex flex-1 flex-col gap-2 rounded-xl border p-6 shadow">
+              <div className="mb-8 flex flex-col gap-6 md:flex-row">
+                {/* Plano */}
+                <div className="border-border bg-background flex min-h-[270px] flex-1 flex-col gap-2 rounded-xl border p-6 shadow">
                   <div className="mb-2 flex items-center justify-between">
                     <span className="text-foreground text-xl font-semibold">
                       Plano {plan.title}
@@ -171,7 +172,7 @@ export function SubscriptionManagementPage() {
                       </span>
                     </div>
                   </div>
-                  <div className="mt-2 flex items-end justify-between">
+                  <div className="mt-auto flex items-end justify-between pt-2">
                     <span className="text-foreground text-2xl font-bold">
                       {plan.price}
                       <span className="text-muted-foreground text-base font-normal">
@@ -183,7 +184,8 @@ export function SubscriptionManagementPage() {
                     </Button>
                   </div>
                 </div>
-                <div className="border-border bg-background shadowflex-1 border-border bg-background flex flex-col gap-2 rounded-xl border p-6 shadow">
+                {/* Método de pagamento */}
+                <div className="border-border bg-background flex min-h-[270px] flex-1 flex-col gap-2 rounded-xl border p-6 shadow">
                   <div className="text-foreground mb-2 text-xl font-semibold">
                     Método de pagamento
                   </div>
@@ -197,7 +199,7 @@ export function SubscriptionManagementPage() {
                   <div className="text-muted-foreground mb-2 text-sm">
                     Expira {paymentMethod.expires}
                   </div>
-                  <div className="mt-2 flex gap-2">
+                  <div className="mt-auto flex gap-2 pt-2">
                     <Button variant="secondary" size="sm">
                       Alterar
                     </Button>
