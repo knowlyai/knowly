@@ -243,46 +243,6 @@ export function SubscriptionManagementPage() {
               <span>No payment history yet.</span>
             </div>
           )}
-          {/* Plan Features (always visible in current tab) */}
-          {tab === 'current' && (
-            <div className="border-border bg-background mt-8 rounded-xl border p-6 shadow">
-              <div className="mb-4 text-lg font-semibold">Plan Features</div>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <ul className="space-y-2">
-                  <li className="flex items-center gap-2 text-green-700">
-                    <span className="text-green-600">✔</span>
-                    <span className="text-foreground/90">
-                      Unlimited projects
-                    </span>
-                  </li>
-                  <li className="flex items-center gap-2 text-green-700">
-                    <span className="text-green-600">✔</span>
-                    <span className="text-foreground/90">
-                      Advanced analytics
-                    </span>
-                  </li>
-                  <li className="flex items-center gap-2 text-green-700">
-                    <span className="text-green-600">✔</span>
-                    <span className="text-foreground/90">
-                      Team collaboration
-                    </span>
-                  </li>
-                </ul>
-                <ul className="space-y-2">
-                  <li className="flex items-center gap-2 text-green-700">
-                    <span className="text-green-600">✔</span>
-                    <span className="text-foreground/90">
-                      Up to 10 team members
-                    </span>
-                  </li>
-                  <li className="flex items-center gap-2 text-green-700">
-                    <span className="text-green-600">✔</span>
-                    <span className="text-foreground/90">Priority support</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          )}
         </div>
       </main>
     </Layout>
