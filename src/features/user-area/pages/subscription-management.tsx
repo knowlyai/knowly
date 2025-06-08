@@ -17,7 +17,10 @@ import {
   BrainCircuit,
   BadgeDollarSign,
   X,
-  Check
+  Check,
+  MessageCircle,
+  Bot,
+  File
 } from 'lucide-react'
 import clsx from 'clsx'
 
@@ -54,7 +57,7 @@ const plans = [
 
 export function SubscriptionManagementPage() {
   const [selected, setSelected] = useState('subscription')
-  const [tab, setTab] = useState<'current' | 'history' | 'options'>('current')
+  const [tab, setTab] = useState<'current' | 'usage' | 'options'>('current')
 
   // Simulação de dados do usuário
   const paymentMethod = {
@@ -113,13 +116,13 @@ export function SubscriptionManagementPage() {
               <button
                 className={clsx(
                   'rounded-t-lg px-6 py-2 font-medium transition-colors',
-                  tab === 'history'
+                  tab === 'usage'
                     ? 'bg-primary/90 text-primary-foreground'
                     : 'bg-muted text-foreground/70 hover:bg-muted/70'
                 )}
-                onClick={() => setTab('history')}
+                onClick={() => setTab('usage')}
               >
-                Histórico de pagamento
+                Utilização
               </button>
               <button
                 className={clsx(
@@ -249,9 +252,72 @@ export function SubscriptionManagementPage() {
                 })}
               </div>
             )}
-            {tab === 'history' && (
-              <div className="text-muted-foreground py-12 text-center">
-                <span>Nenhum histórico de pagamento ainda.</span>
+            {tab === 'usage' && (
+              <div className="py-8">
+                <div className="mb-6">
+                  <span className="text-foreground text-lg font-semibold">
+                    Utilização
+                  </span>
+                  <div className="text-muted-foreground text-sm">
+                    Seu uso é renovado todo mês.
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+                  {/* Créditos de chat */}
+                  <div className="border-border bg-background flex flex-col items-center rounded-xl border p-4 shadow">
+                    <div className="bg-muted mb-2 flex h-10 w-10 items-center justify-center rounded-full">
+                      <MessageCircle className="text-primary h-6 w-6" />
+                    </div>
+                    <div className="text-muted-foreground mb-1 text-xs">
+                      Créditos de chat
+                    </div>
+                    <div className="text-foreground mb-1 text-xl font-semibold">
+                      100 de 2000
+                    </div>
+                    <div className="bg-muted h-2 w-full overflow-hidden rounded-full">
+                      <div
+                        className="bg-primary h-2 rounded-full"
+                        style={{ width: `${(100 / 2000) * 100}%` }}
+                      />
+                    </div>
+                  </div>
+                  {/* Chatbots */}
+                  <div className="border-border bg-background flex flex-col items-center rounded-xl border p-4 shadow">
+                    <div className="bg-muted mb-2 flex h-10 w-10 items-center justify-center rounded-full">
+                      <Bot className="text-primary h-6 w-6" />
+                    </div>
+                    <div className="text-muted-foreground mb-1 text-xs">
+                      Chatbots
+                    </div>
+                    <div className="text-foreground mb-1 text-xl font-semibold">
+                      1 de 3
+                    </div>
+                    <div className="bg-muted h-2 w-full overflow-hidden rounded-full">
+                      <div
+                        className="bg-primary h-2 rounded-full"
+                        style={{ width: `${(1 / 3) * 100}%` }}
+                      />
+                    </div>
+                  </div>
+                  {/* Páginas de documentos */}
+                  <div className="border-border bg-background flex flex-col items-center rounded-xl border p-4 shadow">
+                    <div className="bg-muted mb-2 flex h-10 w-10 items-center justify-center rounded-full">
+                      <File className="text-primary h-6 w-6" />
+                    </div>
+                    <div className="text-muted-foreground mb-1 text-xs">
+                      Páginas de documentos
+                    </div>
+                    <div className="text-foreground mb-1 text-xl font-semibold">
+                      15 de 1000
+                    </div>
+                    <div className="bg-muted h-2 w-full overflow-hidden rounded-full">
+                      <div
+                        className="bg-primary h-2 rounded-full"
+                        style={{ width: `${(15 / 1000) * 100}%` }}
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
           </section>
