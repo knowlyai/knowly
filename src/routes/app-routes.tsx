@@ -11,8 +11,8 @@ export function AppRoutes() {
       <Routes>
         <Route element={<Page />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/user-info/:userId" element={<UserInfoPage />} />
-          <Route path="/user-bases/:userId" element={<UserBasesPage />} />
+          <Route path="/user-info" element={<UserInfoPage />} />
+          <Route path="/user-bases" element={<UserBasesPage />} />
         </Route>
       </Routes>
     </Suspense>
