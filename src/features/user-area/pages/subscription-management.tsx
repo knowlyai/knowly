@@ -81,17 +81,17 @@ export function SubscriptionManagementPage() {
           <div className="mb-4 flex items-center justify-between">
             <div>
               <h2 className="text-foreground text-2xl font-semibold">
-                Your Subscription
+                Sua assinatura
               </h2>
               <p className="text-muted-foreground text-sm">
-                Manage your current plan and billing
+                Administre o pagamento do seu plano atual
               </p>
             </div>
             <Button
               variant="ghost"
               className="bg-destructive/10 text-destructive hover:bg-destructive/20 flex items-center gap-2"
             >
-              <X size={18} /> Cancel Subscription
+              <X size={18} /> Cancelar assinatura
             </Button>
           </div>
           {/* Tabs */}
@@ -105,7 +105,7 @@ export function SubscriptionManagementPage() {
               )}
               onClick={() => setTab('current')}
             >
-              Current Plan
+              Plano atual
             </button>
             <button
               className={clsx(
@@ -116,7 +116,7 @@ export function SubscriptionManagementPage() {
               )}
               onClick={() => setTab('history')}
             >
-              Payment History
+              Histórico de pagamento
             </button>
             <button
               className={clsx(
@@ -127,7 +127,7 @@ export function SubscriptionManagementPage() {
               )}
               onClick={() => setTab('options')}
             >
-              Plan Options
+              Planos disponíveis
             </button>
           </div>
           {/* Tab Content */}
@@ -136,19 +136,19 @@ export function SubscriptionManagementPage() {
               {/* Current Plan */}
               <div className="border-border bg-background flex flex-col gap-2 rounded-xl border p-6 shadow">
                 <div className="mb-2 flex items-center justify-between">
-                  <span className="text-xl font-semibold">
-                    {plan.title} Plan
+                  <span className="text-foreground text-xl font-semibold">
+                    Plano {plan.title}
                   </span>
                   <span className="bg-primary/10 text-primary rounded-full px-3 py-1 text-xs font-semibold">
-                    Active
+                    Ativo
                   </span>
                 </div>
                 <div className="text-muted-foreground mb-2 text-sm">
-                  Monthly subscription
+                  Assinatura mensal
                 </div>
                 <div className="mb-2">
                   <div className="text-muted-foreground mb-1 text-xs">
-                    Billing cycle
+                    Ciclo de cobrança
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="bg-muted h-2 w-full overflow-hidden rounded-full">
@@ -158,13 +158,13 @@ export function SubscriptionManagementPage() {
                       />
                     </div>
                     <span className="text-muted-foreground text-xs">
-                      15 days left
+                      15 dias restantes
                     </span>
                   </div>
                   <div className="text-muted-foreground mt-1 text-xs">
-                    Next billing on{' '}
+                    Próximo pagamento em{' '}
                     <span className="text-foreground font-medium">
-                      June 23, 2025
+                      23 de Junho de 2025
                     </span>
                   </div>
                 </div>
@@ -176,29 +176,31 @@ export function SubscriptionManagementPage() {
                     </span>
                   </span>
                   <Button variant="secondary" className="ml-2">
-                    Change Plan
+                    Mudar plano
                   </Button>
                 </div>
               </div>
               {/* Payment Method */}
               <div className="border-border bg-background flex flex-col gap-2 rounded-xl border p-6 shadow">
-                <div className="mb-2 text-xl font-semibold">Payment Method</div>
+                <div className="text-foreground mb-2 text-xl font-semibold">
+                  Método de pagamento
+                </div>
                 <div className="mb-1 flex items-center gap-2">
                   <CreditCard className="text-primary h-7 w-7" />
                   <span className="text-foreground font-medium">
-                    {paymentMethod.brand.toUpperCase()} ending in{' '}
+                    {paymentMethod.brand.toUpperCase()} terminado em{' '}
                     {paymentMethod.last4}
                   </span>
                 </div>
                 <div className="text-muted-foreground mb-2 text-sm">
-                  Expires {paymentMethod.expires}
+                  Expira {paymentMethod.expires}
                 </div>
                 <div className="mt-2 flex gap-2">
                   <Button variant="secondary" size="sm">
-                    Update
+                    Alterar
                   </Button>
-                  <Button variant="outline" size="sm">
-                    Add New
+                  <Button variant="secondary" size="sm">
+                    Adicionar novo
                   </Button>
                 </div>
               </div>
@@ -216,7 +218,7 @@ export function SubscriptionManagementPage() {
                     <CardTitle className="text-4xl font-extrabold">
                       {plan.price}{' '}
                       <span className="text-muted-foreground text-base font-normal">
-                        p/month
+                        p/ mês
                       </span>
                     </CardTitle>
                   </CardHeader>
