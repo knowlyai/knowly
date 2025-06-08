@@ -1,83 +1,45 @@
 import { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
 import { Layout } from '@/shared/components/layout'
 import { motion } from 'framer-motion'
-import { BrainCircuit, User, Pencil, X } from 'lucide-react'
+import { BrainCircuit, User, Pencil, Save } from 'lucide-react'
 import { Sidebar, SidebarItem } from '@/shared/components/sidebar'
 import { Button } from '@/shared/components/button'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { userInfoSchema, UserInfoData } from '../types/user-info-schema'
-
-// TODO: Remover mock de usuários e implementar chamada à API para buscar os dados do usuário
-// Mock de usuários para testes
-const mockUsers = [
-  {
-    id: '-1',
-    // Usuário não encontrado (para teste de erro)
-    name: '',
-    email: '',
-    phone: '',
-    documentType: 'individual',
-    document: '',
-    birthDate: new Date()
-  },
-  {
-    id: '1',
-    name: 'Maria da Silva',
-    email: 'maria@email.com',
-    documentType: 'CPF',
-    phone: '11912345678',
-    document: '23478193847',
-    birthDate: new Date('09-08-2001')
-  },
-  {
-    id: '2',
-    name: 'João Souza',
-    email: 'joao@email.com',
-    documentType: 'CPF',
-    phone: '11912345678',
-    document: '23478193847',
-    birthDate: new Date('10-09-2001')
-  }
-]
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage
+} from '@/shared/components/form'
+import { Input } from '@/shared/components/input'
 
 const sidebarItems: SidebarItem[] = [
   { label: 'Dados de cadastro', icon: <User />, key: 'dados' },
   { label: 'Minhas bases', icon: <BrainCircuit />, key: 'bases' }
 ]
 
+// Usuário simulado (como se estivesse logado)
+const mockUser = {
+  id: '1',
+  name: 'Maria da Silva',
+  email: 'maria@email.com',
+  documentType: 'CPF',
+  phone: '11912345678',
+  document: '234.781.938-47',
+  birthDate: new Date('2001-08-09')
+}
+
 export function UserInfoPage() {
-  const { userId } = useParams<{ userId: string }>()
   const [selected, setSelected] = useState('dados')
-  const navigate = useNavigate()
+  const [isEditing, setIsEditing] = useState(false)
+  const [user, setUser] = useState(mockUser)
 
-  function handleSidebarSelect(key: string) {
-    if (key === 'bases') {
-      navigate(`/user-bases/${userId}`)
-    } else {
-      setSelected(key)
-    }
-  }
-
-  const user = mockUsers.find((u) => u.id === userId) || mockUsers[0]
-
-  const [edit, setEdit] = useState({
-    name: false,
-    email: false,
-    phone: false,
-    documentType: false,
-    document: false,
-    birthDate: false
-  })
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    setValue,
-    formState: { errors, isDirty }
-  } = useForm<UserInfoData>({
+  // react-hook-form + zod
+  const form = useForm<UserInfoData>({
     resolver: zodResolver(userInfoSchema),
     defaultValues: {
       name: user.name,
@@ -85,61 +47,42 @@ export function UserInfoPage() {
       phone: user.phone,
       documentType: user.documentType === 'CPF' ? 'individual' : 'business',
       document: user.document,
-      birthDate: new Date(user.birthDate)
-    }
+      birthDate: user.birthDate
+    },
+    mode: 'onBlur'
   })
 
-  function handleCancel(field: keyof UserInfoData) {
-    if (field === 'birthDate') {
-      setValue(
-        'birthDate',
-        new Date(user.birthDate) as UserInfoData['birthDate']
-      )
-    } else if (field === 'documentType') {
-      setValue(
-        'documentType',
-        user.documentType === 'CPF' ? 'individual' : 'business'
-      )
-    } else {
-      setValue(field, user[field as keyof typeof user] as string)
-    }
-    setEdit((prev) => ({ ...prev, [field]: false }))
+  function handleEdit() {
+    setIsEditing(true)
+    form.reset({
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      documentType: user.documentType === 'CPF' ? 'individual' : 'business',
+      document: user.document,
+      birthDate: user.birthDate
+    })
   }
 
-  function handleEdit(field: keyof UserInfoData) {
-    setEdit((prev) => ({ ...prev, [field]: true }))
+  function handleCancel() {
+    setIsEditing(false)
+    form.reset({
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      documentType: user.documentType === 'CPF' ? 'individual' : 'business',
+      document: user.document,
+      birthDate: user.birthDate
+    })
   }
 
   function onSubmit(data: UserInfoData) {
-    setEdit({
-      name: false,
-      email: false,
-      phone: false,
-      documentType: false,
-      document: false,
-      birthDate: false
+    setUser({
+      ...user,
+      ...data,
+      documentType: data.documentType === 'individual' ? 'CPF' : 'CNPJ'
     })
-    // Atualizar mockUsers (apenas para teste)
-    const idx = mockUsers.findIndex((u) => u.id === user.id)
-    if (idx !== -1) {
-      mockUsers[idx] = {
-        ...mockUsers[idx],
-        ...data,
-        documentType: data.documentType === 'individual' ? 'CPF' : 'CNPJ'
-      }
-    }
-  }
-
-  if (user === mockUsers[0]) {
-    return (
-      <Layout className="bg-background min-h-screen min-w-screen">
-        <main className="mt-24 flex flex-1 items-center justify-center">
-          <h1 className="text-foreground text-2xl font-semibold">
-            Usuário não encontrado
-          </h1>
-        </main>
-      </Layout>
-    )
+    setIsEditing(false)
   }
 
   return (
@@ -147,8 +90,10 @@ export function UserInfoPage() {
       <Sidebar
         items={sidebarItems}
         selected={selected}
-        setSelected={handleSidebarSelect}
-        onLogout={() => navigate('/')}
+        setSelected={setSelected}
+        onLogout={() => {
+          /* logout logic */
+        }}
       />
       <main className="mt-24 flex flex-1 flex-col items-center justify-center p-12">
         <motion.div
@@ -157,270 +102,196 @@ export function UserInfoPage() {
           transition={{ duration: 0.5 }}
           className="w-full max-w-xl"
         >
-          {selected === 'dados' && (
-            <section>
-              <h1 className="text-foreground mb-6 text-center text-4xl font-semibold drop-shadow-xl sm:text-6xl">
-                Dados de cadastro
-              </h1>
-              <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+          <section>
+            <h1 className="text-foreground mb-6 text-center text-4xl font-semibold drop-shadow-xl sm:text-6xl">
+              Dados de cadastro
+            </h1>
+            {!isEditing ? (
+              <div className="space-y-6">
                 <div>
-                  <label className="text-foreground/80 mb-1 block text-lg font-medium">
-                    Nome
-                  </label>
-                  <div className="relative flex items-center">
-                    <input
-                      {...register('name')}
-                      type="text"
-                      className={`border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 pr-10 text-xl transition-colors ${
-                        edit.name ? 'bg-muted/40' : ''
-                      }`}
-                      disabled={!edit.name}
-                    />
-                    {edit.name ? (
-                      <button
-                        type="button"
-                        className="text-muted-foreground hover:text-destructive absolute top-1/2 right-3 -translate-y-1/2"
-                        onClick={() => handleCancel('name')}
-                        tabIndex={-1}
-                        aria-label="Cancelar edição"
-                      >
-                        <X size={20} />
-                      </button>
-                    ) : (
-                      <button
-                        type="button"
-                        className="text-muted-foreground hover:text-primary absolute top-1/2 right-3 -translate-y-1/2"
-                        onClick={() => handleEdit('name')}
-                        tabIndex={-1}
-                        aria-label="Editar nome"
-                      >
-                        <Pencil size={20} />
-                      </button>
-                    )}
-                  </div>
-                  {errors.name && (
-                    <span className="text-destructive text-sm">
-                      {errors.name.message}
+                  <div className="flex items-center justify-between">
+                    <span className="text-foreground/80 block text-lg font-medium">
+                      Nome
                     </span>
-                  )}
+                  </div>
+                  <div className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
+                    {user.name}
+                  </div>
                 </div>
                 <div>
-                  <label className="text-foreground/80 mb-1 block text-lg font-medium">
+                  <span className="text-foreground/80 block text-lg font-medium">
                     E-mail
-                  </label>
-                  <div className="relative flex items-center">
-                    <input
-                      {...register('email')}
-                      type="email"
-                      className={`border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 pr-10 text-xl transition-colors ${
-                        edit.email ? 'bg-muted/40' : ''
-                      }`}
-                      disabled={!edit.email}
-                    />
-                    {edit.email ? (
-                      <button
-                        type="button"
-                        className="text-muted-foreground hover:text-destructive absolute top-1/2 right-3 -translate-y-1/2"
-                        onClick={() => handleCancel('email')}
-                        tabIndex={-1}
-                        aria-label="Cancelar edição"
-                      >
-                        <X size={20} />
-                      </button>
-                    ) : (
-                      <button
-                        type="button"
-                        className="text-muted-foreground hover:text-primary absolute top-1/2 right-3 -translate-y-1/2"
-                        onClick={() => handleEdit('email')}
-                        tabIndex={-1}
-                        aria-label="Editar e-mail"
-                      >
-                        <Pencil size={20} />
-                      </button>
-                    )}
+                  </span>
+                  <div className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
+                    {user.email}
                   </div>
-                  {errors.email && (
-                    <span className="text-destructive text-sm">
-                      {errors.email.message}
-                    </span>
-                  )}
                 </div>
                 <div>
-                  <label className="text-foreground/80 mb-1 block text-lg font-medium">
+                  <span className="text-foreground/80 block text-lg font-medium">
                     Telefone
-                  </label>
-                  <div className="relative flex items-center">
-                    <input
-                      {...register('phone')}
-                      type="text"
-                      className={`border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 pr-10 text-xl transition-colors ${
-                        edit.phone ? 'bg-muted/40' : ''
-                      }`}
-                      disabled={!edit.phone}
-                    />
-                    {edit.phone ? (
-                      <button
-                        type="button"
-                        className="text-muted-foreground hover:text-destructive absolute top-1/2 right-3 -translate-y-1/2"
-                        onClick={() => handleCancel('phone')}
-                        tabIndex={-1}
-                        aria-label="Cancelar edição"
-                      >
-                        <X size={20} />
-                      </button>
-                    ) : (
-                      <button
-                        type="button"
-                        className="text-muted-foreground hover:text-primary absolute top-1/2 right-3 -translate-y-1/2"
-                        onClick={() => handleEdit('phone')}
-                        tabIndex={-1}
-                        aria-label="Editar telefone"
-                      >
-                        <Pencil size={20} />
-                      </button>
-                    )}
+                  </span>
+                  <div className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
+                    {user.phone}
                   </div>
-                  {errors.phone && (
-                    <span className="text-destructive text-sm">
-                      {errors.phone.message}
-                    </span>
-                  )}
                 </div>
                 <div>
-                  <label className="text-foreground/80 mb-1 block text-lg font-medium">
+                  <span className="text-foreground/80 block text-lg font-medium">
                     Tipo de Pessoa
-                  </label>
-                  <div className="relative flex items-center">
-                    <select
-                      {...register('documentType')}
-                      className={`border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 pr-10 text-xl transition-colors ${
-                        edit.documentType ? 'bg-muted/40' : ''
-                      }`}
-                      disabled={!edit.documentType}
-                    >
-                      <option value="individual">Pessoa Física</option>
-                      <option value="business">Pessoa Jurídica</option>
-                    </select>
-                    {edit.documentType ? (
-                      <button
-                        type="button"
-                        className="text-muted-foreground hover:text-destructive absolute top-1/2 right-3 -translate-y-1/2"
-                        onClick={() => handleCancel('documentType')}
-                        tabIndex={-1}
-                        aria-label="Cancelar edição"
-                      >
-                        <X size={20} />
-                      </button>
-                    ) : (
-                      <button
-                        type="button"
-                        className="text-muted-foreground hover:text-primary absolute top-1/2 right-3 -translate-y-1/2"
-                        onClick={() => handleEdit('documentType')}
-                        tabIndex={-1}
-                        aria-label="Editar tipo de pessoa"
-                      >
-                        <Pencil size={20} />
-                      </button>
-                    )}
+                  </span>
+                  <div className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl capitalize">
+                    {user.documentType === 'CPF'
+                      ? 'Pessoa Física'
+                      : 'Pessoa Jurídica'}
                   </div>
-                  {errors.documentType && (
-                    <span className="text-destructive text-sm">
-                      {errors.documentType.message}
-                    </span>
-                  )}
                 </div>
                 <div>
-                  <label className="text-foreground/80 mb-1 block text-lg font-medium">
+                  <span className="text-foreground/80 block text-lg font-medium">
                     Documento
-                  </label>
-                  <div className="relative flex items-center">
-                    <input
-                      {...register('document')}
-                      type="text"
-                      className={`border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 pr-10 text-xl transition-colors ${
-                        edit.document ? 'bg-muted/40' : ''
-                      }`}
-                      disabled={!edit.document}
-                    />
-                    {edit.document ? (
-                      <button
-                        type="button"
-                        className="text-muted-foreground hover:text-destructive absolute top-1/2 right-3 -translate-y-1/2"
-                        onClick={() => handleCancel('document')}
-                        tabIndex={-1}
-                        aria-label="Cancelar edição"
-                      >
-                        <X size={20} />
-                      </button>
-                    ) : (
-                      <button
-                        type="button"
-                        className="text-muted-foreground hover:text-primary absolute top-1/2 right-3 -translate-y-1/2"
-                        onClick={() => handleEdit('document')}
-                        tabIndex={-1}
-                        aria-label="Editar documento"
-                      >
-                        <Pencil size={20} />
-                      </button>
-                    )}
+                  </span>
+                  <div className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
+                    {user.document}
                   </div>
-                  {errors.document && (
-                    <span className="text-destructive text-sm">
-                      {errors.document.message}
-                    </span>
-                  )}
                 </div>
                 <div>
-                  <label className="text-foreground/80 mb-1 block text-lg font-medium">
+                  <span className="text-foreground/80 block text-lg font-medium">
                     Data de Nascimento
-                  </label>
-                  <div className="relative flex items-center">
-                    <input
-                      {...register('birthDate')}
-                      type="date"
-                      className={`border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 pr-10 text-xl transition-colors ${
-                        edit.birthDate ? 'bg-muted/40' : ''
-                      }`}
-                      disabled={!edit.birthDate}
-                    />
-                    {edit.birthDate ? (
-                      <button
-                        type="button"
-                        className="text-muted-foreground hover:text-destructive absolute top-1/2 right-3 -translate-y-1/2"
-                        onClick={() => handleCancel('birthDate')}
-                        tabIndex={-1}
-                        aria-label="Cancelar edição"
-                      >
-                        <X size={20} />
-                      </button>
-                    ) : (
-                      <button
-                        type="button"
-                        className="text-muted-foreground hover:text-primary absolute top-1/2 right-3 -translate-y-1/2"
-                        onClick={() => handleEdit('birthDate')}
-                        tabIndex={-1}
-                        aria-label="Editar data de nascimento"
-                      >
-                        <Pencil size={20} />
-                      </button>
-                    )}
+                  </span>
+                  <div className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
+                    {user.birthDate instanceof Date
+                      ? user.birthDate.toLocaleDateString('pt-BR')
+                      : user.birthDate}
                   </div>
-                  {errors.birthDate && (
-                    <span className="text-destructive text-sm">
-                      {errors.birthDate.message}
-                    </span>
-                  )}
                 </div>
                 <Button
-                  type="submit"
-                  className="mt-6 w-full text-lg"
-                  disabled={!isDirty}
+                  type="button"
+                  className="mt-6 flex w-full items-center justify-center gap-2 text-lg"
+                  onClick={handleEdit}
                 >
-                  Salvar
+                  <Pencil size={20} /> Editar perfil
                 </Button>
-              </form>
-            </section>
-          )}
+              </div>
+            ) : (
+              <Form {...form}>
+                <form
+                  className="space-y-6"
+                  onSubmit={form.handleSubmit(onSubmit)}
+                >
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Nome</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>E-mail</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="phone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Telefone</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="documentType"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Tipo de Pessoa</FormLabel>
+                        <FormControl>
+                          <select
+                            {...field}
+                            className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
+                          >
+                            <option value="individual">Pessoa Física</option>
+                            <option value="business">Pessoa Jurídica</option>
+                          </select>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="document"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Documento</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="birthDate"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Data de Nascimento</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="date"
+                            value={
+                              field.value
+                                ? new Date(field.value)
+                                    .toISOString()
+                                    .split('T')[0]
+                                : ''
+                            }
+                            onChange={(e) =>
+                              field.onChange(new Date(e.target.value))
+                            }
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <div className="flex gap-4">
+                    <Button
+                      type="button"
+                      variant="secondary"
+                      className="w-1/2"
+                      onClick={handleCancel}
+                    >
+                      Cancelar
+                    </Button>
+                    <Button
+                      type="submit"
+                      className="flex w-1/2 items-center justify-center gap-2"
+                    >
+                      <Save size={20} /> Salvar
+                    </Button>
+                  </div>
+                </form>
+              </Form>
+            )}
+          </section>
         </motion.div>
       </main>
     </Layout>
