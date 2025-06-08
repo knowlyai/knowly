@@ -137,7 +137,6 @@ export function SubscriptionManagementPage() {
             </div>
             {tab === 'current' && (
               <div className="mb-8 flex flex-col gap-6 md:flex-row">
-                {/* Plano */}
                 <div className="border-border bg-background flex min-h-[270px] flex-1 flex-col gap-2 rounded-xl border p-6 shadow">
                   <div className="mb-2 flex items-center justify-between">
                     <span className="text-foreground text-xl font-semibold">
@@ -184,7 +183,6 @@ export function SubscriptionManagementPage() {
                     </Button>
                   </div>
                 </div>
-                {/* Método de pagamento */}
                 <div className="border-border bg-background flex min-h-[270px] flex-1 flex-col gap-2 rounded-xl border p-6 shadow">
                   <div className="text-foreground mb-2 text-xl font-semibold">
                     Método de pagamento
