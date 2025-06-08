@@ -208,36 +208,45 @@ export function SubscriptionManagementPage() {
             )}
             {tab === 'options' && (
               <div className="grid w-full gap-8 md:grid-cols-2">
-                {plans.map((plan, idx) => (
-                  <Card
-                    key={idx}
-                    className="from-background to-background/80 w-full bg-gradient-to-b text-center"
-                  >
-                    <CardHeader>
-                      <CardDescription>{plan.title}</CardDescription>
-                      <CardTitle className="text-4xl font-extrabold">
-                        {plan.price}{' '}
-                        <span className="text-muted-foreground text-base font-normal">
-                          /mês
-                        </span>
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      {plan.features.map((feature, idx) => (
-                        <div
-                          key={idx}
-                          className="text-primary/50 flex items-center gap-4 text-left"
+                {plans.map((planCard, idx) => {
+                  const isCurrent = planCard.title === plan.title
+                  return (
+                    <Card
+                      key={idx}
+                      className="from-background to-background/80 w-full bg-gradient-to-b text-center"
+                    >
+                      <CardHeader>
+                        <CardDescription>{planCard.title}</CardDescription>
+                        <CardTitle className="text-4xl font-extrabold">
+                          {planCard.price}{' '}
+                          <span className="text-muted-foreground text-base font-normal">
+                            /mês
+                          </span>
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        {planCard.features.map((feature, idx) => (
+                          <div
+                            key={idx}
+                            className="text-primary/50 flex items-center gap-4 text-left"
+                          >
+                            <Check className="h-5 w-5 text-green-600" />
+                            {feature}
+                          </div>
+                        ))}
+                      </CardContent>
+                      <CardFooter>
+                        <Button
+                          className="w-full"
+                          disabled={isCurrent}
+                          variant={isCurrent ? 'secondary' : 'default'}
                         >
-                          <Check className="h-5 w-5 text-green-600" />
-                          {feature}
-                        </div>
-                      ))}
-                    </CardContent>
-                    <CardFooter>
-                      <Button className="w-full">{plan.buttonText}</Button>
-                    </CardFooter>
-                  </Card>
-                ))}
+                          {isCurrent ? 'Plano atual' : planCard.buttonText}
+                        </Button>
+                      </CardFooter>
+                    </Card>
+                  )
+                })}
               </div>
             )}
             {tab === 'history' && (
