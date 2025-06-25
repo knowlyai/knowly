@@ -1,6 +1,6 @@
 import { Background } from '@/shared/components/background'
 import { Layout } from '@/shared/components/layout'
-import { motion, Transition } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Button } from '@/shared/components/button'
 import { Accordion, AccordionItem } from '@/shared/components/accordion'
 import { DotLottieReact } from '@lottiefiles/dotlottie-react'
@@ -19,6 +19,8 @@ import {
   CardTitle
 } from '@/shared/components/card'
 import { ArrowDown, ArrowRight, Check } from 'lucide-react'
+import { BackgroundBlobs } from '@/shared/components/background-blobs'
+import { Footer } from '@/features/home/components/footer'
 
 const plans = [
   {
@@ -43,19 +45,19 @@ const plans = [
 
 const faqs = [
   {
-    title: 'What kind of file can I upload?',
+    title: 'Que tipo de arquivo posso fazer upload?',
     content:
-      'Currently, you can upload PDF files. We are working on adding support for other file types in the future.'
+      'Atualmente, você pode fazer upload de arquivos PDF. Estamos trabalhando para adicionar suporte a outros tipos de arquivo no futuro.'
   },
   {
-    title: 'Can I create more than one model?',
+    title: 'Posso criar mais de um modelo?',
     content:
-      'Yes, you can create multiple models with different knowledge bases.'
+      'Sim, você pode criar múltiplos modelos com diferentes bases de conhecimento.'
   },
   {
-    title: 'Do I need to code?',
+    title: 'Preciso saber programar?',
     content:
-      'No, you only need to upload the files and we take care of the rest.'
+      'Não, você só precisa fazer upload dos arquivos e nós cuidamos do resto.'
   }
 ]
 
@@ -96,63 +98,45 @@ const process = [
   }
 ]
 
-function BackgroundBlobs() {
-  const blobTransition = {
-    repeat: Infinity,
-    repeatType: 'mirror',
-    duration: 30,
-    ease: 'easeInOut'
-  } as const satisfies Transition
-
-  return (
-    <>
-      {/* Light mode blobs use CSS variables for consistent visibility */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={{
-          opacity: [0, 0.4, 0.2, 0.4, 0],
-          x: [0, -100, 0],
-          y: [0, 50, 0]
-        }}
-        transition={blobTransition}
-        className="fixed inset-0 -z-10 m-auto h-[80vh] w-[80vw] rounded-full blur-[200px]"
-        style={{ backgroundColor: 'var(--primary)', opacity: 0.3 }}
-      />
-
-      <motion.div
-        initial={{ opacity: 0, scale: 0.6 }}
-        animate={{
-          opacity: [0, 0.3, 0.1, 0.3, 0],
-          x: [50, -50, 50],
-          y: [20, -20, 20]
-        }}
-        transition={{ ...blobTransition, duration: 35 }}
-        className="fixed inset-0 -z-20 m-auto h-[60vh] w-[60vw] rounded-full blur-[180px]"
-        style={{ backgroundColor: 'var(--secondary)', opacity: 0.2 }}
-      />
-
-      <motion.div
-        initial={{ opacity: 0, scale: 0.4 }}
-        animate={{
-          opacity: [0, 0.2, 0.05, 0.2, 0],
-          x: [-50, 50, -50],
-          y: [50, -50, 50]
-        }}
-        transition={{ ...blobTransition, duration: 40 }}
-        className="fixed inset-0 -z-30 m-auto h-[50vh] w-[50vw] rounded-full blur-[220px]"
-        style={{ backgroundColor: 'var(--accent)', opacity: 0.25 }}
-      />
-    </>
-  )
-}
+const owners = [
+  {
+    name: 'Enzo Sakamoto',
+    image: sakamoto,
+    role: 'Estagiário de Arquitetura de Software na XP Inc.',
+    linkedin: 'https://www.linkedin.com/in/enzosakamoto/'
+  },
+  {
+    name: 'Izabel Sampaio Goes',
+    image: izabel,
+    role: 'Estagiária de Ciência de Dados e IA na Evo Systems',
+    linkedin: 'https://www.linkedin.com/in/izabel-sampaio-goes/'
+  },
+  {
+    name: 'Rafael Rubio',
+    image: rubio,
+    role: 'Estagiário de Desenvolvimento de Software na Socium',
+    linkedin: 'https://www.linkedin.com/in/rafael-rubio-carnes-b2561b212/'
+  },
+  {
+    name: 'Júlia Galhardi Cerqueira',
+    image: julia,
+    role: 'Estagiária'
+  },
+  {
+    name: 'Vinícius Berti',
+    image: berti,
+    role: 'Estagiário de Dados para Antifraude na Capim',
+    linkedin: 'https://www.linkedin.com/in/vinicius-berti-a80354209/'
+  }
+]
 
 function LogoCarousel() {
   const logos = [
     'https://store-images.s-microsoft.com/image/apps.22898.1ee6619e-8cd6-4c91-a459-3abe6a6cf7b3.84da202a-9b47-4a76-be2c-79f143c64050.21add500-ed5b-42ee-b87d-ee415ae071fc',
     'https://play-lh.googleusercontent.com/d2zqBFBEymSZKaVg_dRo1gh3hBFn7_Kl9rO74xkDmnJeLgDW0MoJD3cUx0QzZN6jdsg=w240-h480-rw',
     'https://t2.tudocdn.net/716766?w=824&h=494',
-    'https://www.stickersdevs.com.br/wp-content/uploads/2021/03/amazon-logo-sticker-adesivo-devs.jpg',
-    'https://iguatemi.com.br/saopaulo/sites/saopaulo/files/2021-10/mistral.jpg'
+    'https://static.vecteezy.com/system/resources/previews/019/136/322/non_2x/amazon-logo-amazon-icon-free-free-vector.jpg',
+    'https://azure.microsoft.com/en-us/blog/wp-content/uploads/2024/02/MSFT_Azure_FEB12_319938_Blog_BlogHeader_240226_600x600_V1.jpg'
   ]
   const allLogos = [...logos, ...logos, ...logos, ...logos]
   return (
@@ -182,7 +166,7 @@ function LogoCarousel() {
               src={logo}
               alt="Bedrock model logo"
               draggable={false}
-              className="h-26 w-26 rounded-md object-cover shadow-lg select-none"
+              className="h-26 w-26 rounded-md bg-white object-cover shadow-lg select-none"
             />
           </div>
         ))}
@@ -202,7 +186,7 @@ const words = title.split(' ')
 
 export function HomePage() {
   return (
-    <Background className="to-background/90 from-background relative isolate flex flex-col items-center justify-center overflow-hidden bg-gradient-to-b">
+    <Background className="relative isolate overflow-hidden">
       <BackgroundBlobs />
       <Layout className="space-y-32 md:space-y-0">
         <motion.section
@@ -275,7 +259,7 @@ export function HomePage() {
             {process.map((content, idx) => (
               <Card
                 key={idx}
-                className="bg-background relative flex flex-col items-center border-none"
+                className="bg-background relative flex flex-col items-center"
               >
                 <CardHeader>
                   <CardTitle className="text-foreground mb-4 text-3xl font-semibold">
@@ -325,7 +309,7 @@ export function HomePage() {
             {plans.map((plan, idx) => (
               <Card
                 key={idx}
-                className="from-background to-background/80 w-full border-none bg-gradient-to-b text-center"
+                className="from-background to-background/80 w-full bg-gradient-to-b text-center"
               >
                 <CardHeader>
                   <CardDescription>{plan.title}</CardDescription>
@@ -356,7 +340,7 @@ export function HomePage() {
         </motion.section>
         <motion.section
           id="faq"
-          className="flex flex-col items-center justify-center"
+          className="flex flex-col items-center justify-center px-4 py-16 sm:px-6 lg:px-8"
           style={{ paddingTop: '15vh', paddingBottom: '15vh' }}
           initial="hidden"
           whileInView="visible"
@@ -367,70 +351,82 @@ export function HomePage() {
           }}
           variants={variants}
         >
-          <h1 className="mb-12 text-6xl font-semibold">FAQ</h1>
-          <Accordion className="w-250">
-            {faqs.map((faq, i) => (
-              <AccordionItem key={i} title={faq.title}>
-                {faq.content}
-              </AccordionItem>
-            ))}
-          </Accordion>
+          <motion.h1
+            className="mb-8 text-center text-5xl font-semibold sm:mb-12 md:text-6xl"
+            transition={transition}
+            variants={variants}
+          >
+            FAQ
+          </motion.h1>
+          <motion.div
+            className="w-full max-w-4xl"
+            transition={transition}
+            variants={variants}
+          >
+            <Accordion className="w-full">
+              {faqs.map((faq, i) => (
+                <AccordionItem key={i} title={faq.title}>
+                  {faq.content}
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </motion.div>
         </motion.section>
-        <section
+        <motion.section
           id="about-us"
-          className="flex h-screen flex-col items-center justify-center"
+          className="flex min-h-screen flex-col items-center justify-center px-4 py-16 sm:px-6 lg:px-8"
+          style={{ paddingTop: '10vh', paddingBottom: '10vh' }}
+          initial="hidden"
+          whileInView="visible"
+          transition={{ staggerChildren: 0.04 }}
         >
-          <h1 className="mb-8 text-6xl font-semibold">About Us</h1>
-          <div className="mb-8 text-center md:text-center">
-            <p className="text-lg">
-              Knowly was created by a group of five Computer Engineering
-              students during their final year of university at Instituto Mauá
-              de Tecnologia.
-            </p>
-          </div>
-          <div className="mx-auto grid max-w-2xl grid-cols-5 grid-rows-1 items-center justify-items-center gap-4">
-            <img
-              src={sakamoto}
-              alt="Enzo Sakamoto"
-              className="col-start-1 row-start-1 h-24 w-24 rounded-full object-cover shadow-lg"
-            />
-            <span className="mt-2 text-center text-sm font-medium">
-              Enzo Sakamoto
-            </span>
-            <img
-              src={izabel}
-              alt="Izabel Sampaio Goes"
-              className="col-start-2 row-start-1 h-24 w-24 rounded-full object-cover shadow-lg"
-            />
-            <span className="mt-2 text-center text-sm font-medium">
-              Izabel Sampaio Goes
-            </span>
-            <img
-              src={rubio}
-              alt="Rafael Rúbio Carnes"
-              className="col-start-3 row-start-1 h-24 w-24 rounded-full object-cover shadow-lg"
-            />
-            <span className="mt-2 text-center text-sm font-medium">
-              Rafael Rúbio Carnes
-            </span>
-            <img
-              src={julia}
-              alt="Júlia Galhardi Cerqueira"
-              className="col-start-4 row-start-1 h-24 w-24 rounded-full object-cover shadow-lg"
-            />
-            <span className="mt-2 text-center text-sm font-medium">
-              Júlia Galhardi Cerqueira
-            </span>
-            <img
-              src={berti}
-              alt="Vinícius Berti"
-              className="col-start-5 row-start-1 h-24 w-24 rounded-full object-cover shadow-lg"
-            />
-            <span className="mt-2 text-center text-sm font-medium">
-              Vinícius Berti
-            </span>
-          </div>
-        </section>
+          <motion.h1
+            className="mb-6 text-center text-4xl font-semibold sm:mb-8 sm:text-5xl md:text-6xl"
+            transition={transition}
+            variants={variants}
+          >
+            Sobre nós
+          </motion.h1>
+          <motion.div
+            className="mb-8 max-w-4xl text-justify text-base leading-relaxed sm:text-lg md:mb-12 md:text-xl"
+            transition={transition}
+            variants={variants}
+          >
+            O Knowly foi criado por um grupo de cinco estudantes de Engenharia
+            da Computação durante o último ano de graduação no Instituto Mauá de
+            Tecnologia no Trabalho de Conclusão de Curso (TCC).
+          </motion.div>
+          <motion.div
+            className="grid w-full max-w-7xl grid-cols-1 items-center justify-items-center gap-4 sm:grid-cols-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xl:gap-8"
+            transition={transition}
+            variants={variants}
+          >
+            {owners.map((owner, index) => (
+              <a
+                key={index}
+                href={owner.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                className="flex h-full w-full items-center justify-center"
+              >
+                <Card className="flex h-[180px] w-full max-w-[280px] flex-col items-center justify-center p-4 transition-transform hover:scale-105 sm:h-[200px] md:max-w-none lg:h-[220px]">
+                  <img
+                    src={owner.image}
+                    alt={owner.name}
+                    className="h-16 w-16 rounded-full object-cover shadow-lg sm:h-20 sm:w-20 md:h-24 md:w-24"
+                  />
+                  <span className="mt-3 text-center text-xs leading-tight font-medium sm:text-sm md:mt-4">
+                    {owner.name}
+                  </span>
+                  <span className="text-muted-foreground mt-2 text-center text-xs leading-tight font-light sm:text-sm">
+                    {owner.role}
+                  </span>
+                </Card>
+              </a>
+            ))}
+          </motion.div>
+        </motion.section>
+        <Footer />
       </Layout>
     </Background>
   )
