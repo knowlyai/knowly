@@ -106,7 +106,7 @@ export function UserInfoPage() {
               Dados de cadastro
             </h1>
             {!isEditing ? (
-              <div className="space-y-6">
+              <div className="space-y-4">
                 <div>
                   <div className="flex items-center justify-between">
                     <span className="text-foreground/80 block text-lg font-medium">
@@ -126,44 +126,46 @@ export function UserInfoPage() {
                   </div>
                 </div>
                 <div>
-                  <span className="text-foreground/80 block text-lg font-medium">
-                    Telefone
+                  <span className="text-foreground/80 text-sm font-medium">
+                    Telefone/Celular
                   </span>
-                  <div className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
-                    {user.phone}
-                  </div>
+                  <Input value={user.phone} disabled />
                 </div>
                 <div>
-                  <span className="text-foreground/80 block text-lg font-medium">
+                  <span className="text-foreground/80 text-sm font-medium">
                     Tipo de Pessoa
                   </span>
-                  <div className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl capitalize">
-                    {user.documentType === 'CPF'
-                      ? 'Pessoa Física'
-                      : 'Pessoa Jurídica'}
-                  </div>
+                  <Input
+                    value={
+                      user.documentType === 'CPF'
+                        ? 'Pessoa Física'
+                        : 'Pessoa Jurídica'
+                    }
+                    disabled
+                  />
                 </div>
                 <div>
-                  <span className="text-foreground/80 block text-lg font-medium">
+                  <span className="text-foreground/80 text-sm font-medium">
                     Documento
                   </span>
-                  <div className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
-                    {user.document}
-                  </div>
+                  <Input value={user.document} disabled />
                 </div>
                 <div>
-                  <span className="text-foreground/80 block text-lg font-medium">
+                  <span className="text-foreground/80 text-sm font-medium">
                     Data de Nascimento
                   </span>
-                  <div className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
-                    {user.birthDate instanceof Date
-                      ? user.birthDate.toLocaleDateString('pt-BR')
-                      : user.birthDate}
-                  </div>
+                  <Input
+                    value={
+                      user.birthDate
+                        ? user.birthDate.toLocaleDateString('pt-BR')
+                        : user.birthDate
+                    }
+                    disabled
+                  />
                 </div>
                 <Button
                   type="button"
-                  className="mt-6 flex w-full items-center justify-center gap-2 text-lg"
+                  className="mt-6 flex w-full items-center justify-center gap-2"
                   onClick={handleEdit}
                 >
                   <Pencil size={20} /> Editar perfil
@@ -172,7 +174,7 @@ export function UserInfoPage() {
             ) : (
               <Form {...form}>
                 <form
-                  className="space-y-6"
+                  className="space-y-4"
                   onSubmit={form.handleSubmit(onSubmit)}
                 >
                   <FormField
@@ -255,14 +257,9 @@ export function UserInfoPage() {
                     name="document"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
-                          Documento
-                        </FormLabel>
+                        <FormLabel>Documento</FormLabel>
                         <FormControl>
-                          <Input
-                            {...field}
-                            className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
-                          />
+                          <Input {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -273,9 +270,7 @@ export function UserInfoPage() {
                     name="birthDate"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
-                          Data de Nascimento
-                        </FormLabel>
+                        <FormLabel>Data de Nascimento</FormLabel>
                         <FormControl>
                           <Input
                             type="date"
@@ -289,7 +284,6 @@ export function UserInfoPage() {
                             onChange={(e) =>
                               field.onChange(new Date(e.target.value))
                             }
-                            className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
                           />
                         </FormControl>
                         <FormMessage />
@@ -321,5 +315,3 @@ export function UserInfoPage() {
     </Layout>
   )
 }
-
-export default UserInfoPage
