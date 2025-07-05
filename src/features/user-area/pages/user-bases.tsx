@@ -12,7 +12,8 @@ import {
   ArrowUpAZ,
   Calendar,
   FileText,
-  MessageCircle
+  MessageCircle,
+  Plus
 } from 'lucide-react'
 import { Sidebar, SidebarItem } from '@/shared/components/sidebar'
 import { Input } from '@/shared/components/input'
@@ -136,60 +137,74 @@ export function UserBasesPage() {
               <h1 className="text-foreground mb-6 text-center text-4xl font-semibold drop-shadow-xl sm:text-6xl">
                 Minhas bases
               </h1>
-              <div className="mb-8 flex w-full flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <Input
-                  placeholder="Buscar base pelo nome..."
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  className="text-foreground border-primary focus:border-primary max-w-xs ring-0"
-                />
-                <div className="flex gap-2">
-                  <Button
-                    type="button"
-                    variant="secondary"
-                    onClick={() => handleOrderChange('name')}
-                    className="flex items-center gap-2"
-                  >
-                    Nome
-                    {orderBy === 'name' &&
-                      (orderDirection === 'asc' ? (
-                        <ArrowDownAZ className="h-4 w-4" />
-                      ) : (
-                        <ArrowUpAZ className="h-4 w-4" />
-                      ))}
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="secondary"
-                    onClick={() => handleOrderChange('createdAt')}
-                    className="flex items-center gap-2"
-                  >
-                    Criação
-                    {orderBy === 'createdAt' && (
-                      <ArrowUpDown
-                        className={clsx(
-                          'h-4 w-4',
-                          orderDirection === 'asc' ? 'rotate-180' : ''
-                        )}
-                      />
-                    )}
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="secondary"
-                    onClick={() => handleOrderChange('updatedAt')}
-                    className="flex items-center gap-2"
-                  >
-                    Última alteração
-                    {orderBy === 'updatedAt' && (
-                      <ArrowUpDown
-                        className={clsx(
-                          'h-4 w-4',
-                          orderDirection === 'asc' ? 'rotate-180' : ''
-                        )}
-                      />
-                    )}
-                  </Button>
+              <div className="mb-8 flex w-full flex-col gap-4">
+                <div className="flex w-full flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex w-full max-w-md gap-2">
+                    <Input
+                      placeholder="Buscar base pelo nome..."
+                      value={search}
+                      onChange={(e) => setSearch(e.target.value)}
+                      className="text-foreground border-primary focus:border-primary w-full ring-0"
+                    />
+                    <Button
+                      variant="secondary"
+                      className="whitespace-nowrap"
+                      onClick={() => {
+                        navigate('/create-knowladge-base') // Ajustar o caminho ou ação, se necessário
+                      }}
+                    >
+                      <Plus className="h-4 w-4" />
+                      Nova base
+                    </Button>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button
+                      type="button"
+                      variant="secondary"
+                      onClick={() => handleOrderChange('name')}
+                      className="flex items-center gap-2"
+                    >
+                      Nome
+                      {orderBy === 'name' &&
+                        (orderDirection === 'asc' ? (
+                          <ArrowDownAZ className="h-4 w-4" />
+                        ) : (
+                          <ArrowUpAZ className="h-4 w-4" />
+                        ))}
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="secondary"
+                      onClick={() => handleOrderChange('createdAt')}
+                      className="flex items-center gap-2"
+                    >
+                      Criação
+                      {orderBy === 'createdAt' && (
+                        <ArrowUpDown
+                          className={clsx(
+                            'h-4 w-4',
+                            orderDirection === 'asc' ? 'rotate-180' : ''
+                          )}
+                        />
+                      )}
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="secondary"
+                      onClick={() => handleOrderChange('updatedAt')}
+                      className="flex items-center gap-2"
+                    >
+                      Última alteração
+                      {orderBy === 'updatedAt' && (
+                        <ArrowUpDown
+                          className={clsx(
+                            'h-4 w-4',
+                            orderDirection === 'asc' ? 'rotate-180' : ''
+                          )}
+                        />
+                      )}
+                    </Button>
+                  </div>
                 </div>
               </div>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
