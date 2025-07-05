@@ -1,22 +1,17 @@
 import { Background } from '@/shared/components/background'
 import { BackgroundBlobs } from '@/shared/components/background-blobs'
 import { Layout } from '@/shared/components/layout'
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle
-} from '@/shared/components/card'
-import { Button } from '@/shared/components/button'
+import { Card, CardContent } from '@/shared/components/card'
 import { motion } from 'framer-motion'
 import {
   ArrowRightCircle,
   ShoppingBag,
   RefreshCw,
   HelpCircle,
-  Tag,
-  List,
-  User
+  BrainCircuit,
+  FileCog,
+  User,
+  Handshake
 } from 'lucide-react'
 
 const faqSections = [
@@ -48,14 +43,14 @@ const faqSections = [
     title: 'Bases de Conhecimento',
     items: [
       {
-        icon: <Tag className="h-6 w-6" />,
+        icon: <BrainCircuit className="h-6 w-6" />,
         title: 'Criação de novas bases',
         description:
           'Quais as formas e como é o processo de criação de bases de conhecimento.',
         link: '/faq/bases/criacao'
       },
       {
-        icon: <List className="h-6 w-6" />,
+        icon: <FileCog className="h-6 w-6" />,
         title: 'Gerenciar documentos',
         description:
           'Consultar, visualizar, adicionar ou excluir os documentos das minhas bases.',
@@ -90,7 +85,7 @@ const faqSections = [
     title: 'Precisa de mais ajuda?',
     items: [
       {
-        icon: <User className="h-6 w-6" />,
+        icon: <Handshake className="h-6 w-6" />,
         title: 'Fale conosco',
         description: 'Formas de entrar em contato com o suporte.',
         link: '/faq/contato'
@@ -113,14 +108,14 @@ export function FAQPage() {
           FAQ
         </motion.h1>
         <div className="flex flex-col gap-16">
-          {faqSections.map((section, idx) => (
+          {faqSections.map((section) => (
             <section key={section.title}>
               <h2 className="text-foreground mb-6 text-2xl font-semibold">
                 {section.title}
               </h2>
               <Card className="bg-card w-full">
                 <CardContent className="flex flex-col divide-y divide-gray-200 p-0">
-                  {section.items.map((item, i) => (
+                  {section.items.map((item) => (
                     <a
                       key={item.title}
                       href={item.link}
