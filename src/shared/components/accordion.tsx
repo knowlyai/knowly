@@ -76,7 +76,7 @@ export const AccordionItem = React.forwardRef<
 AccordionItem.displayName = 'AccordionItem'
 
 export type AccordionProps = {
-  children: React.ReactNode<AccordionItemProps>[]
+  children: React.ReactNode
   className?: string
 }
 
@@ -89,9 +89,9 @@ export const Accordion = ({ children, className }: AccordionProps) => {
       )}
     >
       {React.Children.map(children, (child, idx) =>
-        React.cloneElement(child, {
-          key: idx
-        })
+        React.isValidElement(child)
+          ? React.cloneElement(child, { key: idx })
+          : child
       )}
     </div>
   )
