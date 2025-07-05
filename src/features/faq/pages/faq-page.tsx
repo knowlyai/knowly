@@ -28,7 +28,7 @@ const faqSections = [
       {
         icon: <RefreshCw className="h-6 w-6" />,
         title: 'Devoluções e reembolsos',
-        description: 'Devolver valor pago ou consultar condições de extorno.',
+        description: 'Devolver valor pago ou consultar condições de estorno.',
         link: '/faq/subscription/refund'
       },
       {
