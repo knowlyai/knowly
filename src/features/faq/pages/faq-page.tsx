@@ -23,7 +23,7 @@ const faqSections = [
         title: 'Administrar e cancelar planos de assinatura',
         description:
           'Pagar, gerenciar o uso, alterar ou cancelar planos de assinatura.',
-        link: '/faq/planos/administrar'
+        link: '/subscription-management'
       },
       {
         icon: <RefreshCw className="h-6 w-6" />,
