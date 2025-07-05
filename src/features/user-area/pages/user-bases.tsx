@@ -1,8 +1,28 @@
+import { useState, useMemo } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Layout } from '@/shared/components/layout'
 import { motion } from 'framer-motion'
-import { BrainCircuit, User } from 'lucide-react'
+import {
+  BrainCircuit,
+  User,
+  ArrowUpDown,
+  ArrowDownAZ,
+  ArrowUpAZ,
+  Calendar,
+  FileText,
+  MessageCircle
+} from 'lucide-react'
 import { Sidebar, SidebarItem } from '@/shared/components/sidebar'
+import { Input } from '@/shared/components/input'
+import { Button } from '@/shared/components/button'
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription
+} from '@/shared/components/card'
+import clsx from 'clsx'
 
 // Sidebar items
 const sidebarItems: SidebarItem[] = [
@@ -10,17 +30,88 @@ const sidebarItems: SidebarItem[] = [
   { label: 'Minhas bases', icon: <BrainCircuit />, key: 'bases' }
 ]
 
+// Mock data for demonstration
+const mockBases = [
+  {
+    id: '1',
+    name: 'Base Jurídica',
+    filesCount: 12,
+    filesSizeMB: 34.2,
+    createdAt: new Date('2024-01-10'),
+    updatedAt: new Date('2024-06-20'),
+    chatCreditsUsed: 120
+  },
+  {
+    id: '2',
+    name: 'Base de Suporte',
+    filesCount: 5,
+    filesSizeMB: 8.7,
+    createdAt: new Date('2024-03-15'),
+    updatedAt: new Date('2024-06-25'),
+    chatCreditsUsed: 45
+  },
+  {
+    id: '3',
+    name: 'Base Comercial',
+    filesCount: 20,
+    filesSizeMB: 50.1,
+    createdAt: new Date('2023-12-01'),
+    updatedAt: new Date('2024-05-30'),
+    chatCreditsUsed: 300
+  }
+]
+
+type OrderBy = 'name' | 'createdAt' | 'updatedAt'
+type OrderDirection = 'asc' | 'desc'
+
 export function UserBasesPage() {
   const { userId } = useParams<{ userId: string }>()
   const navigate = useNavigate()
   const selected = 'bases'
 
+  const [search, setSearch] = useState('')
+  const [orderBy, setOrderBy] = useState<OrderBy>('name')
+  const [orderDirection, setOrderDirection] = useState<OrderDirection>('asc')
+
   function handleSidebarSelect(key: string) {
     if (key === 'dados') {
       navigate(`/user-info/${userId}`)
     }
-    // Se já está em "bases", não faz nada
   }
+
+  function handleOrderChange(field: OrderBy) {
+    if (orderBy === field) {
+      setOrderDirection(orderDirection === 'asc' ? 'desc' : 'asc')
+    } else {
+      setOrderBy(field)
+      setOrderDirection('asc')
+    }
+  }
+
+  const filteredBases = useMemo(() => {
+    const bases = mockBases.filter((base) =>
+      base.name.toLowerCase().includes(search.toLowerCase())
+    )
+    bases.sort((a, b) => {
+      const aValue: string | number | Date = a[orderBy]
+      const bValue: string | number | Date = b[orderBy]
+      if (aValue instanceof Date && bValue instanceof Date) {
+        return orderDirection === 'asc'
+          ? aValue.getTime() - bValue.getTime()
+          : bValue.getTime() - aValue.getTime()
+      }
+      if (typeof aValue === 'string' && typeof bValue === 'string') {
+        return orderDirection === 'asc'
+          ? aValue.localeCompare(bValue)
+          : bValue.localeCompare(aValue)
+      }
+      if (typeof aValue === 'number' && typeof bValue === 'number') {
+        return orderDirection === 'asc' ? aValue - bValue : bValue - aValue
+      }
+      return 0
+    })
+    return bases
+  }, [search, orderBy, orderDirection])
 
   return (
     <Layout className="bg-background min-h-screen min-w-screen">
@@ -29,21 +120,117 @@ export function UserBasesPage() {
         selected={selected}
         setSelected={handleSidebarSelect}
       />
-      <main className="justify-top mt-20 flex flex-1 flex-col items-center p-12">
+      {/*Após merge com user-info, verificar se estão alinhadas com mesma marge à esquerda*/}
+      <main className="justify-top mt-20 flex flex-1 flex-col items-center p-12 pl-68">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="w-full max-w-xl"
+          className="w-full max-w-5xl"
         >
           <section>
             <h1 className="text-foreground mb-6 text-center text-4xl font-semibold drop-shadow-xl sm:text-6xl">
               Minhas bases
             </h1>
-            <p className="text-foreground/70 text-center text-xl">
-              Aqui você verá suas bases cadastradas.
-            </p>
-            {/* Adicione aqui a listagem das bases do usuário */}
+            <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <Input
+                placeholder="Buscar base pelo nome..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="max-w-xs"
+              />
+              <div className="flex gap-2">
+                <Button
+                  type="button"
+                  variant={orderBy === 'name' ? 'secondary' : 'outline'}
+                  onClick={() => handleOrderChange('name')}
+                  className="flex items-center gap-2"
+                >
+                  Nome
+                  {orderBy === 'name' &&
+                    (orderDirection === 'asc' ? (
+                      <ArrowDownAZ className="h-4 w-4" />
+                    ) : (
+                      <ArrowUpAZ className="h-4 w-4" />
+                    ))}
+                </Button>
+                <Button
+                  type="button"
+                  variant={orderBy === 'createdAt' ? 'secondary' : 'outline'}
+                  onClick={() => handleOrderChange('createdAt')}
+                  className="flex items-center gap-2"
+                >
+                  Criação
+                  {orderBy === 'createdAt' && (
+                    <ArrowUpDown
+                      className={clsx(
+                        'h-4 w-4',
+                        orderDirection === 'asc' ? 'rotate-180' : ''
+                      )}
+                    />
+                  )}
+                </Button>
+                <Button
+                  type="button"
+                  variant={orderBy === 'updatedAt' ? 'secondary' : 'outline'}
+                  onClick={() => handleOrderChange('updatedAt')}
+                  className="flex items-center gap-2"
+                >
+                  Última alteração
+                  {orderBy === 'updatedAt' && (
+                    <ArrowUpDown
+                      className={clsx(
+                        'h-4 w-4',
+                        orderDirection === 'asc' ? 'rotate-180' : ''
+                      )}
+                    />
+                  )}
+                </Button>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {filteredBases.length === 0 && (
+                <div className="text-muted-foreground col-span-full py-12 text-center">
+                  Nenhuma base encontrada.
+                </div>
+              )}
+              {filteredBases.map((base) => (
+                <Card
+                  key={base.id}
+                  className="cursor-pointer transition-shadow hover:shadow-lg"
+                  onClick={() => navigate(`/bases/${base.id}`)}
+                >
+                  <CardHeader>
+                    <CardTitle className="truncate">{base.name}</CardTitle>
+                    <CardDescription>
+                      Criada em {base.createdAt.toLocaleDateString('pt-BR')}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm">
+                      <FileText className="text-primary h-4 w-4" />
+                      <span>
+                        {base.filesCount} arquivo{base.filesCount !== 1 && 's'}{' '}
+                        ({base.filesSizeMB} MB)
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <Calendar className="text-primary h-4 w-4" />
+                      <span>
+                        Última modificação:{' '}
+                        {base.updatedAt.toLocaleDateString('pt-BR')}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <MessageCircle className="text-primary h-4 w-4" />
+                      <span>
+                        Créditos de chat usados: {base.chatCreditsUsed}
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </section>
         </motion.div>
       </main>
