@@ -1,3 +1,5 @@
+import { Background } from '@/shared/components/background'
+import { BackgroundBlobs } from '@/shared/components/background-blobs'
 import { useState, useMemo } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Layout } from '@/shared/components/layout'
@@ -114,127 +116,130 @@ export function UserBasesPage() {
   }, [search, orderBy, orderDirection])
 
   return (
-    <Layout className="bg-background min-h-screen min-w-screen">
-      <Sidebar
-        items={sidebarItems}
-        selected={selected}
-        setSelected={handleSidebarSelect}
-      />
-      {/*Após merge com user-info, verificar se estão alinhadas com mesma marge à esquerda*/}
-      <main className="justify-top mt-20 flex flex-1 flex-col items-center p-12 pl-68">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="w-full max-w-5xl"
-        >
-          <section>
-            <h1 className="text-foreground mb-6 text-center text-4xl font-semibold drop-shadow-xl sm:text-6xl">
-              Minhas bases
-            </h1>
-            <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <Input
-                placeholder="Buscar base pelo nome..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="max-w-xs"
-              />
-              <div className="flex gap-2">
-                <Button
-                  type="button"
-                  variant={orderBy === 'name' ? 'secondary' : 'outline'}
-                  onClick={() => handleOrderChange('name')}
-                  className="flex items-center gap-2"
-                >
-                  Nome
-                  {orderBy === 'name' &&
-                    (orderDirection === 'asc' ? (
-                      <ArrowDownAZ className="h-4 w-4" />
-                    ) : (
-                      <ArrowUpAZ className="h-4 w-4" />
-                    ))}
-                </Button>
-                <Button
-                  type="button"
-                  variant={orderBy === 'createdAt' ? 'secondary' : 'outline'}
-                  onClick={() => handleOrderChange('createdAt')}
-                  className="flex items-center gap-2"
-                >
-                  Criação
-                  {orderBy === 'createdAt' && (
-                    <ArrowUpDown
-                      className={clsx(
-                        'h-4 w-4',
-                        orderDirection === 'asc' ? 'rotate-180' : ''
-                      )}
-                    />
-                  )}
-                </Button>
-                <Button
-                  type="button"
-                  variant={orderBy === 'updatedAt' ? 'secondary' : 'outline'}
-                  onClick={() => handleOrderChange('updatedAt')}
-                  className="flex items-center gap-2"
-                >
-                  Última alteração
-                  {orderBy === 'updatedAt' && (
-                    <ArrowUpDown
-                      className={clsx(
-                        'h-4 w-4',
-                        orderDirection === 'asc' ? 'rotate-180' : ''
-                      )}
-                    />
-                  )}
-                </Button>
-              </div>
-            </div>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-              {filteredBases.length === 0 && (
-                <div className="text-muted-foreground col-span-full py-12 text-center">
-                  Nenhuma base encontrada.
+    <Background className="relative isolate overflow-hidden">
+      <BackgroundBlobs />
+      <Layout className="bg-background min-h-screen min-w-screen">
+        <Sidebar
+          items={sidebarItems}
+          selected={selected}
+          setSelected={handleSidebarSelect}
+        />
+        {/*Após merge com user-info, verificar se estão alinhadas com mesma marge à esquerda*/}
+        <main className="justify-top mt-20 flex w-full flex-1 flex-col items-center p-12 pl-80">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="w-full max-w-5xl"
+          >
+            <section>
+              <h1 className="text-foreground mb-6 text-center text-4xl font-semibold drop-shadow-xl sm:text-6xl">
+                Minhas bases
+              </h1>
+              <div className="mb-8 flex w-full flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <Input
+                  placeholder="Buscar base pelo nome..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="text-foreground border-primary focus:border-primary max-w-xs ring-0"
+                />
+                <div className="flex gap-2">
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    onClick={() => handleOrderChange('name')}
+                    className="flex items-center gap-2"
+                  >
+                    Nome
+                    {orderBy === 'name' &&
+                      (orderDirection === 'asc' ? (
+                        <ArrowDownAZ className="h-4 w-4" />
+                      ) : (
+                        <ArrowUpAZ className="h-4 w-4" />
+                      ))}
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    onClick={() => handleOrderChange('createdAt')}
+                    className="flex items-center gap-2"
+                  >
+                    Criação
+                    {orderBy === 'createdAt' && (
+                      <ArrowUpDown
+                        className={clsx(
+                          'h-4 w-4',
+                          orderDirection === 'asc' ? 'rotate-180' : ''
+                        )}
+                      />
+                    )}
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    onClick={() => handleOrderChange('updatedAt')}
+                    className="flex items-center gap-2"
+                  >
+                    Última alteração
+                    {orderBy === 'updatedAt' && (
+                      <ArrowUpDown
+                        className={clsx(
+                          'h-4 w-4',
+                          orderDirection === 'asc' ? 'rotate-180' : ''
+                        )}
+                      />
+                    )}
+                  </Button>
                 </div>
-              )}
-              {filteredBases.map((base) => (
-                <Card
-                  key={base.id}
-                  className="cursor-pointer transition-shadow hover:shadow-lg"
-                  onClick={() => navigate(`/bases/${base.id}`)}
-                >
-                  <CardHeader>
-                    <CardTitle className="truncate">{base.name}</CardTitle>
-                    <CardDescription>
-                      Criada em {base.createdAt.toLocaleDateString('pt-BR')}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-2">
-                    <div className="flex items-center gap-2 text-sm">
-                      <FileText className="text-primary h-4 w-4" />
-                      <span>
-                        {base.filesCount} arquivo{base.filesCount !== 1 && 's'}{' '}
-                        ({base.filesSizeMB} MB)
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm">
-                      <Calendar className="text-primary h-4 w-4" />
-                      <span>
-                        Última modificação:{' '}
-                        {base.updatedAt.toLocaleDateString('pt-BR')}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm">
-                      <MessageCircle className="text-primary h-4 w-4" />
-                      <span>
-                        Créditos de chat usados: {base.chatCreditsUsed}
-                      </span>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </section>
-        </motion.div>
-      </main>
-    </Layout>
+              </div>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+                {filteredBases.length === 0 && (
+                  <div className="text-muted-foreground col-span-full py-12 text-center">
+                    Nenhuma base encontrada.
+                  </div>
+                )}
+                {filteredBases.map((base) => (
+                  <Card
+                    key={base.id}
+                    className="hover:bg-muted cursor-pointer transition-shadow hover:shadow-lg"
+                    onClick={() => navigate(`/bases/${base.id}`)}
+                  >
+                    <CardHeader>
+                      <CardTitle className="truncate">{base.name}</CardTitle>
+                      <CardDescription>
+                        Criada em {base.createdAt.toLocaleDateString('pt-BR')}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-2">
+                      <div className="flex items-center gap-2 text-sm">
+                        <FileText className="text-primary h-4 w-4" />
+                        <span>
+                          {base.filesCount} arquivo
+                          {base.filesCount !== 1 && 's'} ({base.filesSizeMB} MB)
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2 text-sm">
+                        <Calendar className="text-primary h-4 w-4" />
+                        <span>
+                          Última modificação:{' '}
+                          {base.updatedAt.toLocaleDateString('pt-BR')}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2 text-sm">
+                        <MessageCircle className="text-primary h-4 w-4" />
+                        <span>
+                          Créditos de chat usados: {base.chatCreditsUsed}
+                        </span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </section>
+          </motion.div>
+        </main>
+      </Layout>
+    </Background>
   )
 }
 
