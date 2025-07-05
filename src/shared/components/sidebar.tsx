@@ -1,6 +1,7 @@
 import { Button } from '@/shared/components/button'
 import { LogOut } from 'lucide-react'
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export type SidebarItem = {
   label: string
@@ -12,15 +13,16 @@ type SidebarProps = {
   items: SidebarItem[]
   selected: string
   setSelected: (key: string) => void
-  onLogout: () => void
 }
 
-export function Sidebar({
-  items,
-  selected,
-  setSelected,
-  onLogout
-}: SidebarProps) {
+export function Sidebar({ items, selected, setSelected }: SidebarProps) {
+  const navigate = useNavigate()
+
+  function handleLogout() {
+    // Adicionar lógica de desfazer o login (deslogar o usuário)
+    navigate('/')
+  }
+
   return (
     <aside className="bg-background border-border fixed top-16 left-0 z-10 flex h-[calc(100vh-4rem)] w-80 flex-col justify-between border-r px-4 py-8">
       <nav className="flex flex-col gap-2">
@@ -42,7 +44,7 @@ export function Sidebar({
       <Button
         variant="ghost"
         className="hover:bg-muted/50 flex items-center gap-2 text-red-600"
-        onClick={onLogout}
+        onClick={handleLogout}
       >
         <LogOut className="h-5 w-5" />
         Sair

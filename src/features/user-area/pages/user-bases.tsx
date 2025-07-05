@@ -28,7 +28,6 @@ export function UserBasesPage() {
         items={sidebarItems}
         selected={selected}
         setSelected={handleSidebarSelect}
-        onLogout={() => navigate('/')}
       />
       <main className="justify-top mt-20 flex flex-1 flex-col items-center p-12">
         <motion.div
