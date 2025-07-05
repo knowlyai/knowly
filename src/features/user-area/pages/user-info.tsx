@@ -223,7 +223,7 @@ export function UserInfoPage() {
                           <FormControl>
                             <Input
                               {...field}
-                              className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
+                              className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-6xl"
                             />
                           </FormControl>
                           <FormMessage />
@@ -241,7 +241,7 @@ export function UserInfoPage() {
                           <FormControl>
                             <select
                               {...field}
-                              className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
+                              className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-base"
                             >
                               <option value="individual">Pessoa Física</option>
                               <option value="business">Pessoa Jurídica</option>
