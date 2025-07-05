@@ -3,6 +3,7 @@ import { ForgotPasswordPage } from '@/features/forgot-password/pages/forgot-pass
 import { ResetPasswordPage } from '@/features/reset-password/pages/reset-password'
 import { LoginPage } from '@/features/login/pages/login'
 import { SignUpPage } from '@/features/sign-up/pages/sign-up-page'
+import { UserBasesPage } from '@/features/user-area/pages/user-bases'
 import { Page } from '@/shared/components/page'
 import { Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
@@ -17,6 +18,7 @@ export function AppRoutes() {
           <Route path="/sign-up" element={<SignUpPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
+          <Route path="/user-bases" element={<UserBasesPage />} />
           <Route path="*" element={<HomePage />} />
         </Route>
       </Routes>
