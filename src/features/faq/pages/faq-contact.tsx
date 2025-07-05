@@ -32,8 +32,8 @@ export function FAQContactPage() {
       <BackgroundBlobs />
       <Layout>
         <div className="mx-auto mb-8 w-full max-w-2xl">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <a href="/faq" className="hover:underline text-primary font-medium">
+          <div className="text-muted-foreground flex items-center gap-2 text-sm">
+            <a href="/faq" className="text-primary font-medium hover:underline">
               FAQ
             </a>
             <span className="mx-1">{'>'}</span>
@@ -51,10 +51,10 @@ export function FAQContactPage() {
         <div className="mx-auto flex w-full max-w-2xl flex-col gap-10">
           <Card className="bg-card w-full">
             <CardContent className="flex flex-col gap-6 p-8">
-              <h2 className="text-foreground text-xl font-semibold mb-2">
+              <h2 className="text-foreground mb-2 text-xl font-semibold">
                 E-mails de contato
               </h2>
-              <ul className="flex flex-col gap-2 text-lg text-muted-foreground">
+              <ul className="text-muted-foreground flex flex-col gap-2 text-lg">
                 <li>
                   <b>Assuntos financeiros:</b>{' '}
                   <a
@@ -83,8 +83,9 @@ export function FAQContactPage() {
                   </a>
                 </li>
               </ul>
-              <span className="text-sm text-muted-foreground mt-2">
-                Se preferir, ou caso não tenha certeza sobre qual e-mail utilizar, preencha o formulário abaixo:
+              <span className="text-muted-foreground mt-2 text-sm">
+                Se preferir, ou caso não tenha certeza sobre qual e-mail
+                utilizar, preencha o formulário abaixo:
               </span>
             </CardContent>
           </Card>
