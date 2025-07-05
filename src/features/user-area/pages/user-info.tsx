@@ -175,137 +175,129 @@ export function UserInfoPage() {
                   className="space-y-4"
                   onSubmit={form.handleSubmit(onSubmit)}
                 >
-                  <FormField
-                    control={form.control}
-                    name="name"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-foreground/80 block text-lg font-medium">
-                          Nome
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-foreground/80 block text-lg font-medium">
-                          E-mail
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="phone"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-foreground/80 block text-lg font-medium">
-                          Telefone/Celular
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="documentType"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-foreground/80 block text-lg font-medium">
-                          Tipo de Pessoa
-                        </FormLabel>
-                        <FormControl className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
-                          <select
-                            {...field}
-                            className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
-                          >
-                            <option
+                  <div className="space-y-4">
+                    <FormField
+                      control={form.control}
+                      name="name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-foreground/80 mb-1 block text-lg font-medium">
+                            Nome
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
                               className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
-                              value="individual"
-                            >
-                              Pessoa Física
-                            </option>
-                            <option
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-foreground/80 mb-1 block text-lg font-medium">
+                            E-mail
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
                               className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
-                              value="business"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="phone"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-foreground/80 mb-1 block text-lg font-medium">
+                            Telefone/Celular
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="documentType"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-foreground/80 mb-1 block text-lg font-medium">
+                            Tipo de Pessoa
+                          </FormLabel>
+                          <FormControl>
+                            <select
+                              {...field}
+                              className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
                             >
-                              Pessoa Jurídica
-                            </option>
-                          </select>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="document"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-foreground/80 block text-lg font-medium">
-                          Documento
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="birthDate"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-foreground/80 block text-lg font-medium">
-                          Data de Nascimento
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            type="date"
-                            className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
-                            value={
-                              field.value
-                                ? new Date(field.value)
-                                    .toISOString()
-                                    .split('T')[0]
-                                : ''
-                            }
-                            onChange={(e) =>
-                              field.onChange(new Date(e.target.value))
-                            }
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                              <option value="individual">Pessoa Física</option>
+                              <option value="business">Pessoa Jurídica</option>
+                            </select>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="document"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-foreground/80 mb-1 block text-lg font-medium">
+                            Documento
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="birthDate"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-foreground/80 mb-1 block text-lg font-medium">
+                            Data de Nascimento
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              type="date"
+                              className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
+                              value={
+                                field.value
+                                  ? new Date(field.value)
+                                      .toISOString()
+                                      .split('T')[0]
+                                  : ''
+                              }
+                              onChange={(e) =>
+                                field.onChange(new Date(e.target.value))
+                              }
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
                   <div className="flex gap-4">
                     <Button
                       type="button"
