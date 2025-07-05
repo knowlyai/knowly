@@ -126,42 +126,40 @@ export function UserInfoPage() {
                   </div>
                 </div>
                 <div>
-                  <span className="text-foreground/80 text-sm font-medium">
+                  <span className="text-foreground/80 block text-lg font-medium">
                     Telefone/Celular
                   </span>
-                  <Input value={user.phone} disabled />
+                  <div className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
+                    {user.phone}
+                  </div>
                 </div>
                 <div>
-                  <span className="text-foreground/80 text-sm font-medium">
+                  <span className="text-foreground/80 block text-lg font-medium">
                     Tipo de Pessoa
                   </span>
-                  <Input
-                    value={
-                      user.documentType === 'CPF'
-                        ? 'Pessoa Física'
-                        : 'Pessoa Jurídica'
-                    }
-                    disabled
-                  />
+                  <div className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
+                    {user.documentType === 'CPF'
+                      ? 'Pessoa Física'
+                      : 'Pessoa Jurídica'}
+                  </div>
                 </div>
                 <div>
-                  <span className="text-foreground/80 text-sm font-medium">
+                  <span className="text-foreground/80 block text-lg font-medium">
                     Documento
                   </span>
-                  <Input value={user.document} disabled />
+                  <div className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
+                    {user.document}
+                  </div>
                 </div>
                 <div>
-                  <span className="text-foreground/80 text-sm font-medium">
+                  <span className="text-foreground/80 block text-lg font-medium">
                     Data de Nascimento
                   </span>
-                  <Input
-                    value={
-                      user.birthDate
-                        ? user.birthDate.toLocaleDateString('pt-BR')
-                        : user.birthDate
-                    }
-                    disabled
-                  />
+                  <div className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
+                    {user.birthDate
+                      ? user.birthDate.toLocaleDateString('pt-BR')
+                      : user.birthDate}
+                  </div>
                 </div>
                 <Button
                   type="button"
@@ -182,7 +180,7 @@ export function UserInfoPage() {
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
+                        <FormLabel className="text-foreground/80 block text-lg font-medium">
                           Nome
                         </FormLabel>
                         <FormControl>
@@ -200,7 +198,7 @@ export function UserInfoPage() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
+                        <FormLabel className="text-foreground/80 block text-lg font-medium">
                           E-mail
                         </FormLabel>
                         <FormControl>
@@ -218,8 +216,8 @@ export function UserInfoPage() {
                     name="phone"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
-                          Telefone
+                        <FormLabel className="text-foreground/80 block text-lg font-medium">
+                          Telefone/Celular
                         </FormLabel>
                         <FormControl>
                           <Input
@@ -236,16 +234,26 @@ export function UserInfoPage() {
                     name="documentType"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
+                        <FormLabel className="text-foreground/80 block text-lg font-medium">
                           Tipo de Pessoa
                         </FormLabel>
-                        <FormControl>
+                        <FormControl className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
                           <select
                             {...field}
                             className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
                           >
-                            <option value="individual">Pessoa Física</option>
-                            <option value="business">Pessoa Jurídica</option>
+                            <option
+                              className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
+                              value="individual"
+                            >
+                              Pessoa Física
+                            </option>
+                            <option
+                              className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
+                              value="business"
+                            >
+                              Pessoa Jurídica
+                            </option>
                           </select>
                         </FormControl>
                         <FormMessage />
@@ -257,9 +265,14 @@ export function UserInfoPage() {
                     name="document"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Documento</FormLabel>
+                        <FormLabel className="text-foreground/80 block text-lg font-medium">
+                          Documento
+                        </FormLabel>
                         <FormControl>
-                          <Input {...field} />
+                          <Input
+                            {...field}
+                            className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -270,10 +283,13 @@ export function UserInfoPage() {
                     name="birthDate"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Data de Nascimento</FormLabel>
+                        <FormLabel className="text-foreground/80 block text-lg font-medium">
+                          Data de Nascimento
+                        </FormLabel>
                         <FormControl>
                           <Input
                             type="date"
+                            className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
                             value={
                               field.value
                                 ? new Date(field.value)
