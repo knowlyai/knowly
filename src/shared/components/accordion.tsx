@@ -76,7 +76,7 @@ export const AccordionItem = React.forwardRef<
 AccordionItem.displayName = 'AccordionItem'
 
 export type AccordionProps = {
-  children: React.ReactElement<AccordionItemProps>[]
+  children: React.ReactNode<AccordionItemProps>[]
   className?: string
 }
 
