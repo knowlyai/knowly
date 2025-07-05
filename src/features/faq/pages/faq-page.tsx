@@ -23,7 +23,7 @@ const faqSections = [
         title: 'Administrar e cancelar planos de assinatura',
         description:
           'Pagar, gerenciar o uso, alterar ou cancelar planos de assinatura.',
-        link: '/subscription-management'
+        link: '/subscription-management' //Adicionar página tutorial?
       },
       {
         icon: <RefreshCw className="h-6 w-6" />,
@@ -54,7 +54,7 @@ const faqSections = [
         title: 'Gerenciar documentos',
         description:
           'Consultar, visualizar, adicionar ou excluir os documentos das minhas bases.',
-        link: '/faq/bases/documents'
+        link: '/faq/bases/documents' //Adicionar página tutorial ou direcionar para página de bases do usuário?
       },
       {
         icon: <HelpCircle className="h-6 w-6" />,
@@ -71,13 +71,13 @@ const faqSections = [
         icon: <User className="h-6 w-6" />,
         title: 'Perfil',
         description: '',
-        link: '/faq/account/profile'
+        link: '/user-info' //Adicionar página tutorial?
       },
       {
         icon: <HelpCircle className="h-6 w-6" />,
         title: 'Segurança e acesso à conta',
         description: '',
-        link: '/faq/account/access'
+        link: '/user-info' //Adicionar página tutorial sobre alteração de senha e 2FA?
       }
     ]
   },
