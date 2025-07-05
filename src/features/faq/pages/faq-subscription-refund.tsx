@@ -31,6 +31,21 @@ export function FAQSubscriptionRefundPage() {
     <Background className="relative isolate overflow-hidden py-24">
       <BackgroundBlobs />
       <Layout>
+        <div className="mx-auto mb-8 flex w-full max-w-2xl">
+          <div className="text-muted-foreground flex items-center gap-2 text-sm">
+            <a href="/faq" className="text-primary font-medium hover:underline">
+              FAQ
+            </a>
+            <span className="mx-1">{'>'}</span>
+            <span className="text-foreground font-semibold">Estorno</span>
+          </div>
+        </div>
+        <motion.section
+          className="mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        ></motion.section>
         <motion.section
           className="mb-16"
           initial={{ opacity: 0, y: 20 }}
