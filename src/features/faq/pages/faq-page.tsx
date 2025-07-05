@@ -29,13 +29,13 @@ const faqSections = [
         icon: <RefreshCw className="h-6 w-6" />,
         title: 'Devoluções e reembolsos',
         description: 'Devolver valor pago ou consultar condições de extorno.',
-        link: '/faq/planos/devolucoes'
+        link: '/faq/subscription/refund'
       },
       {
         icon: <HelpCircle className="h-6 w-6" />,
         title: 'Perguntas frequentes sobre planos e assinaturas',
         description: 'Outras dúvidas sobre planos e assinaturas.',
-        link: '/faq/planos/perguntas'
+        link: '/faq/subscription/others'
       }
     ]
   },
@@ -47,20 +47,20 @@ const faqSections = [
         title: 'Criação de novas bases',
         description:
           'Quais as formas e como é o processo de criação de bases de conhecimento.',
-        link: '/faq/bases/criacao'
+        link: '/faq/bases/create'
       },
       {
         icon: <FileCog className="h-6 w-6" />,
         title: 'Gerenciar documentos',
         description:
           'Consultar, visualizar, adicionar ou excluir os documentos das minhas bases.',
-        link: '/faq/bases/documentos'
+        link: '/faq/bases/documents'
       },
       {
         icon: <HelpCircle className="h-6 w-6" />,
         title: 'Perguntas frequentes sobre bases de conhecimento',
         description: 'Outras dúvidas sobre bases de conhecimento.',
-        link: '/faq/bases/perguntas'
+        link: '/faq/bases/others'
       }
     ]
   },
@@ -71,13 +71,13 @@ const faqSections = [
         icon: <User className="h-6 w-6" />,
         title: 'Perfil',
         description: '',
-        link: '/faq/conta/perfil'
+        link: '/faq/account/profile'
       },
       {
         icon: <HelpCircle className="h-6 w-6" />,
         title: 'Segurança e acesso à conta',
         description: '',
-        link: '/faq/conta/seguranca'
+        link: '/faq/account/access'
       }
     ]
   },
@@ -88,7 +88,7 @@ const faqSections = [
         icon: <Handshake className="h-6 w-6" />,
         title: 'Fale conosco',
         description: 'Formas de entrar em contato com o suporte.',
-        link: '/faq/contato'
+        link: '/faq/contact'
       }
     ]
   }
