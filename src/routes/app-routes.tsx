@@ -8,6 +8,7 @@ import { FAQSubscriptionRefundPage } from '@/features/faq/pages/faq-subscription
 import { FAQSubscriptionOthersPage } from '@/features/faq/pages/faq-subscription-others'
 import { FAQBasesCreatePage } from '@/features/faq/pages/faq-bases-create'
 import { FAQBasesOthersPage } from '@/features/faq/pages/faq-bases-others'
+import { FAQContactPage } from '@/features/faq/pages/faq-contact'
 import { Page } from '@/shared/components/page'
 import { Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
@@ -33,6 +34,7 @@ export function AppRoutes() {
           />
           <Route path="/faq/bases/create" element={<FAQBasesCreatePage />} />
           <Route path="/faq/bases/others" element={<FAQBasesOthersPage />} />
+          <Route path="/faq/contact" element={<FAQContactPage />} />
           <Route path="*" element={<HomePage />} />
         </Route>
       </Routes>
