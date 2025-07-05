@@ -40,33 +40,39 @@ export function FAQSubscriptionRefundPage() {
           <h1 className="text-foreground mb-4 text-center text-4xl font-bold">
             Política de Devolução e Estorno
           </h1>
-          <p className="text-muted-foreground mx-auto max-w-2xl text-center text-lg">
+          <p className="text-muted-foreground mx-auto mb-6 max-w-2xl text-center text-lg">
             Nossa política de devolução garante transparência e segurança para
             nossos clientes. Caso precise solicitar o estorno do valor pago,
             verifique as condições abaixo:
-            <br />
-            <br />
-            - O pedido de devolução deve ser feito através do formulário abaixo
-            em até 7 dias após a confirmação do pagamento.
-            <br />
-            - O valor será estornado utilizando o mesmo método de pagamento
-            utilizado na compra.
-            <br />
-            - O prazo para processamento do estorno pode variar conforme o
-            método de pagamento.
-            <br />- Em caso de dúvidas, utilize o formulário abaixo para entrar
-            em contato com nosso suporte.
           </p>
+          <ol className="text-muted-foreground mx-auto mb-8 flex max-w-2xl list-inside list-decimal flex-col gap-3 text-left text-lg">
+            <li>
+              O pedido de devolução deve ser feito através do formulário abaixo
+              em até 7 dias após a confirmação do pagamento.
+            </li>
+            <li>
+              O valor será estornado utilizando o mesmo método de pagamento
+              utilizado na compra.
+            </li>
+            <li>
+              O prazo para processamento do estorno pode variar conforme o
+              método de pagamento.
+            </li>
+            <li>
+              Em caso de dúvidas, utilize o formulário abaixo para entrar em
+              contato com nosso suporte.
+            </li>
+          </ol>
         </motion.section>
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <Card className="bg-card mx-auto max-w-xl">
+          <Card className="bg-card mx-auto w-2xl">
             <CardContent className="p-8">
               <h2 className="text-foreground mb-6 text-center text-2xl font-semibold">
-                Solicitar estorno
+                Solicitar estorno ou tirar dúvidas sobre estorno
               </h2>
               <form
                 className="flex flex-col gap-4"
