@@ -5,6 +5,7 @@ import { LoginPage } from '@/features/login/pages/login'
 import { SignUpPage } from '@/features/sign-up/pages/sign-up-page'
 import { FAQPage } from '@/features/faq/pages/faq-page'
 import { FAQSubscriptionRefundPage } from '@/features/faq/pages/faq-subscription-refund'
+import { FAQSubscriptionOthersPage } from '@/features/faq/pages/faq-subscription-others'
 import { Page } from '@/shared/components/page'
 import { Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
@@ -23,6 +24,10 @@ export function AppRoutes() {
           <Route
             path="/faq/subscription/refund"
             element={<FAQSubscriptionRefundPage />}
+          />
+          <Route
+            path="/faq/subscription/others"
+            element={<FAQSubscriptionOthersPage />}
           />
           <Route path="*" element={<HomePage />} />
         </Route>
