@@ -9,6 +9,17 @@ export function FAQBasesCreatePage() {
     <Background className="relative isolate overflow-hidden py-24">
       <BackgroundBlobs />
       <Layout>
+        <div className="mx-auto mb-8 w-full max-w-3xl">
+          <div className="text-muted-foreground flex items-center gap-2 text-sm">
+            <a href="/faq" className="text-primary font-medium hover:underline">
+              FAQ
+            </a>
+            <span className="mx-1">{'>'}</span>
+            <span className="text-foreground font-semibold">
+              Criar nova base
+            </span>
+          </div>
+        </div>
         <motion.h2
           className="text-foreground mb-12 text-center text-4xl font-bold sm:text-5xl"
           initial={{ opacity: 0, y: 20 }}
@@ -110,7 +121,7 @@ export function FAQBasesCreatePage() {
               <h2 className="text-foreground mb-2 text-2xl font-semibold">
                 Possíveis erros e como resolver
               </h2>
-              <ul className="text-muted-foreground flex pl-4 list-disc flex-col gap-3 text-lg">
+              <ul className="text-muted-foreground flex list-disc flex-col gap-3 pl-4 text-lg">
                 <li>
                   <b>Limite de bases atingido:</b> Você já criou o máximo de
                   bases permitido pelo seu plano.
