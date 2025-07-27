@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { Layout } from '@/shared/components/layout'
 import { motion } from 'framer-motion'
-import { BrainCircuit, User, Pencil, Save } from 'lucide-react'
-import { Sidebar, SidebarItem } from '@/shared/components/sidebar'
+import { Pencil, Save } from 'lucide-react'
 import { Button } from '@/shared/components/button'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -30,11 +29,6 @@ import {
   formatPhone
 } from '@/shared/utils/format-documents'
 
-const sidebarItems: SidebarItem[] = [
-  { label: 'Dados de cadastro', icon: <User />, key: 'dados' },
-  { label: 'Minhas bases', icon: <BrainCircuit />, key: 'bases' }
-]
-
 // Usuário simulado (como se estivesse logado)
 const mockUser: UserInfoData & { id: string } = {
   id: '1',
@@ -47,7 +41,6 @@ const mockUser: UserInfoData & { id: string } = {
 }
 
 export function UserInfoPage() {
-  const [selected, setSelected] = useState('dados')
   const [isEditing, setIsEditing] = useState(false)
   const [user, setUser] = useState(mockUser)
 
@@ -122,14 +115,6 @@ export function UserInfoPage() {
 
   return (
     <Layout className="bg-background min-h-screen min-w-screen">
-      <Sidebar
-        items={sidebarItems}
-        selected={selected}
-        setSelected={setSelected}
-        onLogout={() => {
-          /* logout logic */
-        }}
-      />
       <main className="mt-20 flex flex-1 flex-col items-center justify-center p-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

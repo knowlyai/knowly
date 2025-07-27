@@ -8,6 +8,7 @@ import { SignUpPage } from '@/features/sign-up/pages/sign-up-page'
 import { Page } from '@/shared/components/page'
 import { Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
+import { PageWithSidebar } from '@/shared/components/page-with-sidebar'
 
 export function AppRoutes() {
   return (
@@ -15,13 +16,17 @@ export function AppRoutes() {
       <Routes>
         <Route element={<Page />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/user" element={<UserInfoPage />} />
-          <Route path="/user-bases" element={<UserBasesPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/sign-up" element={<SignUpPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
+          <Route path="/user-bases" element={<UserBasesPage />} />
           <Route path="*" element={<HomePage />} />
+        </Route>
+
+        <Route element={<PageWithSidebar />}>
+          <Route path="/user" element={<UserInfoPage />} />
+          <Route path="/bases" element={<UserBasesPage />} />
         </Route>
       </Routes>
     </Suspense>
