@@ -22,33 +22,34 @@ export function AppRoutes() {
     <Suspense>
       <Routes>
         <Route element={<Page />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/sign-up" element={<SignUpPage />} />
-          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-          <Route path="/reset-password" element={<ResetPasswordPage />} />
-          <Route path="/faq" element={<FAQPage />} />
-          <Route
-            path="/faq/subscription/refund"
-            element={<FAQSubscriptionRefundPage />}
-          />
-          <Route
-            path="/faq/subscription/others"
-            element={<FAQSubscriptionOthersPage />}
-          />
-          <Route path="/faq/bases/create" element={<FAQBasesCreatePage />} />
-          <Route path="/faq/bases/others" element={<FAQBasesOthersPage />} />
-          <Route path="/faq/contact" element={<FAQContactPage />} />
+          <Route index element={<HomePage />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="sign-up" element={<SignUpPage />} />
+          <Route path="forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="reset-password" element={<ResetPasswordPage />} />
+
+          <Route path="faq">
+            <Route index element={<FAQPage />} />
+
+            <Route path="subscription">
+              <Route path="refund" element={<FAQSubscriptionRefundPage />} />
+              <Route path="others" element={<FAQSubscriptionOthersPage />} />
+            </Route>
+
+            <Route path="bases">
+              <Route path="create" element={<FAQBasesCreatePage />} />
+              <Route path="others" element={<FAQBasesOthersPage />} />
+            </Route>
+
+            <Route path="contact" element={<FAQContactPage />} />
+          </Route>
           <Route path="*" element={<HomePage />} />
         </Route>
 
         <Route element={<PageWithSidebar />}>
-          <Route path="/user" element={<UserInfoPage />} />
-          <Route path="/bases" element={<UserBasesPage />} />
-          <Route
-            path="/subscription"
-            element={<SubscriptionManagementPage />}
-          />
+          <Route path="user" element={<UserInfoPage />} />
+          <Route path="bases" element={<UserBasesPage />} />
+          <Route path="subscription" element={<SubscriptionManagementPage />} />
         </Route>
       </Routes>
     </Suspense>
