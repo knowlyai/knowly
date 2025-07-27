@@ -1,12 +1,10 @@
 import { Background } from '@/shared/components/background'
 import { BackgroundBlobs } from '@/shared/components/background-blobs'
 import { useState, useMemo } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Layout } from '@/shared/components/layout'
 import { motion } from 'framer-motion'
 import {
-  BrainCircuit,
-  User,
   ArrowUpDown,
   ArrowDownAZ,
   ArrowUpAZ,
@@ -15,7 +13,6 @@ import {
   MessageCircle,
   Plus
 } from 'lucide-react'
-import { Sidebar, SidebarItem } from '@/shared/components/sidebar'
 import { Input } from '@/shared/components/input'
 import { Button } from '@/shared/components/button'
 import {
@@ -26,12 +23,6 @@ import {
   CardDescription
 } from '@/shared/components/card'
 import clsx from 'clsx'
-
-// Sidebar items
-const sidebarItems: SidebarItem[] = [
-  { label: 'Dados de cadastro', icon: <User />, key: 'dados' },
-  { label: 'Minhas bases', icon: <BrainCircuit />, key: 'bases' }
-]
 
 // Mock data for demonstration
 const mockBases = [
@@ -68,19 +59,10 @@ type OrderBy = 'name' | 'createdAt' | 'updatedAt'
 type OrderDirection = 'asc' | 'desc'
 
 export function UserBasesPage() {
-  const { userId } = useParams<{ userId: string }>()
   const navigate = useNavigate()
-  const selected = 'bases'
-
   const [search, setSearch] = useState('')
   const [orderBy, setOrderBy] = useState<OrderBy>('name')
   const [orderDirection, setOrderDirection] = useState<OrderDirection>('asc')
-
-  function handleSidebarSelect(key: string) {
-    if (key === 'dados') {
-      navigate(`/user-info/${userId}`)
-    }
-  }
 
   function handleOrderChange(field: OrderBy) {
     if (orderBy === field) {
@@ -120,12 +102,6 @@ export function UserBasesPage() {
     <Background className="relative isolate overflow-hidden">
       <BackgroundBlobs />
       <Layout className="bg-background min-h-screen min-w-screen">
-        <Sidebar
-          items={sidebarItems}
-          selected={selected}
-          setSelected={handleSidebarSelect}
-        />
-        {/*Após merge com user-info, verificar se estão alinhadas com mesma marge à esquerda*/}
         <main className="justify-top mt-20 flex w-full flex-1 flex-col items-center p-12 pl-80">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -134,9 +110,6 @@ export function UserBasesPage() {
             className="w-full max-w-5xl"
           >
             <section>
-              <h1 className="text-foreground mb-6 text-center text-4xl font-semibold drop-shadow-xl sm:text-6xl">
-                Minhas bases
-              </h1>
               <div className="mb-8 flex w-full flex-col gap-4">
                 <div className="flex w-full flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                   <div className="flex w-full max-w-md gap-2">
