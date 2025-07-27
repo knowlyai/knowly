@@ -15,7 +15,7 @@ export function AppRoutes() {
       <Routes>
         <Route element={<Page />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/user-info" element={<UserInfoPage />} />
+          <Route path="/user" element={<UserInfoPage />} />
           <Route path="/user-bases" element={<UserBasesPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/sign-up" element={<SignUpPage />} />
