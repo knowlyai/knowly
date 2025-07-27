@@ -5,6 +5,7 @@ import { ForgotPasswordPage } from '@/features/forgot-password/pages/forgot-pass
 import { ResetPasswordPage } from '@/features/reset-password/pages/reset-password'
 import { LoginPage } from '@/features/login/pages/login'
 import { SignUpPage } from '@/features/sign-up/pages/sign-up-page'
+import { SubscriptionManagementPage } from '@/features/user-area/pages/subscription-management'
 import { Page } from '@/shared/components/page'
 import { Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
@@ -20,13 +21,16 @@ export function AppRoutes() {
           <Route path="/sign-up" element={<SignUpPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
-          <Route path="/user-bases" element={<UserBasesPage />} />
           <Route path="*" element={<HomePage />} />
         </Route>
 
         <Route element={<PageWithSidebar />}>
           <Route path="/user" element={<UserInfoPage />} />
           <Route path="/bases" element={<UserBasesPage />} />
+          <Route
+            path="/subscription"
+            element={<SubscriptionManagementPage />}
+          />
         </Route>
       </Routes>
     </Suspense>

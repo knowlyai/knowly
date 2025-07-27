@@ -1,5 +1,4 @@
 import { Background } from '@/shared/components/background'
-import { BackgroundBlobs } from '@/shared/components/background-blobs'
 import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Layout } from '@/shared/components/layout'
@@ -99,136 +98,126 @@ export function UserBasesPage() {
   }, [search, orderBy, orderDirection])
 
   return (
-    <Background className="relative isolate overflow-hidden">
-      <BackgroundBlobs />
-      <Layout className="bg-background min-h-screen min-w-screen">
-        <main className="justify-top mt-20 flex w-full flex-1 flex-col items-center p-12 pl-80">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="w-full max-w-5xl"
-          >
-            <section>
-              <div className="mb-8 flex w-full flex-col gap-4">
-                <div className="flex w-full flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                  <div className="flex w-full max-w-md gap-2">
-                    <Input
-                      placeholder="Buscar base pelo nome..."
-                      value={search}
-                      onChange={(e) => setSearch(e.target.value)}
-                      className="text-foreground border-primary focus:border-primary w-full ring-0"
+    <Background className="min-h-full">
+      <Layout className="h-full w-full justify-start pt-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="mb-8 flex w-full flex-col gap-4">
+            <div className="flex w-full flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex w-full max-w-md gap-2">
+                <Input
+                  placeholder="Buscar base pelo nome..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="text-foreground border-primary focus:border-primary w-full ring-0"
+                />
+                <Button
+                  variant="secondary"
+                  className="whitespace-nowrap"
+                  onClick={() => {
+                    navigate('/create-knowladge-base') // Ajustar o caminho ou ação, se necessário
+                  }}
+                >
+                  <Plus className="h-4 w-4" />
+                  Nova base
+                </Button>
+              </div>
+              <div className="flex gap-2">
+                <Button
+                  type="button"
+                  variant="secondary"
+                  onClick={() => handleOrderChange('name')}
+                  className="flex items-center gap-2"
+                >
+                  Nome
+                  {orderBy === 'name' &&
+                    (orderDirection === 'asc' ? (
+                      <ArrowDownAZ className="h-4 w-4" />
+                    ) : (
+                      <ArrowUpAZ className="h-4 w-4" />
+                    ))}
+                </Button>
+                <Button
+                  type="button"
+                  variant="secondary"
+                  onClick={() => handleOrderChange('createdAt')}
+                  className="flex items-center gap-2"
+                >
+                  Criação
+                  {orderBy === 'createdAt' && (
+                    <ArrowUpDown
+                      className={clsx(
+                        'h-4 w-4',
+                        orderDirection === 'asc' ? 'rotate-180' : ''
+                      )}
                     />
-                    <Button
-                      variant="secondary"
-                      className="whitespace-nowrap"
-                      onClick={() => {
-                        navigate('/create-knowladge-base') // Ajustar o caminho ou ação, se necessário
-                      }}
-                    >
-                      <Plus className="h-4 w-4" />
-                      Nova base
-                    </Button>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button
-                      type="button"
-                      variant="secondary"
-                      onClick={() => handleOrderChange('name')}
-                      className="flex items-center gap-2"
-                    >
-                      Nome
-                      {orderBy === 'name' &&
-                        (orderDirection === 'asc' ? (
-                          <ArrowDownAZ className="h-4 w-4" />
-                        ) : (
-                          <ArrowUpAZ className="h-4 w-4" />
-                        ))}
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="secondary"
-                      onClick={() => handleOrderChange('createdAt')}
-                      className="flex items-center gap-2"
-                    >
-                      Criação
-                      {orderBy === 'createdAt' && (
-                        <ArrowUpDown
-                          className={clsx(
-                            'h-4 w-4',
-                            orderDirection === 'asc' ? 'rotate-180' : ''
-                          )}
-                        />
+                  )}
+                </Button>
+                <Button
+                  type="button"
+                  variant="secondary"
+                  onClick={() => handleOrderChange('updatedAt')}
+                  className="flex items-center gap-2"
+                >
+                  Última alteração
+                  {orderBy === 'updatedAt' && (
+                    <ArrowUpDown
+                      className={clsx(
+                        'h-4 w-4',
+                        orderDirection === 'asc' ? 'rotate-180' : ''
                       )}
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="secondary"
-                      onClick={() => handleOrderChange('updatedAt')}
-                      className="flex items-center gap-2"
-                    >
-                      Última alteração
-                      {orderBy === 'updatedAt' && (
-                        <ArrowUpDown
-                          className={clsx(
-                            'h-4 w-4',
-                            orderDirection === 'asc' ? 'rotate-180' : ''
-                          )}
-                        />
-                      )}
-                    </Button>
-                  </div>
-                </div>
+                    />
+                  )}
+                </Button>
               </div>
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-                {filteredBases.length === 0 && (
-                  <div className="text-muted-foreground col-span-full py-12 text-center">
-                    Nenhuma base encontrada.
-                  </div>
-                )}
-                {filteredBases.map((base) => (
-                  <Card
-                    key={base.id}
-                    className="hover:bg-muted cursor-pointer transition-shadow hover:shadow-lg"
-                    onClick={() => navigate(`/bases/${base.id}`)}
-                  >
-                    <CardHeader>
-                      <CardTitle className="truncate">{base.name}</CardTitle>
-                      <CardDescription>
-                        Criada em {base.createdAt.toLocaleDateString('pt-BR')}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-2">
-                      <div className="flex items-center gap-2 text-sm">
-                        <FileText className="text-primary h-4 w-4" />
-                        <span>
-                          {base.filesCount} arquivo
-                          {base.filesCount !== 1 && 's'} ({base.filesSizeMB} MB)
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm">
-                        <Calendar className="text-primary h-4 w-4" />
-                        <span>
-                          Última modificação:{' '}
-                          {base.updatedAt.toLocaleDateString('pt-BR')}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm">
-                        <MessageCircle className="text-primary h-4 w-4" />
-                        <span>
-                          Créditos de chat usados: {base.chatCreditsUsed}
-                        </span>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
+            </div>
+          </div>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {filteredBases.length === 0 && (
+              <div className="text-muted-foreground col-span-full py-12 text-center">
+                Nenhuma base encontrada.
               </div>
-            </section>
-          </motion.div>
-        </main>
+            )}
+            {filteredBases.map((base) => (
+              <Card
+                key={base.id}
+                className="hover:bg-muted cursor-pointer transition-shadow hover:shadow-lg"
+                onClick={() => navigate(`/bases/${base.id}`)}
+              >
+                <CardHeader>
+                  <CardTitle className="truncate">{base.name}</CardTitle>
+                  <CardDescription>
+                    Criada em {base.createdAt.toLocaleDateString('pt-BR')}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  <div className="flex items-center gap-2 text-sm">
+                    <FileText className="text-primary h-4 w-4" />
+                    <span>
+                      {base.filesCount} arquivo
+                      {base.filesCount !== 1 && 's'} ({base.filesSizeMB} MB)
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm">
+                    <Calendar className="text-primary h-4 w-4" />
+                    <span>
+                      Última modificação:{' '}
+                      {base.updatedAt.toLocaleDateString('pt-BR')}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm">
+                    <MessageCircle className="text-primary h-4 w-4" />
+                    <span>Créditos de chat usados: {base.chatCreditsUsed}</span>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </motion.div>
       </Layout>
     </Background>
   )
 }
-
-export default UserBasesPage

@@ -27,8 +27,8 @@ const plans = [
     title: 'Pessoal',
     price: 'R$ 25',
     features: [
-      '2 Bases de Conhecimento',
-      'Ambiente de Testes',
+      '2 Bases de conhecimento',
+      'Ambiente de testes',
       'Um modelo de IA'
     ],
     buttonText: 'Começar'
@@ -37,8 +37,8 @@ const plans = [
     title: 'Profissional',
     price: 'R$ 50',
     features: [
-      '10 Bases de Conhecimento',
-      'Ambiente de Testes',
+      '10 Bases de conhecimento',
+      'Ambiente de testes',
       'Até 5 modelos de IA'
     ],
     buttonText: 'Começar'
@@ -47,8 +47,8 @@ const plans = [
     title: 'Empresarial',
     price: 'R$ 250',
     features: [
-      '50 Bases de Conhecimento',
-      'Ambiente de Testes',
+      '50 Bases de conhecimento',
+      'Ambiente de testes',
       'Qualquer modelo de IA disponível'
     ],
     buttonText: 'Começar'

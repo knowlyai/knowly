@@ -8,8 +8,10 @@ export function PageWithSidebar() {
     <>
       <Toaster position="bottom-right" reverseOrder={false} />
       <Navbar />
-      <Sidebar />
-      <Outlet />
+      <div className="flex h-screen w-full pt-18">
+        <Sidebar />
+        <Outlet />
+      </div>
     </>
   )
 }
