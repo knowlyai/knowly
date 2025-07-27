@@ -135,8 +135,8 @@ function LogoCarousel() {
     'https://store-images.s-microsoft.com/image/apps.22898.1ee6619e-8cd6-4c91-a459-3abe6a6cf7b3.84da202a-9b47-4a76-be2c-79f143c64050.21add500-ed5b-42ee-b87d-ee415ae071fc',
     'https://play-lh.googleusercontent.com/d2zqBFBEymSZKaVg_dRo1gh3hBFn7_Kl9rO74xkDmnJeLgDW0MoJD3cUx0QzZN6jdsg=w240-h480-rw',
     'https://t2.tudocdn.net/716766?w=824&h=494',
-    'https://www.stickersdevs.com.br/wp-content/uploads/2021/03/amazon-logo-sticker-adesivo-devs.jpg',
-    'https://iguatemi.com.br/saopaulo/sites/saopaulo/files/2021-10/mistral.jpg'
+    'https://static.vecteezy.com/system/resources/previews/019/136/322/non_2x/amazon-logo-amazon-icon-free-free-vector.jpg',
+    'https://azure.microsoft.com/en-us/blog/wp-content/uploads/2024/02/MSFT_Azure_FEB12_319938_Blog_BlogHeader_240226_600x600_V1.jpg'
   ]
   const allLogos = [...logos, ...logos, ...logos, ...logos]
   return (
@@ -166,7 +166,7 @@ function LogoCarousel() {
               src={logo}
               alt="Bedrock model logo"
               draggable={false}
-              className="h-26 w-26 rounded-md object-cover shadow-lg select-none"
+              className="h-26 w-26 rounded-md bg-white object-cover shadow-lg select-none"
             />
           </div>
         ))}
