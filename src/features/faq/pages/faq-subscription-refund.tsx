@@ -1,8 +1,17 @@
 import { Background } from '@/shared/components/background'
-import { BackgroundBlobs } from '@/shared/components/background-blobs'
 import { Layout } from '@/shared/components/layout'
 import { Card, CardContent } from '@/shared/components/card'
 import { Button } from '@/shared/components/button'
+import { Input } from '@/shared/components/input'
+import { Textarea } from '@/shared/components/textarea'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
+} from '@/shared/components/form'
 import { motion } from 'framer-motion'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -10,12 +19,7 @@ import { faqFormSchema, FAQFormData } from '../types/faq-form-schema'
 import toast from 'react-hot-toast'
 
 export function FAQSubscriptionRefundPage() {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors }
-  } = useForm<FAQFormData>({
+  const form = useForm<FAQFormData>({
     resolver: zodResolver(faqFormSchema),
     mode: 'onBlur'
   })
@@ -24,12 +28,11 @@ export function FAQSubscriptionRefundPage() {
     toast.success('Sua solicitação foi enviada com sucesso!', {
       duration: 5000
     })
-    reset()
+    form.reset()
   }
 
   return (
-    <Background className="relative isolate overflow-hidden py-24">
-      <BackgroundBlobs />
+    <Background className="py-24">
       <Layout>
         <div className="mx-auto mb-8 flex w-full max-w-2xl">
           <div className="text-muted-foreground flex items-center gap-2 text-sm">
@@ -41,13 +44,7 @@ export function FAQSubscriptionRefundPage() {
           </div>
         </div>
         <motion.section
-          className="mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        ></motion.section>
-        <motion.section
-          className="mb-16"
+          className="py-16"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -89,66 +86,79 @@ export function FAQSubscriptionRefundPage() {
               <h2 className="text-foreground mb-6 text-center text-2xl font-semibold">
                 Solicitar estorno ou tirar dúvidas sobre estorno
               </h2>
-              <form
-                className="flex flex-col gap-4"
-                onSubmit={handleSubmit(onSubmit)}
-                noValidate
-              >
-                <div>
-                  <input
-                    type="text"
-                    placeholder="Nome"
-                    className={`w-full rounded-md border px-4 py-2 ${errors.nome ? 'border-red-500' : ''}`}
-                    {...register('nome')}
+              <Form {...form}>
+                <form
+                  className="flex flex-col gap-4"
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  noValidate
+                >
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Nome</FormLabel>
+                        <FormControl>
+                          <Input placeholder="João Silva" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                  {errors.nome && (
-                    <span className="mt-1 block text-xs font-semibold text-red-600">
-                      {errors.nome.message}
-                    </span>
-                  )}
-                </div>
-                <div>
-                  <input
-                    type="email"
-                    placeholder="E-mail"
-                    className={`w-full rounded-md border px-4 py-2 ${errors.email ? 'border-red-500' : ''}`}
-                    {...register('email')}
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>E-mail</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="email"
+                            placeholder="joao.silva@email.com"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                  {errors.email && (
-                    <span className="mt-1 block text-xs font-semibold text-red-600">
-                      {errors.email.message}
-                    </span>
-                  )}
-                </div>
-                <div>
-                  <input
-                    type="text"
-                    placeholder="Assunto"
-                    className={`w-full rounded-md border px-4 py-2 ${errors.assunto ? 'border-red-500' : ''}`}
-                    {...register('assunto')}
+                  <FormField
+                    control={form.control}
+                    name="subject"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Assunto</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Preciso de ajuda com estorno do meu cartão"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                  {errors.assunto && (
-                    <span className="mt-1 block text-xs font-semibold text-red-600">
-                      {errors.assunto.message}
-                    </span>
-                  )}
-                </div>
-                <div>
-                  <textarea
-                    placeholder="Descreva sua solicitação"
-                    className={`min-h-[100px] w-full resize-y rounded-md border px-4 py-2 ${errors.mensagem ? 'border-red-500' : ''}`}
-                    {...register('mensagem')}
+                  <FormField
+                    control={form.control}
+                    name="message"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Mensagem</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            placeholder="Descreva sua solicitação"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                  {errors.mensagem && (
-                    <span className="mt-1 block text-xs font-semibold text-red-600">
-                      {errors.mensagem.message}
-                    </span>
-                  )}
-                </div>
-                <Button type="submit" className="mt-2 w-full">
-                  Enviar
-                </Button>
-              </form>
+                  <Button type="submit" className="mt-2 w-full">
+                    Enviar
+                  </Button>
+                </form>
+              </Form>
             </CardContent>
           </Card>
         </motion.section>
