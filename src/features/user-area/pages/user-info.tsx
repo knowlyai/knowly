@@ -16,6 +16,19 @@ import {
   FormMessage
 } from '@/shared/components/form'
 import { Input } from '@/shared/components/input'
+import { Label } from '@/shared/components/label'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger
+} from '@/shared/components/tooltip'
+import { DOCUMENT_TYPE } from '@/shared/enums/document-type'
+import {
+  formatCNPJ,
+  formatCPF,
+  formatPhone
+} from '@/shared/utils/format-documents'
 
 const sidebarItems: SidebarItem[] = [
   { label: 'Dados de cadastro', icon: <User />, key: 'dados' },
@@ -23,14 +36,14 @@ const sidebarItems: SidebarItem[] = [
 ]
 
 // Usuário simulado (como se estivesse logado)
-const mockUser = {
+const mockUser: UserInfoData & { id: string } = {
   id: '1',
   name: 'Maria da Silva',
   email: 'maria@email.com',
-  documentType: 'CPF',
-  phone: '11912345678',
+  documentType: DOCUMENT_TYPE.INDIVIDUAL,
+  phone: formatPhone('11912345678'),
   document: '234.781.938-47',
-  birthDate: new Date('2001-08-09')
+  birthDate: new Date(2001, 7, 12) // Começa no mês 0
 }
 
 export function UserInfoPage() {
@@ -38,13 +51,37 @@ export function UserInfoPage() {
   const [isEditing, setIsEditing] = useState(false)
   const [user, setUser] = useState(mockUser)
 
+  const handleCPFChange = (
+    value: string,
+    onChange: (value: string) => void
+  ) => {
+    const formattedValue = formatCPF(value)
+    onChange(formattedValue)
+  }
+
+  const handleCNPJChange = (
+    value: string,
+    onChange: (value: string) => void
+  ) => {
+    const formattedValue = formatCNPJ(value)
+    onChange(formattedValue)
+  }
+
+  const handlePhoneChange = (
+    value: string,
+    onChange: (value: string) => void
+  ) => {
+    const formattedValue = formatPhone(value)
+    onChange(formattedValue)
+  }
+
   const form = useForm<UserInfoData>({
     resolver: zodResolver(userInfoSchema),
     defaultValues: {
       name: user.name,
       email: user.email,
       phone: user.phone,
-      documentType: user.documentType === 'CPF' ? 'individual' : 'business',
+      documentType: user.documentType,
       document: user.document,
       birthDate: user.birthDate
     },
@@ -57,7 +94,7 @@ export function UserInfoPage() {
       name: user.name,
       email: user.email,
       phone: user.phone,
-      documentType: user.documentType === 'CPF' ? 'individual' : 'business',
+      documentType: user.documentType,
       document: user.document,
       birthDate: user.birthDate
     })
@@ -69,7 +106,7 @@ export function UserInfoPage() {
       name: user.name,
       email: user.email,
       phone: user.phone,
-      documentType: user.documentType === 'CPF' ? 'individual' : 'business',
+      documentType: user.documentType,
       document: user.document,
       birthDate: user.birthDate
     })
@@ -78,8 +115,7 @@ export function UserInfoPage() {
   function onSubmit(data: UserInfoData) {
     setUser({
       ...user,
-      ...data,
-      documentType: data.documentType === 'individual' ? 'CPF' : 'CNPJ'
+      ...data
     })
     setIsEditing(false)
   }
@@ -94,7 +130,7 @@ export function UserInfoPage() {
           /* logout logic */
         }}
       />
-      <main className="mt-24 flex flex-1 flex-col items-center justify-center p-12">
+      <main className="mt-20 flex flex-1 flex-col items-center justify-center p-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -102,64 +138,51 @@ export function UserInfoPage() {
           className="w-full max-w-xl"
         >
           <section>
-            <h1 className="text-foreground mb-6 text-center text-4xl font-semibold drop-shadow-xl sm:text-6xl">
+            <h1 className="text-foreground mb-6 text-center text-2xl font-semibold drop-shadow-xl sm:text-5xl">
               Dados de cadastro
             </h1>
             {!isEditing ? (
               <div className="space-y-4">
                 <div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-foreground/80 block text-lg font-medium">
-                      Nome
-                    </span>
-                  </div>
-                  <div className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
-                    {user.name}
-                  </div>
+                  <Label>Nome</Label>
+                  <Input value={user.name} disabled />
                 </div>
                 <div>
-                  <span className="text-foreground/80 block text-lg font-medium">
-                    E-mail
-                  </span>
-                  <div className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
-                    {user.email}
-                  </div>
+                  <Label>E-mail</Label>
+                  <Input value={user.email} disabled />
                 </div>
                 <div>
-                  <span className="text-foreground/80 block text-lg font-medium">
-                    Telefone/Celular
-                  </span>
-                  <div className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
-                    {user.phone}
-                  </div>
+                  <Label>Telefone/Celular</Label>
+                  <Input value={user.phone} disabled />
                 </div>
                 <div>
-                  <span className="text-foreground/80 block text-lg font-medium">
-                    Tipo de Pessoa
-                  </span>
-                  <div className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
-                    {user.documentType === 'CPF'
-                      ? 'Pessoa Física'
-                      : 'Pessoa Jurídica'}
-                  </div>
+                  <Label>Tipo de Pessoa</Label>
+                  <Input
+                    value={
+                      user.documentType === DOCUMENT_TYPE.INDIVIDUAL
+                        ? 'Pessoa física'
+                        : 'Pessoa jurídica'
+                    }
+                    disabled
+                  />
                 </div>
                 <div>
-                  <span className="text-foreground/80 block text-lg font-medium">
-                    Documento
-                  </span>
-                  <div className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
-                    {user.document}
-                  </div>
+                  <Label>Documento</Label>
+                  <Input
+                    value={
+                      user.documentType === DOCUMENT_TYPE.INDIVIDUAL
+                        ? formatCPF(user.document)
+                        : formatCNPJ(user.document)
+                    }
+                    disabled
+                  />
                 </div>
                 <div>
-                  <span className="text-foreground/80 block text-lg font-medium">
-                    Data de Nascimento
-                  </span>
-                  <div className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl">
-                    {user.birthDate
-                      ? user.birthDate.toLocaleDateString('pt-BR')
-                      : user.birthDate}
-                  </div>
+                  <Label>Data de Nascimento</Label>
+                  <Input
+                    value={user.birthDate?.toLocaleDateString('pt-BR')}
+                    disabled
+                  />
                 </div>
                 <Button
                   type="button"
@@ -170,25 +193,20 @@ export function UserInfoPage() {
                 </Button>
               </div>
             ) : (
-              <Form {...form}>
-                <form
-                  className="space-y-4"
-                  onSubmit={form.handleSubmit(onSubmit)}
-                >
-                  <div className="space-y-4">
+              <TooltipProvider>
+                <Form {...form}>
+                  <form
+                    className="space-y-4"
+                    onSubmit={form.handleSubmit(onSubmit)}
+                  >
                     <FormField
                       control={form.control}
                       name="name"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-foreground/80 mb-1 block text-lg font-medium">
-                            Nome
-                          </FormLabel>
+                          <FormLabel>Nome</FormLabel>
                           <FormControl>
-                            <Input
-                              {...field}
-                              className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
-                            />
+                            <Input {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -199,14 +217,9 @@ export function UserInfoPage() {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-foreground/80 mb-1 block text-lg font-medium">
-                            E-mail
-                          </FormLabel>
+                          <FormLabel>E-mail</FormLabel>
                           <FormControl>
-                            <Input
-                              {...field}
-                              className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
-                            />
+                            <Input {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -217,13 +230,16 @@ export function UserInfoPage() {
                       name="phone"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-foreground/80 mb-1 block text-lg font-medium">
-                            Telefone/Celular
-                          </FormLabel>
+                          <FormLabel>Telefone/Celular</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
-                              className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-6xl"
+                              onChange={(e) =>
+                                handlePhoneChange(
+                                  e.target.value,
+                                  field.onChange
+                                )
+                              }
                             />
                           </FormControl>
                           <FormMessage />
@@ -233,19 +249,26 @@ export function UserInfoPage() {
                     <FormField
                       control={form.control}
                       name="documentType"
-                      render={({ field }) => (
+                      render={({ field: _ }) => (
                         <FormItem>
-                          <FormLabel className="text-foreground/80 mb-1 block text-lg font-medium">
-                            Tipo de Pessoa
-                          </FormLabel>
+                          <FormLabel>Tipo de Pessoa</FormLabel>
                           <FormControl>
-                            <select
-                              {...field}
-                              className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-base"
-                            >
-                              <option value="individual">Pessoa Física</option>
-                              <option value="business">Pessoa Jurídica</option>
-                            </select>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Input
+                                  value={
+                                    user.documentType ===
+                                    DOCUMENT_TYPE.INDIVIDUAL
+                                      ? 'Pessoa física'
+                                      : 'Pessoa jurídica'
+                                  }
+                                  disabled
+                                />
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>Não é possível alterar o tipo de pessoa</p>
+                              </TooltipContent>
+                            </Tooltip>
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -256,66 +279,78 @@ export function UserInfoPage() {
                       name="document"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-foreground/80 mb-1 block text-lg font-medium">
-                            Documento
-                          </FormLabel>
+                          <FormLabel>Documento</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
-                              className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
+                              onChange={(e) => {
+                                if (
+                                  form.getValues('documentType') ===
+                                  'individual'
+                                ) {
+                                  handleCPFChange(
+                                    e.target.value,
+                                    field.onChange
+                                  )
+                                } else {
+                                  handleCNPJChange(
+                                    e.target.value,
+                                    field.onChange
+                                  )
+                                }
+                              }}
                             />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
-                    <FormField
-                      control={form.control}
-                      name="birthDate"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-foreground/80 mb-1 block text-lg font-medium">
-                            Data de Nascimento
-                          </FormLabel>
-                          <FormControl>
-                            <Input
-                              type="date"
-                              className="border-border bg-background text-foreground/90 w-full rounded border px-3 py-2 text-xl"
-                              value={
-                                field.value
-                                  ? new Date(field.value)
-                                      .toISOString()
-                                      .split('T')[0]
-                                  : ''
-                              }
-                              onChange={(e) =>
-                                field.onChange(new Date(e.target.value))
-                              }
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                  <div className="flex gap-4">
-                    <Button
-                      type="button"
-                      variant="secondary"
-                      className="w-1/2"
-                      onClick={handleCancel}
-                    >
-                      Cancelar
-                    </Button>
-                    <Button
-                      type="submit"
-                      className="flex w-1/2 items-center justify-center gap-2"
-                    >
-                      <Save size={20} /> Salvar
-                    </Button>
-                  </div>
-                </form>
-              </Form>
+                    {user.documentType === DOCUMENT_TYPE.INDIVIDUAL && (
+                      <FormField
+                        control={form.control}
+                        name="birthDate"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Data de Nascimento</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="date"
+                                value={
+                                  field.value
+                                    ? new Date(field.value)
+                                        .toISOString()
+                                        .split('T')[0]
+                                    : ''
+                                }
+                                onChange={(e) =>
+                                  field.onChange(new Date(e.target.value))
+                                }
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    )}
+                    <div className="mt-6 flex gap-4">
+                      <Button
+                        type="button"
+                        variant="secondary"
+                        className="w-1/2"
+                        onClick={handleCancel}
+                      >
+                        Cancelar
+                      </Button>
+                      <Button
+                        type="submit"
+                        className="flex w-1/2 items-center justify-center gap-2"
+                      >
+                        <Save size={20} /> Salvar
+                      </Button>
+                    </div>
+                  </form>
+                </Form>
+              </TooltipProvider>
             )}
           </section>
         </motion.div>
