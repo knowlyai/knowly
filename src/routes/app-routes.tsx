@@ -28,7 +28,7 @@ export function AppRoutes() {
           <Route path="/user" element={<UserInfoPage />} />
           <Route path="/bases" element={<UserBasesPage />} />
           <Route
-            path="/subscriptions"
+            path="/subscription"
             element={<SubscriptionManagementPage />}
           />
         </Route>
