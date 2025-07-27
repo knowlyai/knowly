@@ -1,4 +1,6 @@
 import { HomePage } from '@/features/home/pages/home-page'
+import { UserInfoPage } from '@/features/user-area/pages/user-info'
+import { UserBasesPage } from '@/features/user-area/pages/user-bases'
 import { ForgotPasswordPage } from '@/features/forgot-password/pages/forgot-password'
 import { ResetPasswordPage } from '@/features/reset-password/pages/reset-password'
 import { LoginPage } from '@/features/login/pages/login'
@@ -7,6 +9,7 @@ import { SubscriptionManagementPage } from '@/features/user-area/pages/subscript
 import { Page } from '@/shared/components/page'
 import { Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
+import { PageWithSidebar } from '@/shared/components/page-with-sidebar'
 
 export function AppRoutes() {
   return (
@@ -18,11 +21,16 @@ export function AppRoutes() {
           <Route path="/sign-up" element={<SignUpPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
+          <Route path="*" element={<HomePage />} />
+        </Route>
+
+        <Route element={<PageWithSidebar />}>
+          <Route path="/user" element={<UserInfoPage />} />
+          <Route path="/bases" element={<UserBasesPage />} />
           <Route
-            path="/subscription-management"
+            path="/subscriptions"
             element={<SubscriptionManagementPage />}
           />
-          <Route path="*" element={<HomePage />} />
         </Route>
       </Routes>
     </Suspense>

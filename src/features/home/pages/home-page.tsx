@@ -24,22 +24,34 @@ import { Footer } from '@/features/home/components/footer'
 
 const plans = [
   {
-    title: 'Personal',
-    price: '$5',
-    features: ['2 Knowledge Bases', 'Sandbox', 'Single AI model'],
-    buttonText: 'Get Started'
+    title: 'Pessoal',
+    price: 'R$ 25',
+    features: [
+      '2 Bases de Conhecimento',
+      'Ambiente de Testes',
+      'Um modelo de IA'
+    ],
+    buttonText: 'Começar'
   },
   {
-    title: 'Professional',
-    price: '$10',
-    features: ['10 Knowledge Bases', 'Sandbox', 'Up to 5 AI models'],
-    buttonText: 'Get Started'
+    title: 'Profissional',
+    price: 'R$ 50',
+    features: [
+      '10 Bases de Conhecimento',
+      'Ambiente de Testes',
+      'Até 5 modelos de IA'
+    ],
+    buttonText: 'Começar'
   },
   {
-    title: 'Business',
-    price: '$50',
-    features: ['50 Knowledge Bases', 'Sandbox', 'Any AI model available'],
-    buttonText: 'Get Started'
+    title: 'Empresarial',
+    price: 'R$ 250',
+    features: [
+      '50 Bases de Conhecimento',
+      'Ambiente de Testes',
+      'Qualquer modelo de IA disponível'
+    ],
+    buttonText: 'Começar'
   }
 ]
 
@@ -63,8 +75,9 @@ const faqs = [
 
 const process = [
   {
-    title: 'You Upload',
-    content: 'Upload the PDF files you wish to make up the knowledge base',
+    title: 'Você envia',
+    content:
+      'Faça upload dos arquivos PDF que deseja incluir na base de conhecimento',
     image: (
       <DotLottieReact
         src="https://lottie.host/ade48407-0fab-452b-8257-6bde53c7dc0c/QXs4qptUZD.lottie"
@@ -75,8 +88,9 @@ const process = [
     )
   },
   {
-    title: 'We Build',
-    content: 'We use the files to train a Gen AI model',
+    title: 'Nós construímos',
+    content:
+      'Usamos os arquivos para construir bases de conhecimento que ampliam o conhecimento da inteligência artificial sobre determinado assunto',
     image: (
       <DotLottieReact
         src="https://lottie.host/e10d7ded-6bde-4049-afd0-1d902c61d1d2/oSwowUt9Qm.lottie"
@@ -86,8 +100,9 @@ const process = [
     )
   },
   {
-    title: 'You Enjoy',
-    content: 'After the model is done, you can try it and use it as you wish',
+    title: 'Você desfruta',
+    content:
+      'Após o modelo estar pronto, você pode testá-lo e usá-lo como desejar',
     image: (
       <DotLottieReact
         src="https://lottie.host/e84fe9c7-0ada-4dcb-a6c0-3e5ae46e1354/GgsWdQCrtV.lottie"
@@ -135,8 +150,8 @@ function LogoCarousel() {
     'https://store-images.s-microsoft.com/image/apps.22898.1ee6619e-8cd6-4c91-a459-3abe6a6cf7b3.84da202a-9b47-4a76-be2c-79f143c64050.21add500-ed5b-42ee-b87d-ee415ae071fc',
     'https://play-lh.googleusercontent.com/d2zqBFBEymSZKaVg_dRo1gh3hBFn7_Kl9rO74xkDmnJeLgDW0MoJD3cUx0QzZN6jdsg=w240-h480-rw',
     'https://t2.tudocdn.net/716766?w=824&h=494',
-    'https://www.stickersdevs.com.br/wp-content/uploads/2021/03/amazon-logo-sticker-adesivo-devs.jpg',
-    'https://iguatemi.com.br/saopaulo/sites/saopaulo/files/2021-10/mistral.jpg'
+    'https://static.vecteezy.com/system/resources/previews/019/136/322/non_2x/amazon-logo-amazon-icon-free-free-vector.jpg',
+    'https://azure.microsoft.com/en-us/blog/wp-content/uploads/2024/02/MSFT_Azure_FEB12_319938_Blog_BlogHeader_240226_600x600_V1.jpg'
   ]
   const allLogos = [...logos, ...logos, ...logos, ...logos]
   return (
@@ -164,9 +179,9 @@ function LogoCarousel() {
           <div key={idx} className="h-26 w-26 flex-shrink-0">
             <img
               src={logo}
-              alt="Bedrock model logo"
+              alt="Logo de modelo Bedrock"
               draggable={false}
-              className="h-26 w-26 rounded-md object-cover shadow-lg select-none"
+              className="h-26 w-26 rounded-md bg-white object-cover shadow-lg select-none"
             />
           </div>
         ))}
@@ -181,7 +196,7 @@ const variants = {
   visible: { filter: 'blur(0)', transform: 'translateY(0)', opacity: 1 }
 }
 
-const title = 'Think beyond with Knowly'
+const title = 'Pense além com Knowly'
 const words = title.split(' ')
 
 export function HomePage() {
@@ -215,9 +230,9 @@ export function HomePage() {
             transition={transition}
             variants={variants}
           >
-            A productivity plataform that transforms your documents into a
-            powerful, custom AI knowledge base. Stay organized, efficient, and
-            empowered.
+            Uma plataforma de produtividade que transforma seus documentos em
+            uma base de conhecimento de IA personalizada e poderosa. Mantenha-se
+            organizado, eficiente e capacitado.
           </motion.p>
 
           <motion.div
@@ -225,7 +240,7 @@ export function HomePage() {
             transition={transition}
             variants={variants}
           >
-            <Button>Get Started</Button>
+            <Button>Começar</Button>
             <a
               href="https://github.com/knowlyai/knowly"
               target="_blank"
@@ -249,7 +264,7 @@ export function HomePage() {
             transition={transition}
             variants={variants}
           >
-            How Knowly Works
+            Como o Knowly Funciona
           </motion.h1>
           <motion.div
             className="grid w-full grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3"
@@ -299,7 +314,7 @@ export function HomePage() {
             transition={transition}
             variants={variants}
           >
-            Pricing
+            Preços
           </motion.h1>
           <motion.div
             className="grid w-full max-w-7xl grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
@@ -316,7 +331,7 @@ export function HomePage() {
                   <CardTitle className="text-4xl font-extrabold">
                     {plan.price}{' '}
                     <span className="text-muted-foreground text-base font-normal">
-                      p/month
+                      p/mês
                     </span>
                   </CardTitle>
                 </CardHeader>
@@ -332,7 +347,7 @@ export function HomePage() {
                   ))}
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full">Get started</Button>
+                  <Button className="w-full">{plan.buttonText}</Button>
                 </CardFooter>
               </Card>
             ))}
