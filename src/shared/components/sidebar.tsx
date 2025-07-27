@@ -54,7 +54,7 @@ export function Sidebar() {
 
   return (
     <motion.aside
-      className={`bg-background border-border z-10 flex h-full flex-col justify-between border-r px-4 py-8 transition-all duration-300 ${
+      className={`bg-background border-border z-10 flex h-full flex-col justify-between px-4 py-8 transition-all duration-300 ${
         isCollapsed ? 'w-20' : 'w-96'
       }`}
       initial={{ opacity: 0, y: 20 }}
@@ -65,7 +65,7 @@ export function Sidebar() {
       <div className="flex flex-col gap-4">
         <Button
           variant="ghost"
-          className="hover:bg-muted/50 h-10 w-10 self-start"
+          className="hover:bg-muted/50 text-foreground h-10 w-10 self-start"
           onClick={toggleSidebar}
         >
           <Menu className="h-5 w-5" />

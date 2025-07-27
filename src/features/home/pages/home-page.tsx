@@ -384,6 +384,18 @@ export function HomePage() {
                   {faq.content}
                 </AccordionItem>
               ))}
+              <AccordionItem title="Outra dúvida?">
+                <div className="flex items-center justify-between">
+                  <span>Acesse a página completa de FAQ</span>
+                  <Button
+                    variant="outline"
+                    className="ml-4"
+                    onClick={() => (window.location.href = '/faq')}
+                  >
+                    Ir para FAQ
+                  </Button>
+                </div>
+              </AccordionItem>
             </Accordion>
           </motion.div>
         </motion.section>
