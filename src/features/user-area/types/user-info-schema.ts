@@ -70,11 +70,3 @@ export const userInfoSchema = z
   })
 
 export type UserInfoData = z.infer<typeof userInfoSchema>
-export const userInfoInitialValues: UserInfoData = {
-  name: '',
-  email: '',
-  phone: '',
-  documentType: 'individual',
-  document: '',
-  birthDate: undefined
-}
