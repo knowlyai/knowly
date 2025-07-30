@@ -25,7 +25,7 @@ export function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(() => {
     try {
       const savedCollapsed = localStorage.getItem('sidebar-collapsed')
-      return savedCollapsed ? JSON.parse(savedCollapsed) : false
+      return savedCollapsed ? JSON.parse(savedCollapsed) : true
     } catch {
       return false
     }
@@ -54,7 +54,7 @@ export function Sidebar() {
 
   return (
     <motion.aside
-      className={`bg-background border-border z-10 flex h-full flex-col justify-between px-4 py-8 transition-all duration-300 ${
+      className={`bg-background border-r-border fixed z-10 flex h-full flex-col justify-between border-1 px-4 py-8 pt-24 transition-all duration-300 ${
         isCollapsed ? 'w-20' : 'w-96'
       }`}
       initial={{ opacity: 0, y: 20 }}
@@ -62,13 +62,13 @@ export function Sidebar() {
       transition={{ duration: 0.5 }}
     >
       {/* Botão para toggle da sidebar */}
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col justify-center gap-4">
         <Button
           variant="ghost"
-          className="hover:bg-muted/50 text-foreground h-10 w-10 self-start"
+          className="hover:bg-muted/50 text-foreground self-start"
           onClick={toggleSidebar}
         >
-          <Menu className="h-5 w-5" />
+          <Menu className="" />
         </Button>
 
         <nav className="flex flex-col gap-2">
