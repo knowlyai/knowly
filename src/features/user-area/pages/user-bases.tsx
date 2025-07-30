@@ -98,8 +98,8 @@ export function UserBasesPage() {
   }, [search, orderBy, orderDirection])
 
   return (
-    <Background className="min-h-full">
-      <Layout className="h-full w-full justify-start pt-12">
+    <Background className="justify-start">
+      <Layout className="h-full w-full justify-start pt-28">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -118,7 +118,7 @@ export function UserBasesPage() {
                   variant="secondary"
                   className="whitespace-nowrap"
                   onClick={() => {
-                    navigate('/create-knowladge-base') // Ajustar o caminho ou ação, se necessário
+                    navigate('/bases/create')
                   }}
                 >
                   <Plus className="h-4 w-4" />
