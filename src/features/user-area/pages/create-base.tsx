@@ -56,21 +56,10 @@ export function CreateBase() {
     setIsSubmitting(true)
 
     try {
-      // Simular upload e processamento
-      console.log('Dados da base:', {
-        name: data.name,
-        description: data.description,
-        filesCount: data.files.length,
-        totalSize: formatFileSize(totalSize)
-      })
-
-      // Simular delay de processamento
-      await new Promise((resolve) => setTimeout(resolve, 2000))
-
-      toast.success('Base de conhecimento criada com sucesso!')
-      navigate('/bases')
+      // Navigate to pipeline page with form data
+      navigate('/bases/create/pipeline', { state: { formData: data } })
     } catch (error) {
-      toast.error('Erro ao criar base de conhecimento')
+      toast.error('Erro ao processar dados')
       console.error(error)
     } finally {
       setIsSubmitting(false)
