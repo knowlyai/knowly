@@ -17,6 +17,7 @@ import { Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { PageWithSidebar } from '@/shared/components/page-with-sidebar'
 import { CreateBase } from '@/features/user-area/pages/create-base'
+import { CreateBasePipeline } from '@/features/user-area/pages/create-base-pipeline'
 
 export function AppRoutes() {
   return (
@@ -51,6 +52,10 @@ export function AppRoutes() {
           <Route path="user" element={<UserInfoPage />} />
           <Route path="bases" element={<UserBasesPage />} />
           <Route path="bases/create" element={<CreateBase />} />
+          <Route
+            path="bases/create/pipeline"
+            element={<CreateBasePipeline />}
+          />
           <Route path="subscription" element={<SubscriptionManagementPage />} />
         </Route>
       </Routes>
