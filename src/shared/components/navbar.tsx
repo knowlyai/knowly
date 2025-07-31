@@ -77,7 +77,7 @@ export function Navbar() {
           <a href="/#pricing" className="hover:text-primary transition-colors">
             Preços
           </a>
-          <a href="/#faq" className="hover:text-primary transition-colors">
+          <a href="/faq" className="hover:text-primary transition-colors">
             FAQ
           </a>
           <a href="/#about-us" className="hover:text-primary transition-colors">
@@ -212,7 +212,7 @@ export function Navbar() {
                 Preços
               </motion.a>
               <motion.a
-                href="/#faq"
+                href="/faq"
                 className="hover:text-primary text-xl transition-colors"
                 onClick={closeMobileMenu}
                 variants={{
