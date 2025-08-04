@@ -22,7 +22,7 @@ import {
 import { Background } from '@/shared/components/background'
 import { Layout } from '@/shared/components/layout'
 import { CreateBaseData } from '../types/create-base-schema'
-import { useCreateKnowledgeBaseMutation } from './hooks/use-kb'
+import { useCreateKnowledgeBaseMutation } from '../hooks/use-kb'
 import { knowledgeBaseService } from '@/services/knowledge-base'
 import { bucketName } from '@/shared/enviroment'
 
@@ -53,21 +53,21 @@ export function CreateBasePipeline() {
     steps: [
       {
         id: 'create-kb',
-        title: 'Criar Base de Conhecimento',
+        title: 'Criar base de conhecimento',
         description: 'Criando a estrutura da base de conhecimento',
         icon: <FileText className="h-5 w-5" />,
         status: 'pending'
       },
       {
         id: 'upload-files',
-        title: 'Upload de Arquivos',
+        title: 'Upload de arquivos',
         description: 'Enviando arquivos para o servidor',
         icon: <Upload className="h-5 w-5" />,
         status: 'pending'
       },
       {
         id: 'sync-kb',
-        title: 'Sincronizar Base',
+        title: 'Sincronizar base',
         description: 'Processando e indexando conteúdo',
         icon: <RefreshCw className="h-5 w-5" />,
         status: 'pending'
@@ -111,9 +111,6 @@ export function CreateBasePipeline() {
       // Add the file last
       formData.append('file', file)
 
-      console.log('Uploading to:', presignedUrl)
-      console.log('Fields:', fields)
-
       const response = await fetch(presignedUrl, {
         method: 'POST',
         body: formData,
@@ -132,8 +129,6 @@ export function CreateBasePipeline() {
           `Failed to upload ${file.name}: ${response.status} ${response.statusText}`
         )
       }
-
-      console.log('Upload successful for:', file.name)
     } catch (error) {
       console.error('Upload error for file:', file.name, error)
       throw error
@@ -217,6 +212,7 @@ export function CreateBasePipeline() {
 
       // Step 3: Sync Knowledge Base
       updateStepStatus(2, 'loading')
+      await new Promise((resolve) => setTimeout(resolve, 5000)) // Sleep
       await knowledgeBaseService.syncKnowledgeBase({
         bucketName,
         kbId: createResult.kb_id
@@ -280,13 +276,13 @@ export function CreateBasePipeline() {
   const getStepBackground = (step: PipelineStep) => {
     switch (step.status) {
       case 'loading':
-        return 'bg-blue-100 border-blue-200 dark:bg-blue-950 dark:border-blue-800'
+        return 'bg-primary/10 border-primary/20'
       case 'success':
-        return 'bg-green-100 border-green-200 dark:bg-green-950 dark:border-green-800'
+        return 'bg-lime-50/50 border-green-200'
       case 'error':
-        return 'bg-red-100 border-red-200 dark:bg-red-950 dark:border-red-800'
+        return 'bg-red-100 border-red-200'
       default:
-        return 'bg-muted border-border'
+        return 'bg-card border-border'
     }
   }
 
@@ -318,7 +314,7 @@ export function CreateBasePipeline() {
               </Button>
 
               <h1 className="text-foreground mb-2 text-3xl font-bold">
-                Criando Base de Conhecimento
+                Criando base de conhecimento
               </h1>
               <p className="text-muted-foreground">
                 Acompanhe o progresso da criação da sua base &quot;
@@ -329,7 +325,7 @@ export function CreateBasePipeline() {
             {/* Pipeline Steps */}
             <Card>
               <CardHeader>
-                <CardTitle>Progresso da Criação</CardTitle>
+                <CardTitle>Progresso da criação</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 {pipeline.steps.map((step, index) => (
@@ -392,25 +388,6 @@ export function CreateBasePipeline() {
                 </Button>
                 <Button onClick={executeSteps}>Tentar Novamente</Button>
               </div>
-            )}
-
-            {pipeline.steps.every((s) => s.status === 'success') && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
-                className="mt-6 text-center"
-              >
-                <div className="mb-4 text-green-500">
-                  <Check className="mx-auto h-16 w-16" />
-                </div>
-                <h2 className="mb-2 text-2xl font-bold text-green-600">
-                  Base Criada com Sucesso!
-                </h2>
-                <p className="mb-4 text-gray-600">
-                  Redirecionando para suas bases de conhecimento...
-                </p>
-              </motion.div>
             )}
           </motion.div>
         </main>
