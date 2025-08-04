@@ -56,6 +56,13 @@ export function CreateBase() {
     setIsSubmitting(true)
 
     try {
+      // Slugify the name
+      const slug = data.name
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9\s]/g, '-')
+        .replace(/\s+/g, '-')
+      data.name = slug
       // Navigate to pipeline page with form data
       navigate('/bases/create/pipeline', { state: { formData: data } })
     } catch (error) {
