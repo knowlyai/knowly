@@ -278,7 +278,7 @@ export function CreateBasePipeline() {
       case 'loading':
         return 'bg-primary/10 border-primary/20'
       case 'success':
-        return 'bg-lime-50/50 border-green-200'
+        return 'bg-lime-50/30 border-green-200'
       case 'error':
         return 'bg-red-100 border-red-200'
       default:
@@ -344,7 +344,7 @@ export function CreateBasePipeline() {
                         step.status === 'loading'
                           ? 'border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-950'
                           : step.status === 'success'
-                            ? 'border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-950'
+                            ? 'border-green-200 bg-lime-100/90'
                             : step.status === 'error'
                               ? 'border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-950'
                               : 'border-border/50 bg-background'
