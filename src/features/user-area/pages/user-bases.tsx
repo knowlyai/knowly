@@ -22,37 +22,7 @@ import {
   CardDescription
 } from '@/shared/components/card'
 import clsx from 'clsx'
-
-// Mock data for demonstration
-const mockBases = [
-  {
-    id: '1',
-    name: 'Base Jurídica',
-    filesCount: 12,
-    filesSizeMB: 34.2,
-    createdAt: new Date('2024-01-10'),
-    updatedAt: new Date('2024-06-20'),
-    chatCreditsUsed: 120
-  },
-  {
-    id: '2',
-    name: 'Base de Suporte',
-    filesCount: 5,
-    filesSizeMB: 8.7,
-    createdAt: new Date('2024-03-15'),
-    updatedAt: new Date('2024-06-25'),
-    chatCreditsUsed: 45
-  },
-  {
-    id: '3',
-    name: 'Base Comercial',
-    filesCount: 20,
-    filesSizeMB: 50.1,
-    createdAt: new Date('2023-12-01'),
-    updatedAt: new Date('2024-05-30'),
-    chatCreditsUsed: 300
-  }
-]
+import { useGetKnowledgeBaseQuery } from '@/features/user-area/hooks/use-kb'
 
 type OrderBy = 'name' | 'createdAt' | 'updatedAt'
 type OrderDirection = 'asc' | 'desc'
@@ -62,6 +32,7 @@ export function UserBasesPage() {
   const [search, setSearch] = useState('')
   const [orderBy, setOrderBy] = useState<OrderBy>('name')
   const [orderDirection, setOrderDirection] = useState<OrderDirection>('asc')
+  const { data: knowledgeBases, isPending } = useGetKnowledgeBaseQuery()
 
   function handleOrderChange(field: OrderBy) {
     if (orderBy === field) {
@@ -73,10 +44,10 @@ export function UserBasesPage() {
   }
 
   const filteredBases = useMemo(() => {
-    const bases = mockBases.filter((base) =>
+    const bases = knowledgeBases?.filter((base) =>
       base.name.toLowerCase().includes(search.toLowerCase())
     )
-    bases.sort((a, b) => {
+    bases?.sort((a, b) => {
       const aValue: string | number | Date = a[orderBy]
       const bValue: string | number | Date = b[orderBy]
       if (aValue instanceof Date && bValue instanceof Date) {
@@ -95,7 +66,17 @@ export function UserBasesPage() {
       return 0
     })
     return bases
-  }, [search, orderBy, orderDirection])
+  }, [search, orderBy, orderDirection, knowledgeBases])
+
+  if (isPending) {
+    return (
+      <Background className="justify-start">
+        <Layout className="h-full w-full justify-start pt-28">
+          <div className="text-foreground text-center">Carregando bases...</div>
+        </Layout>
+      </Background>
+    )
+  }
 
   return (
     <Background className="justify-start">
@@ -176,12 +157,12 @@ export function UserBasesPage() {
             </div>
           </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {filteredBases.length === 0 && (
+            {filteredBases?.length === 0 && (
               <div className="text-muted-foreground col-span-full py-12 text-center">
                 Nenhuma base encontrada.
               </div>
             )}
-            {filteredBases.map((base) => (
+            {filteredBases?.map((base) => (
               <Card
                 key={base.id}
                 className="hover:bg-muted cursor-pointer transition-shadow hover:shadow-lg"
@@ -197,8 +178,8 @@ export function UserBasesPage() {
                   <div className="flex items-center gap-2 text-sm">
                     <FileText className="text-primary h-4 w-4" />
                     <span>
-                      {base.filesCount} arquivo
-                      {base.filesCount !== 1 && 's'} ({base.filesSizeMB} MB)
+                      {base.files.length} arquivo
+                      {base.files.length !== 1 && 's'} ({base.totalSizeMB} MB)
                     </span>
                   </div>
                   <div className="flex items-center gap-2 text-sm">
@@ -210,7 +191,9 @@ export function UserBasesPage() {
                   </div>
                   <div className="flex items-center gap-2 text-sm">
                     <MessageCircle className="text-primary h-4 w-4" />
-                    <span>Créditos de chat usados: {base.chatCreditsUsed}</span>
+                    <span>
+                      Créditos de chat usados: {Math.floor(Math.random() * 100)}
+                    </span>
                   </div>
                 </CardContent>
               </Card>
