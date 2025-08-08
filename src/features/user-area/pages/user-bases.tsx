@@ -23,6 +23,8 @@ import {
 } from '@/shared/components/card'
 import clsx from 'clsx'
 import { useGetKnowledgeBaseQuery } from '@/features/user-area/hooks/use-kb'
+import { KnowledgeBaseDetailModal } from '@/features/user-area/components/knowledge-base-detail-modal'
+import { KnowledgeBase } from '@/domain/knowledge-base'
 
 type OrderBy = 'name' | 'createdAt' | 'updatedAt'
 type OrderDirection = 'asc' | 'desc'
@@ -32,6 +34,9 @@ export function UserBasesPage() {
   const [search, setSearch] = useState('')
   const [orderBy, setOrderBy] = useState<OrderBy>('name')
   const [orderDirection, setOrderDirection] = useState<OrderDirection>('asc')
+  const [selectedKnowledgeBase, setSelectedKnowledgeBase] =
+    useState<KnowledgeBase | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const { data: knowledgeBases, isPending } = useGetKnowledgeBaseQuery()
 
   function handleOrderChange(field: OrderBy) {
@@ -41,6 +46,11 @@ export function UserBasesPage() {
       setOrderBy(field)
       setOrderDirection('asc')
     }
+  }
+
+  function handleCardClick(base: KnowledgeBase) {
+    setSelectedKnowledgeBase(base)
+    setIsModalOpen(true)
   }
 
   const filteredBases = useMemo(() => {
@@ -166,7 +176,7 @@ export function UserBasesPage() {
               <Card
                 key={base.id}
                 className="hover:bg-muted cursor-pointer transition-shadow hover:shadow-lg"
-                onClick={() => navigate(`/bases/${base.id}`)}
+                onClick={() => handleCardClick(base)}
               >
                 <CardHeader>
                   <CardTitle className="truncate">{base.name}</CardTitle>
@@ -200,6 +210,15 @@ export function UserBasesPage() {
             ))}
           </div>
         </motion.div>
+
+        {/* Modal de detalhes da base de conhecimento */}
+        {selectedKnowledgeBase && (
+          <KnowledgeBaseDetailModal
+            knowledgeBase={selectedKnowledgeBase}
+            open={isModalOpen}
+            onOpenChange={setIsModalOpen}
+          />
+        )}
       </Layout>
     </Background>
   )
