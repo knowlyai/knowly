@@ -1,5 +1,6 @@
 import { KnowledgeBase } from '@/domain/knowledge-base'
 import { api } from '@/shared/api'
+import { MODELS } from '@/shared/enums/models'
 import { STATUS } from '@/shared/enums/status'
 
 export type CreateKnowledgeBaseRequest = {
@@ -50,12 +51,23 @@ export type GetKnowledgeBaseResponse = {
     updated_at: number // seconds since epoch
     status: string // should match STATUS type
     files: {
-      file_name: string
+      filename: string
       size_bytes: number
       url: string
     }[]
     total_size_mb: number
   }[]
+}
+
+export type ChatWithKnowledgeBaseRequest = {
+  kbId: string
+  model: MODELS
+  prompt: string
+  topK?: number
+}
+
+export type ChatWithKnowledgeBaseResponse = {
+  answer: string
 }
 
 export const knowledgeBaseService = {
@@ -79,7 +91,7 @@ export const knowledgeBaseService = {
         updatedAt: new Date(kb.updated_at * 1000),
         status: kb.status as STATUS,
         files: kb.files.map((file) => ({
-          fileName: file.file_name,
+          fileName: file.filename,
           sizeMB: file.size_bytes / (1024 * 1024),
           url: file.url
         })),
@@ -133,5 +145,17 @@ export const knowledgeBaseService = {
         file_name: request.fileName
       }
     })
+  },
+
+  async chatWithKnowledgeBase(
+    request: ChatWithKnowledgeBaseRequest
+  ): Promise<ChatWithKnowledgeBaseResponse> {
+    const response = await api.post<ChatWithKnowledgeBaseResponse>('/chat', {
+      kb_id: request.kbId,
+      model: request.model,
+      prompt: request.prompt,
+      top_k: request.topK
+    })
+    return response.data
   }
 }
