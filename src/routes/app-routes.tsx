@@ -18,6 +18,7 @@ import { Routes, Route } from 'react-router-dom'
 import { PageWithSidebar } from '@/shared/components/page-with-sidebar'
 import { CreateBase } from '@/features/user-area/pages/create-base'
 import { CreateBasePipeline } from '@/features/user-area/pages/create-base-pipeline'
+import { PlaygroundPage } from '@/features/playground/pages/playground'
 
 export function AppRoutes() {
   return (
@@ -57,6 +58,7 @@ export function AppRoutes() {
             element={<CreateBasePipeline />}
           />
           <Route path="subscription" element={<SubscriptionManagementPage />} />
+          <Route path="playground/:kbId" element={<PlaygroundPage />} />
         </Route>
       </Routes>
     </Suspense>
