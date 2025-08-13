@@ -60,9 +60,11 @@ export function CreateBase() {
       const slug = data.name
         .toLowerCase()
         .trim()
+        .normalize('NFD') // Translate special to normal characters, like ç to c, ã to a, etc.
+        .replace(/[\u0300-\u036f]/g, '') // Remove diacritics
         .replace(/[^a-z0-9\s]/g, '-')
         .replace(/\s+/g, '-')
-      data.name = slug
+      data.slug = slug
       // Navigate to pipeline page with form data
       navigate('/bases/create/pipeline', { state: { formData: data } })
     } catch (error) {
