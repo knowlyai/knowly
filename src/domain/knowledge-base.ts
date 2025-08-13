@@ -3,6 +3,7 @@ import { STATUS } from '@/shared/enums/status'
 export type KnowledgeBase = {
   id: string
   name: string
+  displayName: string
   description: string
   createdAt: Date
   updatedAt: Date

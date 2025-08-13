@@ -5,6 +5,7 @@ import { STATUS } from '@/shared/enums/status'
 
 export type CreateKnowledgeBaseRequest = {
   name: string
+  displayName: string
   description: string
 }
 
@@ -46,6 +47,7 @@ export type GetKnowledgeBaseResponse = {
   knowledge_bases: {
     kb_id: string
     name: string
+    display_name: string
     description: string
     created_at: number // seconds since epoch
     updated_at: number // seconds since epoch
@@ -86,6 +88,7 @@ export const knowledgeBaseService = {
       return {
         id: kb.kb_id,
         name: kb.name,
+        displayName: kb.display_name,
         description: kb.description,
         createdAt: new Date(kb.created_at * 1000),
         updatedAt: new Date(kb.updated_at * 1000),
@@ -105,6 +108,7 @@ export const knowledgeBaseService = {
   ): Promise<CreateKnowledgeBaseResponse> {
     const response = await api.post<CreateKnowledgeBaseResponse>('/kb', {
       kb_name: request.name,
+      kb_display_name: request.displayName,
       kb_description: request.description
     })
     return response.data

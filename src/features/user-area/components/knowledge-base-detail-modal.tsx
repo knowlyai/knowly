@@ -65,7 +65,7 @@ export function KnowledgeBaseDetailModal({
       <DialogContent className="max-h-[80vh] max-w-2xl overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            {knowledgeBase.name}
+            {knowledgeBase.displayName}
             <Badge className={getStatusColor(knowledgeBase.status)}>
               {knowledgeBase.status}
             </Badge>
@@ -134,7 +134,10 @@ export function KnowledgeBaseDetailModal({
                     key={`${file.fileName}-${index}`}
                     className="hover:bg-muted/50 border-border flex items-center justify-between rounded-lg border-1 p-3 transition-colors"
                   >
-                    <div className="flex min-w-0 flex-1 items-center gap-3">
+                    <div
+                      className="flex min-w-0 flex-1 items-center gap-3"
+                      onClick={() => window.open(file.url, '_blank')}
+                    >
                       <FileText className="text-primary h-5 w-5 flex-shrink-0" />
                       <div className="min-w-0 flex-1">
                         <p

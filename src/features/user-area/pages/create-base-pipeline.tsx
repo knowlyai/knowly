@@ -146,11 +146,10 @@ export function CreateBasePipeline() {
       // Step 1: Create Knowledge Base
       updateStepStatus(0, 'loading')
       const createResult = await createKnowledgeBaseMutation.mutateAsync({
-        name: formData.name,
+        name: formData.slug,
+        displayName: formData.name,
         description: formData.description
       })
-
-      console.log('Knowledge Base created:', createResult)
 
       setPipeline((prev) => ({ ...prev, kbId: createResult.kb_id }))
       updateStepStatus(0, 'success')
