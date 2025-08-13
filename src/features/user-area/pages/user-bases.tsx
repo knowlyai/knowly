@@ -10,7 +10,8 @@ import {
   Calendar,
   FileText,
   MessageCircle,
-  Plus
+  Plus,
+  LoaderCircle
 } from 'lucide-react'
 import { Input } from '@/shared/components/input'
 import { Button } from '@/shared/components/button'
@@ -80,9 +81,9 @@ export function UserBasesPage() {
 
   if (isPending) {
     return (
-      <Background className="justify-start">
-        <Layout className="h-full w-full justify-start pt-28">
-          <div className="text-foreground text-center">Carregando bases...</div>
+      <Background className="">
+        <Layout className="h-screen w-full items-center justify-center">
+          <LoaderCircle className="animate-spin opacity-45" size={64} />
         </Layout>
       </Background>
     )
@@ -179,7 +180,7 @@ export function UserBasesPage() {
                 onClick={() => handleCardClick(base)}
               >
                 <CardHeader>
-                  <CardTitle className="truncate">{base.name}</CardTitle>
+                  <CardTitle className="truncate">{base.displayName}</CardTitle>
                   <CardDescription>
                     Criada em {base.createdAt.toLocaleDateString('pt-BR')}
                   </CardDescription>
