@@ -1,13 +1,11 @@
 import { Background } from '@/shared/components/background'
 import { Layout } from '@/shared/components/layout'
-import { Sidebar } from '@/shared/components/sidebar'
 import { motion } from 'framer-motion'
 
 export function DocsPage() {
   return (
     <Background className="min-h-screen">
       <Layout className="flex flex-row h-full min-h-screen">
-        <Sidebar />
         <main className="flex-1 px-8 py-12 max-w-3xl mx-auto">
           <motion.article
             initial={{ opacity: 0, y: 20 }}

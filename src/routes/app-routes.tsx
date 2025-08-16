@@ -16,7 +16,8 @@ import { DocsPage } from '@/features/docs/pages/docs'
 import { Page } from '@/shared/components/page'
 import { Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
-import { PageWithSidebar } from '@/shared/components/page-with-sidebar'
+import { UserAreaPageWithSidebar } from '@/features/user-area/components/page-with-sidebar'
+import { DocsPageWithSidebar } from '@/features/docs/components/page-with-sidebar'
 
 export function AppRoutes() {
   return (
@@ -47,10 +48,13 @@ export function AppRoutes() {
           <Route path="*" element={<HomePage />} />
         </Route>
 
-        <Route element={<PageWithSidebar />}>
+        <Route element={<UserAreaPageWithSidebar />}>
           <Route path="user" element={<UserInfoPage />} />
           <Route path="bases" element={<UserBasesPage />} />
           <Route path="subscription" element={<SubscriptionManagementPage />} />
+        </Route>
+
+        <Route element={<DocsPageWithSidebar />}>
           <Route path="docs" element={<DocsPage />} />
         </Route>
       </Routes>
