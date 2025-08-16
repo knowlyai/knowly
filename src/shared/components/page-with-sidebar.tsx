@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom'
 import { Navbar } from '@/shared/components/navbar'
 import { Toaster } from 'react-hot-toast'
-import { Sidebar } from '@/shared/components/sidebar'
+import { Sidebar } from '@/shared/components/user-area-sidebar'
 
 export function PageWithSidebar() {
   return (
