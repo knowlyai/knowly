@@ -12,6 +12,7 @@ import { FAQSubscriptionOthersPage } from '@/features/faq/pages/faq-subscription
 import { FAQBasesCreatePage } from '@/features/faq/pages/faq-bases-create'
 import { FAQBasesOthersPage } from '@/features/faq/pages/faq-bases-others'
 import { FAQContactPage } from '@/features/faq/pages/faq-contact'
+import { DocsPage } from '@/features/docs/pages/docs'
 import { Page } from '@/shared/components/page'
 import { Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
@@ -50,6 +51,7 @@ export function AppRoutes() {
           <Route path="user" element={<UserInfoPage />} />
           <Route path="bases" element={<UserBasesPage />} />
           <Route path="subscription" element={<SubscriptionManagementPage />} />
+          <Route path="docs" element={<DocsPage />} />
         </Route>
       </Routes>
     </Suspense>
