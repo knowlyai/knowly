@@ -12,7 +12,12 @@ import { FAQSubscriptionOthersPage } from '@/features/faq/pages/faq-subscription
 import { FAQBasesCreatePage } from '@/features/faq/pages/faq-bases-create'
 import { FAQBasesOthersPage } from '@/features/faq/pages/faq-bases-others'
 import { FAQContactPage } from '@/features/faq/pages/faq-contact'
-import { DocsPage } from '@/features/docs/pages/about-project'
+import { DocsProjectPage } from '@/features/docs/pages/about-project'
+import { DocsModelsPage } from '@/features/docs/pages/foundation-models'
+import { DocsIntegrationPage } from '@/features/docs/pages/integration'
+import { DocsTestsPage } from '@/features/docs/pages/playground-testing'
+import { DocsBasesPage } from '@/features/docs/pages/knowledge-bases'
+import { DocsPlansPage } from '@/features/docs/pages/subscription-management'
 import { Page } from '@/shared/components/page'
 import { Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
@@ -55,7 +60,12 @@ export function AppRoutes() {
         </Route>
 
         <Route element={<DocsPageWithSidebar />}>
-          <Route path="docs" element={<DocsPage />} />
+          <Route path="project" element={<DocsProjectPage />} />
+          <Route path="models" element={<DocsModelsPage />} />
+          <Route path="integration" element={<DocsIntegrationPage />} />
+          <Route path="tests" element={<DocsTestsPage />} />
+          <Route path="bases" element={<DocsBasesPage />} />
+          <Route path="plans" element={<DocsPlansPage />} />
         </Route>
       </Routes>
     </Suspense>

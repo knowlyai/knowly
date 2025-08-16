@@ -9,7 +9,7 @@ import {
 import { BackgroundBlobs } from '@/shared/components/background-blobs'
 
 
-export function DocsPage() {
+export function DocsProjectPage() {
   return (
     <Background className="min-h-screen">
       <BackgroundBlobs />
@@ -61,4 +61,4 @@ export function DocsPage() {
   )
 }
 
-export default DocsPage
+export default DocsProjectPage
