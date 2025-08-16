@@ -10,7 +10,7 @@ export function UserAreaPageWithSidebar() {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const [isCollapsed, setIsCollapsed] = useState(() => {
+  const [isCollapsed] = useState(() => {
     try {
       const savedCollapsed = localStorage.getItem('sidebar-collapsed')
       return savedCollapsed ? JSON.parse(savedCollapsed) : false
