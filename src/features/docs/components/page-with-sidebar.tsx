@@ -25,7 +25,7 @@ export function DocsPageWithSidebar() {
     <>
       <Toaster position="bottom-right" reverseOrder={false} />
       <Navbar />
-      <div className="flex h-screen w-full pt-18">
+      <div className="flex w-full pt-18">
         <Sidebar items={items} selectedKey={selectedKey}></Sidebar>
         <Outlet />
       </div>
