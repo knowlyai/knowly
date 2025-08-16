@@ -1,23 +1,11 @@
-import { Outlet, useNavigate, useLocation } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import { Navbar } from '@/shared/components/navbar'
-import { Button } from '@/shared/components/button'
 import { Toaster } from 'react-hot-toast'
 import { Sidebar, SidebarItem } from '@/shared/components/sidebar'
-import { User, BrainCircuit, Wallet, LogOut } from 'lucide-react'
-import { useState } from 'react'
+import { User, BrainCircuit, Wallet } from 'lucide-react'
 
 export function DocsPageWithSidebar() {
-  const navigate = useNavigate()
   const location = useLocation()
-
-  const [isCollapsed, setIsCollapsed] = useState(() => {
-    try {
-      const savedCollapsed = localStorage.getItem('sidebar-collapsed')
-      return savedCollapsed ? JSON.parse(savedCollapsed) : false
-    } catch {
-      return false
-    }
-  })
 
   const items: SidebarItem[] = [
     { label: 'Sobre o projeto', icon: <User />, key: 'project' },
@@ -27,11 +15,6 @@ export function DocsPageWithSidebar() {
     { label: 'Bases de conhecimento', icon: <BrainCircuit />, key: 'bases' },
     { label: 'Gerenciar assinatura', icon: <BrainCircuit />, key: 'plan' }
   ]
-
-  function handleLogout() {
-    // Adicionar lógica de desfazer o login (deslogar o usuário)
-    navigate('/')
-  }
 
   // Detect selected key based on current path
   const selectedKey = items.find((item) =>
