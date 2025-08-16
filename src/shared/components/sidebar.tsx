@@ -48,14 +48,12 @@ export function Sidebar({ items, selectedKey, children }: SidebarProps) {
 
   return (
     <motion.aside
-      className={`bg-background border-border z-10 flex h-full flex-col justify-between px-4 py-8 transition-all duration-300 ${
-        isCollapsed ? 'w-20' : 'w-96'
-      }`}
+      className={`bg-background border-border fixed top-18 left-0 z-30 flex h-screen flex-col justify-between border-r pb-18 transition-all duration-300 ${isCollapsed ? 'w-20' : 'w-96'} `}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-1 flex-col gap-4 overflow-y-auto">
         <Button
           variant="ghost"
           className="hover:bg-muted/50 text-foreground h-10 w-10 self-start"
