@@ -12,7 +12,7 @@ import { FAQSubscriptionOthersPage } from '@/features/faq/pages/faq-subscription
 import { FAQBasesCreatePage } from '@/features/faq/pages/faq-bases-create'
 import { FAQBasesOthersPage } from '@/features/faq/pages/faq-bases-others'
 import { FAQContactPage } from '@/features/faq/pages/faq-contact'
-import { DocsPage } from '@/features/docs/pages/docs'
+import { DocsPage } from '@/features/docs/pages/about-project'
 import { Page } from '@/shared/components/page'
 import { Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
