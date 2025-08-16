@@ -115,7 +115,7 @@ export function UserInfoPage() {
   }
 
   return (
-    <Background className="min-h-full">
+    <Background className="min-h-screen">
       <Layout className="h-full w-full">
         <main className="flex flex-col items-center justify-center p-12">
           <motion.div
