@@ -19,13 +19,7 @@ type SidebarProps = {
   className?: string
 }
 
-export function Sidebar({
-  items,
-  selectedKey,
-  onSelect,
-  children,
-  className = ''
-}: SidebarProps) {
+export function Sidebar({ items, selectedKey, children }: SidebarProps) {
   const navigate = useNavigate()
   const [isCollapsed, setIsCollapsed] = useState(() => {
     try {
