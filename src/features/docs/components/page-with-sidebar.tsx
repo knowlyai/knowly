@@ -2,18 +2,18 @@ import { Outlet, useLocation } from 'react-router-dom'
 import { Navbar } from '@/shared/components/navbar'
 import { Toaster } from 'react-hot-toast'
 import { Sidebar, SidebarItem } from '@/shared/components/sidebar'
-import { User, BrainCircuit, Wallet } from 'lucide-react'
+import { Brain, Bot, ChevronsLeftRightEllipsis, Castle, BrainCircuit, Wallet } from 'lucide-react'
 
 export function DocsPageWithSidebar() {
   const location = useLocation()
 
   const items: SidebarItem[] = [
-    { label: 'Sobre o projeto', icon: <User />, key: 'project' },
-    { label: 'Modelos de fundação', icon: <BrainCircuit />, key: 'models' },
-    { label: 'Como integrar', icon: <Wallet />, key: 'integration' },
-    { label: 'Testes', icon: <BrainCircuit />, key: 'tests' },
+    { label: 'Sobre o projeto', icon: <Brain />, key: 'project' },
+    { label: 'Modelos de fundação', icon: <Bot />, key: 'models' },
+    { label: 'Como integrar', icon: <ChevronsLeftRightEllipsis />, key: 'integration' },
+    { label: 'Testes em playground', icon: <Castle />, key: 'tests' },
     { label: 'Bases de conhecimento', icon: <BrainCircuit />, key: 'bases' },
-    { label: 'Gerenciar assinatura', icon: <BrainCircuit />, key: 'plan' }
+    { label: 'Gerenciar assinatura', icon: <Wallet />, key: 'plan' }
   ]
 
   // Detect selected key based on current path
