@@ -1,6 +1,7 @@
-import { Outlet, useLocation } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import { Navbar } from '@/shared/components/navbar'
 import { Toaster } from 'react-hot-toast'
+import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
 import { NewSidebar } from '@/shared/components/new-sidebar'
 import {
   Brain,
@@ -27,9 +28,15 @@ export function TestPageWithSidebar() {
       <Toaster position="bottom-right" reverseOrder={false} />
       <Navbar />
       <div className="mt-18 flex min-h-screen w-full">
-        <Outlet />
+        <SidebarProvider>
+          <NewSidebar items={items} />
+          <main>
+            <div className="items-center justify-center">
+              <Outlet />
+            </div>
+          </main>
+        </SidebarProvider>
       </div>
-      <NewSidebar items={items} />
     </>
   )
 }
