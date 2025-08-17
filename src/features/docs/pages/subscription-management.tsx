@@ -29,7 +29,7 @@ export function DocsPlansPage() {
               {h2({ children: 'Como alterar seu plano' })}
               {p({
                 children: (
-                  <>Para gerenciar seu plano de assinatura no Knowly, é só acessar a área do usuário após fazer login. No menu lateral à esquerda, clique em <b>"Assinatura"</b>.</>
+                  <>Para gerenciar seu plano de assinatura no Knowly, é só acessar a área do usuário após fazer login. No menu lateral à esquerda, clique em <b>&quot;Assinatura&quot;</b>.</>
                 ),
               })}
               {ul({
