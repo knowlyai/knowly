@@ -1,7 +1,8 @@
-import { Outlet, useLocation } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import { Navbar } from '@/shared/components/navbar'
 import { Toaster } from 'react-hot-toast'
-import { Sidebar, SidebarItem } from '@/shared/components/sidebar'
+import { SidebarProvider } from '@/components/ui/sidebar'
+import { MainSidebar } from '@/shared/components/sidebar'
 import {
   Brain,
   Bot,
@@ -12,9 +13,7 @@ import {
 } from 'lucide-react'
 
 export function DocsPageWithSidebar() {
-  const location = useLocation()
-
-  const items: SidebarItem[] = [
+  const items = [
     { label: 'Sobre o projeto', icon: <Brain />, key: 'project' },
     { label: 'Modelos de fundação', icon: <Bot />, key: 'models' },
     {
@@ -31,18 +30,19 @@ export function DocsPageWithSidebar() {
     { label: 'Gerenciar assinatura', icon: <Wallet />, key: 'plan' }
   ]
 
-  // Detect selected key based on current path
-  const selectedKey = items.find((item) =>
-    location.pathname.startsWith(`/${item.key}`)
-  )?.key
-
   return (
     <>
       <Toaster position="bottom-right" reverseOrder={false} />
       <Navbar />
-      <div className="flex w-full pt-18">
-        <Sidebar items={items} selectedKey={selectedKey}></Sidebar>
-        <Outlet />
+      <div className="mt-18 flex min-h-screen w-full">
+        <SidebarProvider>
+          <MainSidebar items={items} />
+          <main>
+            <div className="items-center justify-center">
+              <Outlet />
+            </div>
+          </main>
+        </SidebarProvider>
       </div>
     </>
   )

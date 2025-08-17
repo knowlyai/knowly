@@ -1,8 +1,8 @@
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import { Navbar } from '@/shared/components/navbar'
-import { Button } from '@/shared/components/button'
+import { SidebarProvider } from '@/components/ui/sidebar'
 import { Toaster } from 'react-hot-toast'
-import { Sidebar, SidebarItem } from '@/shared/components/sidebar'
+import { MainSidebar } from '@/shared/components/sidebar'
 import { User, BrainCircuit, Wallet, LogOut } from 'lucide-react'
 import { useState } from 'react'
 
@@ -19,7 +19,7 @@ export function UserAreaPageWithSidebar() {
     }
   })
 
-  const items: SidebarItem[] = [
+  const items = [
     { label: 'Dados de cadastro', icon: <User />, key: 'user' },
     { label: 'Minhas bases', icon: <BrainCircuit />, key: 'bases' },
     { label: 'Assinatura', icon: <Wallet />, key: 'subscription' }
@@ -39,21 +39,15 @@ export function UserAreaPageWithSidebar() {
     <>
       <Toaster position="bottom-right" reverseOrder={false} />
       <Navbar />
-      <div className="flex h-screen w-full pt-18">
-        <Sidebar items={items} selectedKey={selectedKey}>
-          <Button
-            variant="ghost"
-            className={`hover:bg-muted/50 flex w-full items-center text-red-600 ${
-              isCollapsed ? 'justify-center px-2 py-3' : 'gap-2 px-4 py-3'
-            }`}
-            onClick={handleLogout}
-            title={isCollapsed ? 'Sair' : undefined}
-          >
-            <LogOut className="h-5 w-5" />
-            {!isCollapsed && 'Sair'}
-          </Button>
-        </Sidebar>
-        <Outlet />
+      <div className="mt-18 flex min-h-screen w-full">
+        <SidebarProvider>
+          <MainSidebar items={items} />
+          <main>
+            <div className="items-center justify-center">
+              <Outlet />
+            </div>
+          </main>
+        </SidebarProvider>
       </div>
     </>
   )
