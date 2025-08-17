@@ -37,7 +37,7 @@ export function DocsPlansPage() {
                   <>
                     {li({
                       children: (
-                        <>Na seção <b>"Administre a sua assinatura atual"</b>, procure o botão <b>"Mudar plano"</b> no canto inferior direito.</>
+                        <>Na seção <b>"Plano atual"</b>, procure o botão <b>"Mudar plano"</b> no canto inferior direito.</>
                       ),
                     })}
                     {li({
