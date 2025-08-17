@@ -37,12 +37,12 @@ export function DocsPlansPage() {
                   <>
                     {li({
                       children: (
-                        <>Na seção <b>"Plano atual"</b>, procure o botão <b>"Mudar plano"</b> no canto inferior direito.</>
+                        <>Na seção <b>&quot;Plano atual&quot;</b>, procure o botão <b>&quot;Mudar plano&quot;</b> no canto inferior direito.</>
                       ),
                     })}
                     {li({
                       children: (
-                        <>Clique em <b>"Mudar plano"</b> para ver as opções disponíveis e escolher o plano que melhor atende às suas necessidades.</>
+                        <>Clique em <b>&quot;Mudar plano&quot;</b> para ver as opções disponíveis e escolher o plano que melhor atende às suas necessidades.</>
                       ),
                     })}
                     {li({

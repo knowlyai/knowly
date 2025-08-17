@@ -30,7 +30,7 @@ export function DocsBasesPage() {
               {p({
                 children: (
                   <>
-                    Gerenciar suas bases de conhecimento no Knowly é simples e rápido. Basta acessar as configurações do seu perfil após fazer login e selecionar a opção <b>"Minhas bases"</b>.
+                    Gerenciar suas bases de conhecimento no Knowly é simples e rápido. Basta acessar as configurações do seu perfil após fazer login e selecionar a opção <b>&quot;Minhas bases&quot;</b>.
                   </>
                 ),
               })}
@@ -41,7 +41,7 @@ export function DocsBasesPage() {
                     {li({
                       children: (
                         <>
-                          <b>Para criar uma base:</b> Clique em <b>“Nova base”</b>, escolha um nome e envie os documentos que deseja usar. Pronto! Sua base estará disponível para consultas e integrações assim que terminar de ser criada.
+                          <b>Para criar uma base:</b> Clique em <b>&quot;Nova base&quot;</b>, escolha um nome e envie os documentos que deseja usar. Pronto! Sua base estará disponível para consultas e integrações assim que terminar de ser criada.
                         </>
                       ),
                     })}
@@ -55,7 +55,7 @@ export function DocsBasesPage() {
                     {li({
                       children: (
                         <>
-                          <b>Para excluir:</b> Escolha a base desejada e clique em <b>“Excluir”</b>. Confirme a ação para remover a base do sistema.
+                          <b>Para excluir:</b> Escolha a base desejada e clique em <b>&quot;Excluir&quot;</b>. Confirme a ação para remover a base do sistema.
                         </>
                       ),
                     })}
