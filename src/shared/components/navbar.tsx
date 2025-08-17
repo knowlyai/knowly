@@ -80,6 +80,9 @@ export function Navbar() {
           <a href="/#faq" className="hover:text-primary transition-colors">
             FAQ
           </a>
+          <a href="/project" className="hover:text-primary transition-colors">
+            Docs
+          </a>
           <a href="/#about-us" className="hover:text-primary transition-colors">
             Sobre nós
           </a>
