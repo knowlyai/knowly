@@ -24,6 +24,9 @@ import { Routes, Route } from 'react-router-dom'
 import { UserAreaPageWithSidebar } from '@/features/user-area/components/page-with-sidebar'
 import { DocsPageWithSidebar } from '@/features/docs/components/page-with-sidebar'
 
+import { TestPageWithSidebar } from '@/features/docs/components/page-with-new-sidebar'
+import { DocsT1Page } from '@/features/docs/pages/test-1-new-sidebar'
+
 export function AppRoutes() {
   return (
     <Suspense>
@@ -66,6 +69,15 @@ export function AppRoutes() {
           <Route path="tests" element={<DocsTestsPage />} />
           <Route path="edit-bases" element={<DocsBasesPage />} />
           <Route path="plan" element={<DocsPlansPage />} />
+        </Route>
+
+        <Route element={<TestPageWithSidebar />}>
+          <Route path="t1" element={<DocsT1Page />} />
+          <Route path="t2" element={<DocsModelsPage />} />
+          <Route path="t3" element={<DocsIntegrationPage />} />
+          <Route path="t4" element={<DocsTestsPage />} />
+          <Route path="t5" element={<DocsBasesPage />} />
+          <Route path="t6" element={<DocsPlansPage />} />
         </Route>
       </Routes>
     </Suspense>
