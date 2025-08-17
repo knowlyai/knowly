@@ -1,4 +1,4 @@
-export const transitionCard = { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }
+export const transitionCard = { duration: 0.8 }
 
 export const containerVariants = {
   hidden: { opacity: 0 },
