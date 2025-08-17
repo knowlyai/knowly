@@ -2,7 +2,11 @@ import { Outlet, useNavigate } from 'react-router-dom'
 import { Navbar } from '@/shared/components/navbar'
 import { Toaster } from 'react-hot-toast'
 import { SidebarProvider } from '@/components/ui/sidebar'
-import { MainSidebar, SidebarItem, SidebarSections } from '@/shared/components/sidebar'
+import {
+  MainSidebar,
+  SidebarItem,
+  SidebarSections
+} from '@/shared/components/sidebar'
 import { User, BrainCircuit, Wallet, LogOut } from 'lucide-react'
 
 export function UserAreaPageWithSidebar() {
