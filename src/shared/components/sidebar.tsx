@@ -38,12 +38,16 @@ export function MainSidebar({ sections, footer }: SidebarProps) {
     <Sidebar variant="floating" collapsible="icon">
       <SidebarContent className="flex-1">
         {sections.map((section) => (
-          <Collapsible key={section.label} defaultOpen>
+          <Collapsible
+            key={section.label}
+            defaultOpen
+            className="group/collapsible"
+          >
             <SidebarGroup>
               <SidebarGroupLabel asChild>
                 <CollapsibleTrigger>
                   {section.label}
-                  <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+                  <ChevronDown className="ml-auto transition-transform duration-300 group-data-[state=open]/collapsible:rotate-180" />
                 </CollapsibleTrigger>
               </SidebarGroupLabel>
               <CollapsibleContent>
