@@ -11,10 +11,10 @@ import { BackgroundBlobs } from '@/shared/components/background-blobs'
 
 export function DocsT1Page() {
   return (
-    <Background className="">
+    <Background className="min-h-screen">
       <BackgroundBlobs />
-      <Layout className="">
-        <main className="">
+      <Layout className="w-full">
+        <main className="flex flex-col items-center justify-center p-12">
           <motion.article
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

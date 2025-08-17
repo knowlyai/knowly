@@ -26,10 +26,10 @@ export function NewSidebar({ items }: SidebarProps) {
     <SidebarProvider>
       <main>
         <SidebarTrigger />
-        <Sidebar>
+        <Sidebar variant='sidebar' collapsible='icon'>
           <SidebarContent>
             <SidebarGroup>
-              <SidebarGroupLabel>Application</SidebarGroupLabel>
+              <SidebarGroupLabel>Documentação</SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
                   {items.map((item) => (
