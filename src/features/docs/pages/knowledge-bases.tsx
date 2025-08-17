@@ -5,6 +5,8 @@ import {
   h1,
   h2,
   p,
+  ul,
+  li,
 } from '@/shared/components/typography'
 import { BackgroundBlobs } from '@/shared/components/background-blobs'
 
@@ -22,7 +24,53 @@ export function DocsBasesPage() {
             className="w-full max-w-xl"
           >
             <section>
-              
+              {h1({ children: 'Gerenciando Bases de Conhecimento' })}
+
+              {h2({ children: 'Como criar, editar e excluir suas bases' })}
+              {p({
+                children: (
+                  <>
+                    Gerenciar suas bases de conhecimento no Knowly é simples e rápido. Basta acessar as configurações do seu perfil após fazer login e selecionar a opção <b>"Minhas bases"</b>.
+                  </>
+                ),
+              })}
+
+              {ul({
+                children: (
+                  <>
+                    {li({
+                      children: (
+                        <>
+                          <b>Para criar uma base:</b> Clique em <b>“Nova base”</b>, escolha um nome e envie os documentos que deseja usar. Pronto! Sua base estará disponível para consultas e integrações assim que terminar de ser criada.
+                        </>
+                      ),
+                    })}
+                    {li({
+                      children: (
+                        <>
+                          <b>Para editar:</b> Selecione uma base existente na lista para ver detalhes, adicionar ou remover documentos, ou atualizar informações.
+                        </>
+                      ),
+                    })}
+                    {li({
+                      children: (
+                        <>
+                          <b>Para excluir:</b> Escolha a base desejada e clique em <b>“Excluir”</b>. Confirme a ação para remover a base do sistema.
+                        </>
+                      ),
+                    })}
+                  </>
+                ),
+              })}
+
+              {p({
+                children: (
+                  <>
+
+
+                  </>
+                ),
+              })}
             </section>
           </motion.article>
         </main>

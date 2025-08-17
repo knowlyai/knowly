@@ -64,7 +64,7 @@ export function AppRoutes() {
           <Route path="models" element={<DocsModelsPage />} />
           <Route path="integration" element={<DocsIntegrationPage />} />
           <Route path="tests" element={<DocsTestsPage />} />
-          <Route path="bases" element={<DocsBasesPage />} />
+          <Route path="edit-bases" element={<DocsBasesPage />} />
           <Route path="plans" element={<DocsPlansPage />} />
         </Route>
       </Routes>

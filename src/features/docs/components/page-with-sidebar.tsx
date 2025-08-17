@@ -12,7 +12,7 @@ export function DocsPageWithSidebar() {
     { label: 'Modelos de fundação', icon: <Bot />, key: 'models' },
     { label: 'Como integrar', icon: <ChevronsLeftRightEllipsis />, key: 'integration' },
     { label: 'Testes em playground', icon: <Castle />, key: 'tests' },
-    { label: 'Bases de conhecimento', icon: <BrainCircuit />, key: 'bases' },
+    { label: 'Bases de conhecimento', icon: <BrainCircuit />, key: 'edit-bases' },
     { label: 'Gerenciar assinatura', icon: <Wallet />, key: 'plan' }
   ]
 
