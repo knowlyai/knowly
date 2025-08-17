@@ -16,6 +16,10 @@ import {
 } from '@/components/ui/collapsible'
 import { ChevronDown } from 'lucide-react'
 
+export type SidebarSections = {
+  label: string
+  items: SidebarItem[]
+}
 export type SidebarItem = {
   label: string
   icon: React.ReactNode
@@ -25,40 +29,42 @@ export type SidebarItem = {
 }
 
 type SidebarProps = {
-  items: SidebarItem[]
+  sections: SidebarSections[]
   footer?: SidebarItem
 }
 
-export function MainSidebar({ items, footer }: SidebarProps) {
+export function MainSidebar({ sections, footer }: SidebarProps) {
   return (
     <Sidebar variant="floating" collapsible="icon">
       <SidebarContent className="flex-1">
-        <Collapsible defaultOpen className="group/collapsible">
-          <SidebarGroup>
-            <SidebarGroupLabel asChild>
-              <CollapsibleTrigger>
-                Documentação
-                <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
-              </CollapsibleTrigger>
-            </SidebarGroupLabel>
-            <CollapsibleContent>
-              <SidebarGroupContent>
-                <SidebarMenu>
-                  {items.map((item) => (
-                    <SidebarMenuItem key={item.label}>
-                      <SidebarMenuButton asChild>
-                        <a href={item.key}>
-                          {item.icon}
-                          <span>{item.label}</span>
-                        </a>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  ))}
-                </SidebarMenu>
-              </SidebarGroupContent>
-            </CollapsibleContent>
-          </SidebarGroup>
-        </Collapsible>
+        {sections.map((section) => (
+          <Collapsible key={section.label} defaultOpen>
+            <SidebarGroup>
+              <SidebarGroupLabel asChild>
+                <CollapsibleTrigger>
+                  {section.label}
+                  <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+                </CollapsibleTrigger>
+              </SidebarGroupLabel>
+              <CollapsibleContent>
+                <SidebarGroupContent>
+                  <SidebarMenu>
+                    {section.items.map((item) => (
+                      <SidebarMenuItem key={item.label}>
+                        <SidebarMenuButton asChild>
+                          <a href={item.key}>
+                            {item.icon}
+                            <span>{item.label}</span>
+                          </a>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    ))}
+                  </SidebarMenu>
+                </SidebarGroupContent>
+              </CollapsibleContent>
+            </SidebarGroup>
+          </Collapsible>
+        ))}
       </SidebarContent>
       {footer && (
         <SidebarFooter>
