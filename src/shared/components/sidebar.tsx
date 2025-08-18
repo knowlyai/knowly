@@ -2,7 +2,7 @@ import { Button } from '@/shared/components/button'
 import { BrainCircuit, LogOut, User, Wallet, Menu } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 export type SidebarItem = {
   label: string
@@ -22,22 +22,7 @@ export function Sidebar() {
   const selected =
     items.find((item) => pageUrl.includes(item.key))?.key || 'user'
 
-  const [isCollapsed, setIsCollapsed] = useState(() => {
-    try {
-      const savedCollapsed = localStorage.getItem('sidebar-collapsed')
-      return savedCollapsed ? JSON.parse(savedCollapsed) : false
-    } catch {
-      return false
-    }
-  })
-
-  useEffect(() => {
-    try {
-      localStorage.setItem('sidebar-collapsed', JSON.stringify(isCollapsed))
-    } catch {
-      console.warn('localStorage não está disponível')
-    }
-  }, [isCollapsed])
+  const [isCollapsed, setIsCollapsed] = useState(true)
 
   function handleLogout() {
     // Adicionar lógica de desfazer o login (deslogar o usuário)
@@ -52,28 +37,36 @@ export function Sidebar() {
     setIsCollapsed(!isCollapsed)
   }
 
+  const transition = { duration: 1, ease: [0.25, 0.1, 0.25, 1] }
+  const variants = {
+    hidden: { filter: 'blur(10px)', opacity: 0 },
+    visible: { filter: 'blur(0)', opacity: 1 }
+  }
+
   return (
     <motion.aside
-      className={`bg-background border-border z-10 flex h-full flex-col justify-between px-4 py-8 transition-all duration-300 ${
+      className={`bg-background border-r-border fixed z-10 flex h-full flex-col justify-between border-1 px-4 py-8 pt-24 transition-all duration-300 ${
         isCollapsed ? 'w-20' : 'w-96'
       }`}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      initial="hidden"
+      whileInView="visible"
+      transition={{ staggerChildren: 0.04 }}
     >
       {/* Botão para toggle da sidebar */}
-      <div className="flex flex-col gap-4">
-        <Button
-          variant="ghost"
-          className="hover:bg-muted/50 text-foreground h-10 w-10 self-start"
-          onClick={toggleSidebar}
-        >
-          <Menu className="h-5 w-5" />
-        </Button>
+      <div className="flex flex-col justify-center gap-4">
+        <motion.div transition={transition} variants={variants}>
+          <Button
+            variant="ghost"
+            className="hover:bg-muted/50 text-foreground self-start"
+            onClick={toggleSidebar}
+          >
+            <Menu />
+          </Button>
+        </motion.div>
 
-        <nav className="flex flex-col gap-2">
+        <motion.nav className="flex flex-col gap-2">
           {items.map((item) => (
-            <button
+            <motion.button
               key={item.key}
               className={`flex items-center gap-3 rounded-lg font-medium transition-colors ${
                 selected === item.key
@@ -82,12 +75,14 @@ export function Sidebar() {
               } ${isCollapsed ? 'justify-center px-2 py-3' : 'px-4 py-3'}`}
               onClick={() => handleNavigation(item.key)}
               title={isCollapsed ? item.label : undefined}
+              transition={transition}
+              variants={variants}
             >
               {item.icon}
               {!isCollapsed && item.label}
-            </button>
+            </motion.button>
           ))}
-        </nav>
+        </motion.nav>
       </div>
 
       <Button

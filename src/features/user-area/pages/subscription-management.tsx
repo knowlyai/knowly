@@ -59,8 +59,8 @@ export function SubscriptionManagementPage() {
   const plan = plans[1] // Profissional
 
   return (
-    <Background className="min-h-full">
-      <Layout className="h-full w-full justify-start pt-12">
+    <Background className="justify-start">
+      <Layout className="h-full justify-start pt-28">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
