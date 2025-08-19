@@ -53,7 +53,7 @@ export function MainSidebar({ sections, footer }: SidebarProps) {
               <CollapsibleContent>
                 <SidebarGroupContent>
                   <SidebarMenu>
-                    {section.items.map((item) => (
+                    {section.items.map((item: SidebarItem) => (
                       <SidebarMenuItem key={item.label}>
                         <SidebarMenuButton asChild>
                           <a href={item.key}>
