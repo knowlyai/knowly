@@ -44,7 +44,12 @@ export function UserAreaPageWithSidebar() {
       <Navbar />
       <div className="mt-18 flex min-h-screen w-full">
         <SidebarProvider>
-          <MainSidebar sections={sections} footer={logout} />
+          <MainSidebar
+            sections={sections}
+            footer={logout}
+            variant="sidebar"
+            showTrigger={false}
+          />
           <main>
             <div className="items-center justify-center">
               <Outlet />
