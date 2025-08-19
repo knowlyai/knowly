@@ -31,11 +31,18 @@ export type SidebarItem = {
 type SidebarProps = {
   sections: SidebarSections[]
   footer?: SidebarItem
+  variant?: 'floating' | 'sidebar' | 'inset' | undefined
+  showTrigger?: boolean
 }
 
-export function MainSidebar({ sections, footer }: SidebarProps) {
+export function MainSidebar({
+  sections,
+  footer,
+  variant,
+  showTrigger = true
+}: SidebarProps) {
   return (
-    <Sidebar variant="floating" collapsible="icon">
+    <Sidebar variant={variant} collapsible="icon" showTrigger={showTrigger}>
       <SidebarContent className="flex-1">
         {sections.map((section) => (
           <Collapsible
