@@ -250,8 +250,8 @@ function Sidebar({
             <SidebarTrigger
               className={
                 side === 'left'
-                  ? 'absolute top-0 -right-5'
-                  : 'absolute top-0 -left-5'
+                  ? 'absolute top-0 -right-8'
+                  : 'absolute top-0 -left-8'
               }
             />
           )}
