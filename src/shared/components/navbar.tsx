@@ -23,6 +23,9 @@ export function Navbar() {
   const { theme, setTheme } = useTheme()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
+  // Determine if user is logged in based on presence of token in localStorage
+  const isLoggedIn = Boolean(localStorage.getItem('access_token'))
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
   }
@@ -106,9 +109,9 @@ export function Navbar() {
           <Button
             className="px-6"
             variant="secondary"
-            onClick={() => navigate('/login')}
+            onClick={() => navigate(isLoggedIn ? '/bases' : '/login')}
           >
-            Login
+            {isLoggedIn ? 'Minhas bases' : 'Login'}
           </Button>
         </motion.div>
 
@@ -142,9 +145,9 @@ export function Navbar() {
           <Button
             variant="secondary"
             className="px-6"
-            onClick={() => navigate('/login')}
+            onClick={() => navigate(isLoggedIn ? '/bases' : '/login')}
           >
-            Login
+            {isLoggedIn ? 'Minhas bases' : 'Login'}
           </Button>
 
           <button
