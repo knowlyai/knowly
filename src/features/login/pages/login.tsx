@@ -28,11 +28,16 @@ import {
   Form
 } from '@/shared/components/form'
 import { Input } from '@/shared/components/input'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { containerVariants, cardVariants } from '@/shared/utils/animations'
+import { useLoginUserMutation } from '@/shared/hooks/use-user'
+import toast from 'react-hot-toast'
+import { AxiosError } from 'axios'
 
 export function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
+  const { mutateAsync: loginUser, isPending } = useLoginUserMutation()
+  const navigate = useNavigate()
 
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginFormSchema),
@@ -40,8 +45,21 @@ export function LoginPage() {
     mode: 'onBlur'
   })
 
-  const onSubmit = (values: LoginFormData) => {
-    console.log(values)
+  const onSubmit = async (values: LoginFormData) => {
+    try {
+      const response = await loginUser(values)
+      localStorage.setItem('access_token', response.access_token)
+      toast.success('Login realizado com sucesso!')
+      navigate('/bases', {
+        replace: true
+      })
+    } catch (err) {
+      const errorMessage =
+        err instanceof AxiosError && err.response?.data?.message
+          ? err.response.data.message
+          : 'Erro ao fazer login'
+      toast.error(errorMessage)
+    }
   }
 
   return (
@@ -116,8 +134,12 @@ export function LoginPage() {
                     )}
                   />
                   <CardFooter className="flex flex-col items-center justify-center pt-4 pb-0">
-                    <Button type="submit" className="w-full">
-                      Login
+                    <Button
+                      type="submit"
+                      className="w-full"
+                      disabled={isPending}
+                    >
+                      {isPending ? 'Entrando...' : 'Login'}
                     </Button>
                     <div className="text-foreground/70 mt-2 text-center text-sm">
                       Ainda não tem uma conta?{' '}
