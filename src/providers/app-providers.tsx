@@ -6,7 +6,7 @@ const queryClient = new QueryClient()
 
 export function AppProviders({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
           {children}
