@@ -9,7 +9,7 @@
   --foreground: oklch(0.15 0.07 280); /* texto roxo escuro para contraste */
 
   /* cards e popovers */
-  --card: oklch(0.98 0.02 280); /* quase branco */
+  --card: oklch(0.995 0.02 280); /* quase branco */
   --card-foreground: oklch(0.15 0.07 280);
   --popover: oklch(0.98 0.02 280);
   --popover-foreground: oklch(0.15 0.07 280);
@@ -27,7 +27,7 @@
   /* acentos e destrutivo */
   --accent: oklch(0.9 0.15 280);
   --accent-foreground: oklch(0.5 0.2 280);
-  --destructive: oklch(0.8 0.25 320);
+  --destructive: oklch(0.6338 0.1801 15.35);
 
   /* bordas, inputs e foco */
   --border: oklch(0.9 0.01 280);
