@@ -29,6 +29,7 @@ import {
   formatPhone
 } from '@/shared/utils/format-documents'
 import { Background } from '@/shared/components/background'
+import { BackgroundBlobs } from '@/shared/components/background-blobs'
 
 // Usuário simulado (como se estivesse logado)
 const mockUser: UserInfoData & { id: string } = {
@@ -116,6 +117,7 @@ export function UserInfoPage() {
 
   return (
     <Background className="min-h-screen">
+      <BackgroundBlobs />
       <Layout className="h-full w-full">
         <main className="flex flex-col items-center justify-center p-12">
           <motion.div
