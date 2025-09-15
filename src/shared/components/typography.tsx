@@ -32,18 +32,13 @@ export function h4({ children }: { children: React.ReactNode }) {
   )
 }
 
-
 export function p({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="leading-7 [&:not(:first-child)]:mt-6">
-      {children}
-    </p>
-  )
+  return <p className="leading-7 [&:not(:first-child)]:mt-6">{children}</p>
 }
 
 export function pre({ children }: { children: React.ReactNode }) {
   return (
-    <pre className="mt-4 mb-6 rounded-md bg-muted p-4 font-mono text-sm">
+    <pre className="bg-muted mt-4 mb-6 rounded-md p-4 font-mono text-sm">
       {children}
     </pre>
   )
@@ -51,11 +46,11 @@ export function pre({ children }: { children: React.ReactNode }) {
 
 export function code({ children }: { children: React.ReactNode }) {
   return (
-    <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
+    <code className="bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
       {children}
     </code>
   )
-}  
+}
 
 export function ul({ children }: { children: React.ReactNode }) {
   return <ul className="list-disc pl-6">{children}</ul>
@@ -63,18 +58,19 @@ export function ul({ children }: { children: React.ReactNode }) {
 
 export function blockquote({ children }: { children: React.ReactNode }) {
   return (
-    <blockquote className="mt-6 border-l-2 pl-6 italic">
-      {children}
-    </blockquote>
+    <blockquote className="mt-6 border-l-2 pl-6 italic">{children}</blockquote>
   )
 }
 
-export function a({ children, href }: { children: React.ReactNode; href: string }) {
+export function a({
+  children,
+  href
+}: {
+  children: React.ReactNode
+  href: string
+}) {
   return (
-    <a
-      href={href}
-      className="text-blue-600 hover:underline"
-    >
+    <a href={href} className="text-blue-600 hover:underline">
       {children}
     </a>
   )
