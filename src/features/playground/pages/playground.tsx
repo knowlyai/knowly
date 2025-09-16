@@ -177,7 +177,7 @@ export function PlaygroundPage() {
             </div>
 
             {/* Chat Container */}
-            <Card className="flex min-h-0 flex-1 flex-col overflow-hidden">
+            <Card className="flex min-h-0 max-w-2xl flex-1 flex-col overflow-hidden">
               <CardHeader className="flex-shrink-0 pb-3">
                 <CardTitle className="flex items-center gap-2">
                   <Bot className="h-5 w-5" />
