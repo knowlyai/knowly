@@ -48,7 +48,7 @@ export function LoginPage() {
   const onSubmit = async (values: LoginFormData) => {
     try {
       const response = await loginUser(values)
-      localStorage.setItem('access_token', response.access_token)
+      localStorage.setItem('token', response.id_token)
       toast.success('Login realizado com sucesso!')
       navigate('/bases', {
         replace: true
