@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import {
@@ -47,6 +47,9 @@ export function CreateBasePipeline() {
   const formData = location.state?.formData as CreateBaseData
 
   const createKnowledgeBaseMutation = useCreateKnowledgeBaseMutation()
+
+  // Guard to prevent double-run under React StrictMode in development
+  const didRunRef = useRef(false)
 
   const [pipeline, setPipeline] = useState<PipelineState>({
     currentStep: 0,
@@ -239,6 +242,9 @@ export function CreateBasePipeline() {
   }
 
   useEffect(() => {
+    if (didRunRef.current) return
+    didRunRef.current = true
+
     if (formData) {
       executeSteps()
     } else {

@@ -38,10 +38,16 @@ import { motion } from 'framer-motion'
 import { Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
 import { containerVariants, cardVariants } from '@/shared/utils/animations'
+import { useCreateUserMutation } from '@/shared/hooks/use-user'
+import { AxiosError } from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 export function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const navigate = useNavigate()
+
+  const { mutateAsync: createUser, isPending } = useCreateUserMutation()
 
   const form = useForm<SignUpFormData>({
     resolver: zodResolver(signUpFormSchema),
@@ -73,9 +79,39 @@ export function SignUpPage() {
     onChange(formattedValue)
   }
 
-  function onSubmit(values: SignUpFormData) {
-    console.log(values)
-    toast.success('Conta criada com sucesso!')
+  async function onSubmit(values: SignUpFormData) {
+    try {
+      const isIndividual = values.documentType === 'individual'
+
+      // Convert birthDate to seconds since epoch if provided
+      const birthDateSeconds = values.birthDate
+        ? Math.floor(values.birthDate.getTime() / 1000)
+        : undefined
+
+      await createUser({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+        cellphone: values.phone,
+        personType: isIndividual ? 'PF' : 'PJ',
+        cpfCnpj: values.document.replace(/\D/g, ''),
+        birthDate: birthDateSeconds,
+        plan: 'Bronze'
+      })
+
+      form.reset()
+      toast.success(
+        'Conta criada! Confirme seu cadastro pelo link enviado para o seu e-mail. Você será redirecionado para a página de login.',
+        { duration: 10000 }
+      )
+      setTimeout(() => {
+        navigate('/login', { replace: true })
+      }, 10000)
+    } catch (err) {
+      const errorMessage =
+        ((err as AxiosError).response?.data as string) || 'Erro ao fazer login'
+      toast.error(errorMessage)
+    }
   }
 
   return (
@@ -326,7 +362,9 @@ export function SignUpPage() {
                   />
                 </CardContent>
                 <CardFooter className="justify-center">
-                  <Button type="submit">Criar conta</Button>
+                  <Button type="submit" disabled={isPending}>
+                    {isPending ? 'Criando...' : 'Criar conta'}
+                  </Button>
                 </CardFooter>
               </Card>
             </motion.div>

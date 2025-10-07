@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { Save, ArrowLeft } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
-
+import { v4 as uuidv4 } from 'uuid'
 import { Background } from '@/shared/components/background'
 import { Layout } from '@/shared/components/layout'
 import { Button } from '@/shared/components/button'
@@ -64,7 +64,7 @@ export function CreateBase() {
         .replace(/[\u0300-\u036f]/g, '') // Remove diacritics
         .replace(/[^a-z0-9\s]/g, '-')
         .replace(/\s+/g, '-')
-      data.slug = slug
+      data.slug = slug.concat('-', uuidv4().slice(0, 8)) // Append random string to ensure uniqueness
       // Navigate to pipeline page with form data
       navigate('/bases/create/pipeline', { state: { formData: data } })
     } catch (error) {
