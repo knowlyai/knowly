@@ -231,7 +231,7 @@ export function PlaygroundPage() {
                                 : 'bg-muted text-foreground'
                             }`}
                           >
-                            <p className="text-sm whitespace-pre-wrap">
+                            <p className="p-[6px] text-sm whitespace-pre-wrap">
                               {message.content}
                             </p>
                             <p className={`mt-1 text-xs opacity-70`}>
