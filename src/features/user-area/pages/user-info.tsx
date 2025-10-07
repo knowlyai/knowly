@@ -29,21 +29,28 @@ import {
   formatPhone
 } from '@/shared/utils/format-documents'
 import { Background } from '@/shared/components/background'
-
-// Usuário simulado (como se estivesse logado)
-const mockUser: UserInfoData & { id: string } = {
-  id: '1',
-  name: 'Maria da Silva',
-  email: 'maria@email.com',
-  documentType: DOCUMENT_TYPE.INDIVIDUAL,
-  phone: formatPhone('11912345678'),
-  document: '234.781.938-47',
-  birthDate: new Date(2001, 7, 12) // Começa no mês 0
-}
+import { useUser } from '@/shared/hooks/use-user'
 
 export function UserInfoPage() {
   const [isEditing, setIsEditing] = useState(false)
-  const [user, setUser] = useState(mockUser)
+  const { user, isPending } = useUser()
+
+  const form = useForm<UserInfoData>({
+    resolver: zodResolver(userInfoSchema),
+    defaultValues: {
+      name: user?.name || '',
+      email: user?.email || '',
+      cellphone: user?.cellphone || '',
+      personType: user?.personType || 'individual',
+      cpfCnpj: user?.cpfCnpj || '',
+      birthDate: user?.birthDate
+    },
+    mode: 'onBlur'
+  })
+
+  if (isPending || !user) {
+    return <div>Loading</div>
+  }
 
   const handleCPFChange = (
     value: string,
@@ -69,48 +76,44 @@ export function UserInfoPage() {
     onChange(formattedValue)
   }
 
-  const form = useForm<UserInfoData>({
-    resolver: zodResolver(userInfoSchema),
-    defaultValues: {
-      name: user.name,
-      email: user.email,
-      phone: user.phone,
-      documentType: user.documentType,
-      document: user.document,
-      birthDate: user.birthDate
-    },
-    mode: 'onBlur'
-  })
-
   function handleEdit() {
+    if (!user) return
+
     setIsEditing(true)
     form.reset({
       name: user.name,
       email: user.email,
-      phone: user.phone,
-      documentType: user.documentType,
-      document: user.document,
+      cellphone: user.cellphone,
+      personType: user.personType,
+      cpfCnpj: user.cpfCnpj,
       birthDate: user.birthDate
     })
   }
 
   function handleCancel() {
+    if (!user) return
+
     setIsEditing(false)
     form.reset({
       name: user.name,
       email: user.email,
-      phone: user.phone,
-      documentType: user.documentType,
-      document: user.document,
+      cellphone: user.cellphone,
+      personType: user.personType,
+      cpfCnpj: user.cpfCnpj,
       birthDate: user.birthDate
     })
   }
 
   function onSubmit(data: UserInfoData) {
-    setUser({
-      ...user,
-      ...data
-    })
+    const dirtyFields = form.formState.dirtyFields
+    const changedData = Object.keys(dirtyFields).reduce((acc, key) => {
+      if (dirtyFields[key as keyof UserInfoData]) {
+        acc[key as keyof UserInfoData] = data[key as keyof UserInfoData]
+      }
+      return acc
+    }, {} as Partial<UserInfoData>)
+
+    console.log('Changed fields:', changedData)
     setIsEditing(false)
   }
 
@@ -140,13 +143,13 @@ export function UserInfoPage() {
                   </div>
                   <div>
                     <Label>Telefone/Celular</Label>
-                    <Input value={user.phone} disabled />
+                    <Input value={user.cellphone} disabled />
                   </div>
                   <div>
                     <Label>Tipo de Pessoa</Label>
                     <Input
                       value={
-                        user.documentType === DOCUMENT_TYPE.INDIVIDUAL
+                        user.personType === DOCUMENT_TYPE.INDIVIDUAL
                           ? 'Pessoa física'
                           : 'Pessoa jurídica'
                       }
@@ -157,9 +160,9 @@ export function UserInfoPage() {
                     <Label>Documento</Label>
                     <Input
                       value={
-                        user.documentType === DOCUMENT_TYPE.INDIVIDUAL
-                          ? formatCPF(user.document)
-                          : formatCNPJ(user.document)
+                        user.personType === DOCUMENT_TYPE.INDIVIDUAL
+                          ? formatCPF(user.cpfCnpj)
+                          : formatCNPJ(user.cpfCnpj)
                       }
                       disabled
                     />
@@ -214,7 +217,7 @@ export function UserInfoPage() {
                       />
                       <FormField
                         control={form.control}
-                        name="phone"
+                        name="cellphone"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Telefone/Celular</FormLabel>
@@ -235,7 +238,7 @@ export function UserInfoPage() {
                       />
                       <FormField
                         control={form.control}
-                        name="documentType"
+                        name="personType"
                         render={({ field: _ }) => (
                           <FormItem>
                             <FormLabel>Tipo de Pessoa</FormLabel>
@@ -244,7 +247,7 @@ export function UserInfoPage() {
                                 <TooltipTrigger asChild>
                                   <Input
                                     value={
-                                      user.documentType ===
+                                      user.personType ===
                                       DOCUMENT_TYPE.INDIVIDUAL
                                         ? 'Pessoa física'
                                         : 'Pessoa jurídica'
@@ -263,7 +266,7 @@ export function UserInfoPage() {
                       />
                       <FormField
                         control={form.control}
-                        name="document"
+                        name="cpfCnpj"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Documento</FormLabel>
@@ -272,7 +275,7 @@ export function UserInfoPage() {
                                 {...field}
                                 onChange={(e) => {
                                   if (
-                                    form.getValues('documentType') ===
+                                    form.getValues('personType') ===
                                     'individual'
                                   ) {
                                     handleCPFChange(
@@ -292,7 +295,7 @@ export function UserInfoPage() {
                           </FormItem>
                         )}
                       />
-                      {user.documentType === DOCUMENT_TYPE.INDIVIDUAL && (
+                      {user.personType === DOCUMENT_TYPE.INDIVIDUAL && (
                         <FormField
                           control={form.control}
                           name="birthDate"
