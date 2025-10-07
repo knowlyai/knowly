@@ -12,6 +12,12 @@ export type CreateUserRequest = {
   plan: string
 }
 
+export type UpdateUserRequest = {
+  name?: string
+  cellphone?: string
+  plan?: string
+}
+
 export type LoginUserRequest = {
   email: string
   password: string
@@ -69,11 +75,24 @@ export const userService = {
     await api.post('/user', payload)
   },
 
+  async updateUser(request: UpdateUserRequest): Promise<void> {
+    const payload = {
+      new_name: request.name,
+      new_cellphone: request.cellphone,
+      new_plan: request.plan
+    }
+
+    await api.patch('/user', payload, {
+      headers: getAuthHeader()
+    })
+  },
+
   async getUser(): Promise<User> {
     const response = await api.get<UserResponse>('/user', {
       headers: getAuthHeader()
     })
     const data = response.data.user
+    console.log('User data fetched:', data)
     return {
       id: data.user_id,
       name: data.name,
@@ -83,7 +102,7 @@ export const userService = {
       cpfCnpj: data.cpf_cnpj,
       address: data.address,
       cep: data.cep,
-      birthDate: data.birthdate ? new Date(data.birthdate) : undefined,
+      birthDate: data.birthdate ? new Date(data.birthdate * 1000) : undefined,
       plan: data.plan,
       creationDate: data.creation_date,
       updateDate: data.update_date
