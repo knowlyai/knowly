@@ -3,7 +3,9 @@ import {
   LoginUserRequest,
   userService
 } from '@/services/user'
-import { useMutation } from '@tanstack/react-query'
+import { UserContext } from '@/shared/contexts/user-context'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import { useContext } from 'react'
 
 export const useCreateUserMutation = () => {
   return useMutation({
@@ -19,4 +21,21 @@ export const useLoginUserMutation = () => {
       return await userService.login(request)
     }
   })
+}
+
+export const useUserQuery = () => {
+  return useQuery({
+    queryKey: ['user'],
+    queryFn: async () => {
+      return await userService.getUser()
+    }
+  })
+}
+
+export const useUser = () => {
+  const context = useContext(UserContext)
+  if (!context) {
+    throw new Error('useUser must be used within a UserProvider')
+  }
+  return context
 }
