@@ -9,6 +9,7 @@ interface UserContextType {
   logout: () => void
   isPending?: boolean
   error?: unknown
+  refetch?: () => void
 }
 
 export const UserContext = createContext<UserContextType | undefined>(undefined)
@@ -19,7 +20,7 @@ interface UserProviderProps {
 
 export const UserProvider = ({ children }: UserProviderProps) => {
   const [user, setUser] = useState<User | null>(null)
-  const { data: userData, isPending, error } = useUserQuery()
+  const { data: userData, isPending, error, refetch } = useUserQuery()
 
   const isAuthenticated = user !== null
 
@@ -40,7 +41,8 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     isAuthenticated,
     logout,
     isPending,
-    error
+    error,
+    refetch
   }
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>
