@@ -1,4 +1,5 @@
-import { api } from '@/shared/api'
+import { api, getAuthHeader } from '@/shared/api'
+import { User } from '@/shared/domain/user'
 
 export type CreateUserRequest = {
   name: string
@@ -20,6 +21,23 @@ export type LoginUserResponse = {
   id_token: string
   access_token: string
   refresh_token: string
+}
+
+export type UserResponse = {
+  user: {
+    user_id: string
+    name: string
+    email: string
+    cellphone: string
+    p_type: string
+    cpf_cnpj: string
+    address: string
+    cep: string
+    birthdate: number | null
+    plan: string
+    creation_date: number
+    update_date: number
+  }
 }
 
 export const userService = {
@@ -49,5 +67,26 @@ export const userService = {
     }
 
     await api.post('/user', payload)
+  },
+
+  async getUser(): Promise<User> {
+    const response = await api.get<UserResponse>('/user', {
+      headers: getAuthHeader()
+    })
+    const data = response.data.user
+    return {
+      id: data.user_id,
+      name: data.name,
+      email: data.email,
+      cellphone: data.cellphone,
+      personType: data.p_type,
+      cpfCnpj: data.cpf_cnpj,
+      address: data.address,
+      cep: data.cep,
+      birthDate: data.birthdate ? new Date(data.birthdate) : undefined,
+      plan: data.plan,
+      creationDate: data.creation_date,
+      updateDate: data.update_date
+    }
   }
 }
