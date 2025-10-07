@@ -29,11 +29,15 @@ import {
   formatPhone
 } from '@/shared/utils/format-documents'
 import { Background } from '@/shared/components/background'
-import { useUser } from '@/shared/hooks/use-user'
+import { useUpdateUserMutation, useUser } from '@/shared/hooks/use-user'
+import { UpdateUserRequest } from '@/services/user'
+import toast from 'react-hot-toast'
 
 export function UserInfoPage() {
   const [isEditing, setIsEditing] = useState(false)
-  const { user, isPending } = useUser()
+  const { user, isPending, refetch } = useUser()
+  const { mutateAsync: updateUser, isPending: isUpdating } =
+    useUpdateUserMutation()
 
   const form = useForm<UserInfoData>({
     resolver: zodResolver(userInfoSchema),
@@ -104,17 +108,32 @@ export function UserInfoPage() {
     })
   }
 
-  function onSubmit(data: UserInfoData) {
-    const dirtyFields = form.formState.dirtyFields
-    const changedData = Object.keys(dirtyFields).reduce((acc, key) => {
-      if (dirtyFields[key as keyof UserInfoData]) {
-        acc[key as keyof UserInfoData] = data[key as keyof UserInfoData]
-      }
-      return acc
-    }, {} as Partial<UserInfoData>)
+  async function onSubmit(data: UserInfoData) {
+    const dirtyFields = form.formState.dirtyFields as Partial<
+      Record<keyof UserInfoData, boolean>
+    >
 
-    console.log('Changed fields:', changedData)
-    setIsEditing(false)
+    const changedData: Partial<UserInfoData> = {}
+
+    function setField<K extends keyof UserInfoData>(k: K) {
+      changedData[k] = data[k]
+    }
+
+    ;(Object.keys(dirtyFields) as (keyof UserInfoData)[]).forEach((key) => {
+      if (dirtyFields[key]) {
+        setField(key)
+      }
+    })
+
+    try {
+      await updateUser(changedData as UpdateUserRequest)
+      refetch?.()
+    } catch (error) {
+      console.error('Failed to update user:', error)
+      toast.error('Erro ao atualizar os dados. Tente novamente.')
+    } finally {
+      setIsEditing(false)
+    }
   }
 
   return (
@@ -328,12 +347,14 @@ export function UserInfoPage() {
                           variant="secondary"
                           className="w-1/2"
                           onClick={handleCancel}
+                          disabled={isUpdating}
                         >
                           Cancelar
                         </Button>
                         <Button
                           type="submit"
                           className="flex w-1/2 items-center justify-center gap-2"
+                          disabled={isUpdating}
                         >
                           <Save size={20} /> Salvar
                         </Button>
