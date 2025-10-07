@@ -1,6 +1,7 @@
 import {
   CreateUserRequest,
   LoginUserRequest,
+  UpdateUserRequest,
   userService
 } from '@/services/user'
 import { UserContext } from '@/shared/contexts/user-context'
@@ -28,6 +29,14 @@ export const useUserQuery = () => {
     queryKey: ['user'],
     queryFn: async () => {
       return await userService.getUser()
+    }
+  })
+}
+
+export const useUpdateUserMutation = () => {
+  return useMutation({
+    mutationFn: async (request: UpdateUserRequest) => {
+      return await userService.updateUser(request)
     }
   })
 }
