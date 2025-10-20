@@ -24,7 +24,7 @@ export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   // Determine if user is logged in based on presence of token in localStorage
-  const isLoggedIn = Boolean(localStorage.getItem('access_token'))
+  const isLoggedIn = Boolean(localStorage.getItem('token'))
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
