@@ -92,7 +92,6 @@ export const userService = {
       headers: getAuthHeader()
     })
     const data = response.data.user
-    console.log('User data fetched:', data)
     return {
       id: data.user_id,
       name: data.name,
