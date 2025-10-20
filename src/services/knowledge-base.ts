@@ -58,6 +58,10 @@ export type GetKnowledgeBaseResponse = {
       url: string
     }[]
     total_size_mb: number
+    keys: {
+      kb_key: string
+      kb_key_alias: string
+    }[]
   }[]
 }
 
@@ -98,7 +102,11 @@ export const knowledgeBaseService = {
           sizeMB: file.size_bytes / (1024 * 1024),
           url: file.url
         })),
-        totalSizeMB: kb.total_size_mb
+        totalSizeMB: kb.total_size_mb,
+        keys: kb.keys.map((key) => ({
+          kbKey: key.kb_key,
+          kbKeyAlias: key.kb_key_alias
+        }))
       }
     })
   },
