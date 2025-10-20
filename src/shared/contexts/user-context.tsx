@@ -26,6 +26,8 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 
   const logout = () => {
     setUser(null)
+    localStorage.removeItem('token')
+    localStorage.removeItem('refresh_token')
   }
 
   useEffect(() => {
