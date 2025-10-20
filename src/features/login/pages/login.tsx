@@ -73,6 +73,7 @@ export function LoginPage() {
 
       const response = await loginUser(values)
       localStorage.setItem('token', response.id_token)
+      localStorage.setItem('refresh_token', response.refresh_token)
       toast.success('Login realizado com sucesso!')
       navigate('/bases', {
         replace: true
