@@ -2,7 +2,7 @@ import { Background } from '@/shared/components/background'
 import { Layout } from '@/shared/components/layout'
 import { motion } from 'framer-motion'
 import { Button } from '@/shared/components/button'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Eye, EyeOff } from 'lucide-react'
 import { BackgroundBlobs } from '@/shared/components/background-blobs'
 import {
@@ -28,25 +28,49 @@ import {
   Form
 } from '@/shared/components/form'
 import { Input } from '@/shared/components/input'
+import { Checkbox } from '@/shared/components/checkbox'
 import { Link, useNavigate } from 'react-router-dom'
 import { containerVariants, cardVariants } from '@/shared/utils/animations'
 import { useLoginUserMutation } from '@/shared/hooks/use-user'
 import toast from 'react-hot-toast'
 import { AxiosError } from 'axios'
 
+const REMEMBER_EMAIL_KEY = 'knowly_remember_email'
+
 export function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
+  const [rememberEmail, setRememberEmail] = useState(false)
   const { mutateAsync: loginUser, isPending } = useLoginUserMutation()
   const navigate = useNavigate()
 
+  // Get saved email before initializing form
+  const savedEmail = localStorage.getItem(REMEMBER_EMAIL_KEY)
+
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginFormSchema),
-    defaultValues: loginFormInitialValues,
+    defaultValues: {
+      ...loginFormInitialValues,
+      email: savedEmail || loginFormInitialValues.email
+    },
     mode: 'onBlur'
   })
 
+  // Set checkbox state on mount
+  useEffect(() => {
+    if (savedEmail) {
+      setRememberEmail(true)
+    }
+  }, [savedEmail])
+
   const onSubmit = async (values: LoginFormData) => {
     try {
+      // Save or remove email from localStorage based on checkbox
+      if (rememberEmail) {
+        localStorage.setItem(REMEMBER_EMAIL_KEY, values.email)
+      } else {
+        localStorage.removeItem(REMEMBER_EMAIL_KEY)
+      }
+
       const response = await loginUser(values)
       localStorage.setItem('token', response.id_token)
       toast.success('Login realizado com sucesso!')
@@ -133,6 +157,24 @@ export function LoginPage() {
                       </FormItem>
                     )}
                   />
+
+                  {/* Remember Email Checkbox */}
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="remember-email"
+                      checked={rememberEmail}
+                      onCheckedChange={(checked) =>
+                        setRememberEmail(checked as boolean)
+                      }
+                    />
+                    <label
+                      htmlFor="remember-email"
+                      className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Lembrar e-mail
+                    </label>
+                  </div>
+
                   <CardFooter className="flex flex-col items-center justify-center pt-4 pb-0">
                     <Button
                       type="submit"
