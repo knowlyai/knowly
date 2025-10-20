@@ -68,7 +68,12 @@ export function KnowledgeBaseDetailModal({
   }
 
   const handleTestKnowledgeBase = () => {
-    navigate(`/playground/${knowledgeBase.id}`)
+    // Get the first available key
+    const firstKey = knowledgeBase.keys[0]?.kbKey
+
+    navigate(`/playground/${knowledgeBase.id}`, {
+      state: { kbKey: firstKey }
+    })
     onOpenChange(false)
   }
 
