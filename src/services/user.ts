@@ -55,6 +55,14 @@ export const userService = {
     return response.data
   },
 
+  // TODO: Implementar quando a rota de refresh token estiver disponível
+  // async refreshToken(refreshToken: string): Promise<LoginUserResponse> {
+  //   const response = await api.post<LoginUserResponse>('/auth/refresh', {
+  //     refresh_token: refreshToken
+  //   })
+  //   return response.data
+  // },
+
   async createUser(request: CreateUserRequest): Promise<void> {
     const payload: Record<string, unknown> = {
       name: request.name,
