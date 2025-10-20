@@ -26,7 +26,7 @@ export function Sidebar() {
 
   function handleLogout() {
     // Remover token e redirecionar para home
-    localStorage.removeItem('access_token')
+    localStorage.removeItem('token')
     navigate('/')
   }
 
