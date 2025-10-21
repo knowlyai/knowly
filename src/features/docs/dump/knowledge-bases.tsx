@@ -1,15 +1,8 @@
 import { Background } from '@/shared/components/background'
 import { Layout } from '@/shared/components/layout'
 import { motion } from 'framer-motion'
-import {
-  h1,
-  h2,
-  p,
-  ul,
-  li,
-} from '@/shared/components/typography'
+import { h1, h2, p, ul, li } from '@/shared/components/typography'
 import { BackgroundBlobs } from '@/shared/components/background-blobs'
-
 
 export function DocsBasesPage() {
   return (
@@ -30,9 +23,12 @@ export function DocsBasesPage() {
               {p({
                 children: (
                   <>
-                    Gerenciar suas bases de conhecimento no Knowly é simples e rápido. Basta acessar as configurações do seu perfil após fazer login e selecionar a opção <b>&quot;Minhas bases&quot;</b>.
+                    Gerenciar suas bases de conhecimento no Knowly é simples e
+                    rápido. Basta acessar as configurações do seu perfil após
+                    fazer login e selecionar a opção{' '}
+                    <b>&quot;Minhas bases&quot;</b>.
                   </>
-                ),
+                )
               })}
 
               {ul({
@@ -41,35 +37,38 @@ export function DocsBasesPage() {
                     {li({
                       children: (
                         <>
-                          <b>Para criar uma base:</b> Clique em <b>&quot;Nova base&quot;</b>, escolha um nome e envie os documentos que deseja usar. Pronto! Sua base estará disponível para consultas e integrações assim que terminar de ser criada.
+                          <b>Para criar uma base:</b> Clique em{' '}
+                          <b>&quot;Nova base&quot;</b>, escolha um nome e envie
+                          os documentos que deseja usar. Pronto! Sua base estará
+                          disponível para consultas e integrações assim que
+                          terminar de ser criada.
                         </>
-                      ),
+                      )
                     })}
                     {li({
                       children: (
                         <>
-                          <b>Para editar:</b> Selecione uma base existente na lista para ver detalhes, adicionar ou remover documentos, ou atualizar informações.
+                          <b>Para editar:</b> Selecione uma base existente na
+                          lista para ver detalhes, adicionar ou remover
+                          documentos, ou atualizar informações.
                         </>
-                      ),
+                      )
                     })}
                     {li({
                       children: (
                         <>
-                          <b>Para excluir:</b> Escolha a base desejada e clique em <b>&quot;Excluir&quot;</b>. Confirme a ação para remover a base do sistema.
+                          <b>Para excluir:</b> Escolha a base desejada e clique
+                          em <b>&quot;Excluir&quot;</b>. Confirme a ação para
+                          remover a base do sistema.
                         </>
-                      ),
+                      )
                     })}
                   </>
-                ),
+                )
               })}
 
               {p({
-                children: (
-                  <>
-
-
-                  </>
-                ),
+                children: <></>
               })}
             </section>
           </motion.article>

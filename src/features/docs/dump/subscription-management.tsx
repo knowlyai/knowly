@@ -1,15 +1,8 @@
 import { Background } from '@/shared/components/background'
 import { Layout } from '@/shared/components/layout'
 import { motion } from 'framer-motion'
-import {
-  h1,
-  h2,
-  p,
-  ul,
-  li,
-} from '@/shared/components/typography'
+import { h1, h2, p, ul, li } from '@/shared/components/typography'
 import { BackgroundBlobs } from '@/shared/components/background-blobs'
-
 
 export function DocsPlansPage() {
   return (
@@ -29,34 +22,52 @@ export function DocsPlansPage() {
               {h2({ children: 'Como alterar seu plano' })}
               {p({
                 children: (
-                  <>Para gerenciar seu plano de assinatura no Knowly, é só acessar a área do usuário após fazer login. No menu lateral à esquerda, clique em <b>&quot;Assinatura&quot;</b>.</>
-                ),
+                  <>
+                    Para gerenciar seu plano de assinatura no Knowly, é só
+                    acessar a área do usuário após fazer login. No menu lateral
+                    à esquerda, clique em <b>&quot;Assinatura&quot;</b>.
+                  </>
+                )
               })}
               {ul({
                 children: (
                   <>
                     {li({
                       children: (
-                        <>Na seção <b>&quot;Plano atual&quot;</b>, procure o botão <b>&quot;Mudar plano&quot;</b> no canto inferior direito.</>
-                      ),
+                        <>
+                          Na seção <b>&quot;Plano atual&quot;</b>, procure o
+                          botão <b>&quot;Mudar plano&quot;</b> no canto inferior
+                          direito.
+                        </>
+                      )
                     })}
                     {li({
                       children: (
-                        <>Clique em <b>&quot;Mudar plano&quot;</b> para ver as opções disponíveis e escolher o plano que melhor atende às suas necessidades.</>
-                      ),
+                        <>
+                          Clique em <b>&quot;Mudar plano&quot;</b> para ver as
+                          opções disponíveis e escolher o plano que melhor
+                          atende às suas necessidades.
+                        </>
+                      )
                     })}
                     {li({
                       children: (
-                        <>Confirme a alteração e pronto! Seu novo plano já estará ativo.</>
-                      ),
+                        <>
+                          Confirme a alteração e pronto! Seu novo plano já
+                          estará ativo.
+                        </>
+                      )
                     })}
                   </>
-                ),
+                )
               })}
               {p({
                 children: (
-                  <>Assim, você pode ajustar sua assinatura sempre que quiser, de forma rápida e sem complicação.</>
-                ),
+                  <>
+                    Assim, você pode ajustar sua assinatura sempre que quiser,
+                    de forma rápida e sem complicação.
+                  </>
+                )
               })}
             </section>
           </motion.article>

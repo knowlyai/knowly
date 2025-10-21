@@ -19,6 +19,13 @@ import { PageWithSidebar } from '@/shared/components/page-with-sidebar'
 import { CreateBase } from '@/features/user-area/pages/create-base'
 import { CreateBasePipeline } from '@/features/user-area/pages/create-base-pipeline'
 import { PlaygroundPage } from '@/features/playground/pages/playground'
+import { DocsLayout } from '@/shared/components/docs-layout'
+import { AboutProjectPage } from '@/features/docs/pages/about-project'
+import { FoundationModelsPage } from '@/features/docs/pages/foundation-models'
+import { KnowledgeBasesPage } from '@/features/docs/pages/knowledge-bases'
+import { IntegrationPage } from '@/features/docs/pages/integration'
+import { PlaygroundTestingPage } from '@/features/docs/pages/playground-testing'
+import { SubscriptionManagementPage as DocsSubscriptionPage } from '@/features/docs/pages/subscription-management'
 
 export function AppRoutes() {
   return (
@@ -59,6 +66,24 @@ export function AppRoutes() {
           />
           <Route path="subscription" element={<SubscriptionManagementPage />} />
           <Route path="playground/:kbId" element={<PlaygroundPage />} />
+        </Route>
+
+        <Route element={<DocsLayout />}>
+          <Route path="docs" element={<AboutProjectPage />} />
+          <Route
+            path="docs/foundation-models"
+            element={<FoundationModelsPage />}
+          />
+          <Route path="docs/knowledge-bases" element={<KnowledgeBasesPage />} />
+          <Route path="docs/integration" element={<IntegrationPage />} />
+          <Route
+            path="docs/playground-testing"
+            element={<PlaygroundTestingPage />}
+          />
+          <Route
+            path="docs/subscription-management"
+            element={<DocsSubscriptionPage />}
+          />
         </Route>
       </Routes>
     </Suspense>

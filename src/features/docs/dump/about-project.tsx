@@ -1,13 +1,8 @@
 import { Background } from '@/shared/components/background'
 import { Layout } from '@/shared/components/layout'
 import { motion } from 'framer-motion'
-import {
-  h1,
-  h2,
-  p,
-} from '@/shared/components/typography'
+import { h1, h2, p } from '@/shared/components/typography'
 import { BackgroundBlobs } from '@/shared/components/background-blobs'
-
 
 export function DocsProjectPage() {
   return (
@@ -28,30 +23,44 @@ export function DocsProjectPage() {
               {p({
                 children: (
                   <>
-                    A inteligência artificial está mudando a forma como empresas trabalham, trazendo mais agilidade e eficiência para o dia a dia. Mas, para a maioria dos negócios, usar IA ainda é caro e complicado: exige conhecimento técnico, tempo e investimento alto em tecnologia.
+                    A inteligência artificial está mudando a forma como empresas
+                    trabalham, trazendo mais agilidade e eficiência para o dia a
+                    dia. Mas, para a maioria dos negócios, usar IA ainda é caro
+                    e complicado: exige conhecimento técnico, tempo e
+                    investimento alto em tecnologia.
                   </>
-                ),
+                )
               })}
               {p({
                 children: (
                   <>
-                    O Knowly nasceu para simplificar esse cenário. Queremos que qualquer empresa consiga aproveitar o poder dos grandes modelos de linguagem para responder dúvidas, organizar informações e automatizar tarefas, sem precisar se preocupar com detalhes técnicos ou infraestrutura.
+                    O Knowly nasceu para simplificar esse cenário. Queremos que
+                    qualquer empresa consiga aproveitar o poder dos grandes
+                    modelos de linguagem para responder dúvidas, organizar
+                    informações e automatizar tarefas, sem precisar se preocupar
+                    com detalhes técnicos ou infraestrutura.
                   </>
-                ),
+                )
               })}
               {p({
                 children: (
                   <>
-                    Nossa plataforma permite que você envie seus próprios documentos e, em poucos cliques, já tenha uma base de conhecimento inteligente pronta para ser usada no seu atendimento, site ou operação interna. Tudo isso com segurança, praticidade e custos acessíveis.
+                    Nossa plataforma permite que você envie seus próprios
+                    documentos e, em poucos cliques, já tenha uma base de
+                    conhecimento inteligente pronta para ser usada no seu
+                    atendimento, site ou operação interna. Tudo isso com
+                    segurança, praticidade e custos acessíveis.
                   </>
-                ),
+                )
               })}
               {p({
                 children: (
                   <>
-                    O objetivo é ajudar empresas a inovar, ganhar tempo e focar no que realmente importa: crescer e atender melhor seus clientes, usando IA de verdade no dia a dia.
+                    O objetivo é ajudar empresas a inovar, ganhar tempo e focar
+                    no que realmente importa: crescer e atender melhor seus
+                    clientes, usando IA de verdade no dia a dia.
                   </>
-                ),
+                )
               })}
             </section>
           </motion.article>
