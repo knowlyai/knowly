@@ -1,5 +1,5 @@
 import { KnowledgeBase } from '@/domain/knowledge-base'
-import { api, getAuthHeader } from '@/shared/api'
+import { api, apiChat, getAuthHeader } from '@/shared/api'
 import { MODELS } from '@/shared/enums/models'
 import { STATUS } from '@/shared/enums/status'
 
@@ -58,11 +58,16 @@ export type GetKnowledgeBaseResponse = {
       url: string
     }[]
     total_size_mb: number
+    keys: {
+      kb_key: string
+      kb_key_alias: string
+    }[]
   }[]
 }
 
 export type ChatWithKnowledgeBaseRequest = {
   kbId: string
+  kbKey: string
   model: MODELS
   prompt: string
   topK?: number
@@ -98,7 +103,11 @@ export const knowledgeBaseService = {
           sizeMB: file.size_bytes / (1024 * 1024),
           url: file.url
         })),
-        totalSizeMB: kb.total_size_mb
+        totalSizeMB: kb.total_size_mb,
+        keys: kb.keys.map((key) => ({
+          kbKey: key.kb_key,
+          kbKeyAlias: key.kb_key_alias
+        }))
       }
     })
   },
@@ -160,10 +169,11 @@ export const knowledgeBaseService = {
   async chatWithKnowledgeBase(
     request: ChatWithKnowledgeBaseRequest
   ): Promise<ChatWithKnowledgeBaseResponse> {
-    const response = await api.post<ChatWithKnowledgeBaseResponse>(
+    const response = await apiChat.post<ChatWithKnowledgeBaseResponse>(
       '/chat',
       {
         kb_id: request.kbId,
+        kb_key: request.kbKey,
         model: request.model,
         prompt: request.prompt,
         top_k: request.topK

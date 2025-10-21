@@ -29,7 +29,8 @@ export const useUserQuery = () => {
     queryKey: ['user'],
     queryFn: async () => {
       return await userService.getUser()
-    }
+    },
+    retry: false // Don't retry, let the axios interceptor handle 401 errors
   })
 }
 

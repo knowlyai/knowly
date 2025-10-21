@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Send, Bot, User, ArrowLeft } from 'lucide-react'
 import toast from 'react-hot-toast'
@@ -36,6 +36,8 @@ type Message = {
 export function PlaygroundPage() {
   const { kbId } = useParams<{ kbId: string }>()
   const navigate = useNavigate()
+  const location = useLocation()
+  const kbKey = location.state?.kbKey as string | undefined
   const [messages, setMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState('')
   const [selectedModel, setSelectedModel] = useState<MODELS>(
@@ -48,6 +50,19 @@ export function PlaygroundPage() {
 
   const currentKnowledgeBase = knowledgeBases?.find((kb) => kb.id === kbId)
 
+  useEffect(() => {
+    // Validate if kbKey is available
+    if (!kbKey && currentKnowledgeBase) {
+      const firstKey = currentKnowledgeBase.keys[0]?.kbKey
+      if (!firstKey) {
+        toast.error(
+          'Nenhuma chave de API disponível para esta base de conhecimento'
+        )
+        navigate('/bases')
+      }
+    }
+  }, [kbKey, currentKnowledgeBase, navigate])
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
@@ -58,6 +73,14 @@ export function PlaygroundPage() {
 
   const handleSendMessage = async () => {
     if (!inputValue.trim() || !kbId) return
+
+    // Get the kbKey to use (from state or from current KB)
+    const keyToUse = kbKey || currentKnowledgeBase?.keys[0]?.kbKey
+
+    if (!keyToUse) {
+      toast.error('Chave de API não disponível')
+      return
+    }
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -72,6 +95,7 @@ export function PlaygroundPage() {
     try {
       const response = await chatMutation.mutateAsync({
         kbId,
+        kbKey: keyToUse,
         model: selectedModel,
         prompt: inputValue
       })

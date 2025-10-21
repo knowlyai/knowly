@@ -1,5 +1,15 @@
 import { useNavigate } from 'react-router-dom'
-import { FileText, Trash2, Plus, Play } from 'lucide-react'
+import { useState } from 'react'
+import {
+  FileText,
+  Trash2,
+  Plus,
+  Play,
+  Eye,
+  EyeOff,
+  Copy,
+  Check
+} from 'lucide-react'
 import {
   Dialog,
   DialogContent,
@@ -24,6 +34,8 @@ export function KnowledgeBaseDetailModal({
   onOpenChange
 }: KnowledgeBaseDetailModalProps) {
   const navigate = useNavigate()
+  const [visibleKeys, setVisibleKeys] = useState<Set<string>>(new Set())
+  const [copiedKeys, setCopiedKeys] = useState<Set<string>>(new Set())
 
   const formatFileSize = (sizeInMB: number) => {
     if (sizeInMB < 1) {
@@ -56,8 +68,45 @@ export function KnowledgeBaseDetailModal({
   }
 
   const handleTestKnowledgeBase = () => {
-    navigate(`/playground/${knowledgeBase.id}`)
+    // Get the first available key
+    const firstKey = knowledgeBase.keys[0]?.kbKey
+
+    navigate(`/playground/${knowledgeBase.id}`, {
+      state: { kbKey: firstKey }
+    })
     onOpenChange(false)
+  }
+
+  const toggleKeyVisibility = (keyId: string) => {
+    setVisibleKeys((prev) => {
+      const newSet = new Set(prev)
+      if (newSet.has(keyId)) {
+        newSet.delete(keyId)
+      } else {
+        newSet.add(keyId)
+      }
+      return newSet
+    })
+  }
+
+  const copyKeyToClipboard = async (key: string, keyId: string) => {
+    try {
+      await navigator.clipboard.writeText(key)
+      setCopiedKeys((prev) => new Set(prev).add(keyId))
+      setTimeout(() => {
+        setCopiedKeys((prev) => {
+          const newSet = new Set(prev)
+          newSet.delete(keyId)
+          return newSet
+        })
+      }, 2000)
+    } catch (err) {
+      console.error('Erro ao copiar chave:', err)
+    }
+  }
+
+  const maskKey = (key: string) => {
+    return '•'.repeat(key.length)
   }
 
   return (
@@ -103,6 +152,68 @@ export function KnowledgeBaseDetailModal({
               </span>
               <p>{knowledgeBase.totalSizeMB.toFixed(1)} MB</p>
             </div>
+          </div>
+
+          <Separator />
+
+          {/* API Keys */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">API Keys</h3>
+            {knowledgeBase.keys.length === 0 ? (
+              <div className="text-muted-foreground py-4 text-center text-sm">
+                Nenhuma chave de API encontrada
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {knowledgeBase.keys.map((key, index) => {
+                  const keyId = `${key.kbKey}-${index}`
+                  const isVisible = visibleKeys.has(keyId)
+                  const isCopied = copiedKeys.has(keyId)
+
+                  return (
+                    <div
+                      key={keyId}
+                      className="hover:bg-muted/50 border-border rounded-lg border-1 p-4 transition-colors"
+                    >
+                      <div className="mb-2 flex items-center justify-between">
+                        <span className="text-sm font-medium">
+                          {key.kbKeyAlias}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="bg-muted flex-1 rounded px-3 py-2 font-mono text-sm">
+                          {isVisible ? key.kbKey : maskKey(key.kbKey)}
+                        </div>
+                        <Button
+                          onClick={() => toggleKeyVisibility(keyId)}
+                          size="sm"
+                          variant="outline"
+                          className="flex items-center gap-1"
+                        >
+                          {isVisible ? (
+                            <EyeOff className="h-4 w-4" />
+                          ) : (
+                            <Eye className="h-4 w-4" />
+                          )}
+                        </Button>
+                        <Button
+                          onClick={() => copyKeyToClipboard(key.kbKey, keyId)}
+                          size="sm"
+                          variant="outline"
+                          className="flex items-center gap-1"
+                        >
+                          {isCopied ? (
+                            <Check className="h-4 w-4" />
+                          ) : (
+                            <Copy className="h-4 w-4" />
+                          )}
+                        </Button>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
           </div>
 
           <Separator />

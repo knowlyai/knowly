@@ -4,11 +4,6 @@ import { motion } from 'framer-motion'
 import { Button } from '@/shared/components/button'
 import { Accordion, AccordionItem } from '@/shared/components/accordion'
 import { DotLottieReact } from '@lottiefiles/dotlottie-react'
-import berti from '@/assets/berti.jfif'
-import izabel from '@/assets/izabel.jfif'
-import rubio from '@/assets/rubio.jfif'
-import julia from '@/assets/julia.jfif'
-import sakamoto from '@/assets/sakamoto.jfif'
 import { Fragment } from 'react/jsx-runtime'
 import {
   Card,
@@ -116,30 +111,30 @@ const process = [
 const owners = [
   {
     name: 'Enzo Sakamoto',
-    image: sakamoto,
-    role: 'Estagiário de Arquitetura de Software na XP Inc.',
+    image: 'https://d1b8zs4rmj3xdl.cloudfront.net/sakamoto.jpeg',
+    role: 'Arquiteto de Software Júnior na XP Inc.',
     linkedin: 'https://www.linkedin.com/in/enzosakamoto/'
   },
   {
     name: 'Izabel Sampaio Goes',
-    image: izabel,
+    image: 'https://d1b8zs4rmj3xdl.cloudfront.net/iza.jpeg',
     role: 'Estagiária de Ciência de Dados e IA na Evo Systems',
     linkedin: 'https://www.linkedin.com/in/izabel-sampaio-goes/'
   },
   {
     name: 'Rafael Rubio',
-    image: rubio,
+    image: 'https://d1b8zs4rmj3xdl.cloudfront.net/rubio.png',
     role: 'Estagiário de Desenvolvimento de Software na Socium',
     linkedin: 'https://www.linkedin.com/in/rafael-rubio-carnes-b2561b212/'
   },
   {
     name: 'Júlia Galhardi Cerqueira',
-    image: julia,
+    image: 'https://d1b8zs4rmj3xdl.cloudfront.net/julia.jpeg',
     role: 'Estagiária'
   },
   {
     name: 'Vinícius Berti',
-    image: berti,
+    image: 'https://d1b8zs4rmj3xdl.cloudfront.net/berti.jpeg',
     role: 'Estagiário de Dados para Antifraude na Capim',
     linkedin: 'https://www.linkedin.com/in/vinicius-berti-a80354209/'
   }
