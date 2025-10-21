@@ -14,7 +14,7 @@ export function DocsLayout() {
         <Navbar />
         <DocsSidebar />
         <main className="mt-16 ml-0 min-h-screen transition-all duration-300 md:ml-20 lg:ml-64">
-          <div className="container mx-auto max-w-4xl px-6 py-12 md:px-12 lg:py-16">
+          <div className="container mx-auto max-w-4xl px-6 pt-20 pb-12 md:px-12 md:pt-12 lg:py-16">
             <article className="prose prose-lg prose-invert max-w-none">
               <Outlet />
             </article>
