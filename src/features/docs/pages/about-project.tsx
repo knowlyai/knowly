@@ -3,11 +3,10 @@ import { h1, h2, p } from '@/shared/components/typography'
 
 export function AboutProjectPage() {
   return (
-    <motion.article
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="prose prose-lg max-w-none"
     >
       {h1({ children: 'Sobre o Projeto' })}
 
@@ -51,7 +50,7 @@ export function AboutProjectPage() {
           </>
         )
       })}
-    </motion.article>
+    </motion.div>
   )
 }
 

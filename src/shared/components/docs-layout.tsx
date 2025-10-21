@@ -13,9 +13,11 @@ export function DocsLayout() {
         <BackgroundBlobs />
         <Navbar />
         <DocsSidebar />
-        <main className="mt-16 ml-16 transition-all duration-300 md:ml-64">
-          <div className="container mx-auto max-w-4xl px-6 py-12 md:px-12">
-            <Outlet />
+        <main className="mt-16 ml-16 min-h-screen transition-all duration-300 md:ml-64">
+          <div className="container mx-auto max-w-4xl px-6 py-12 md:px-12 lg:py-16">
+            <article className="prose prose-lg prose-invert max-w-none">
+              <Outlet />
+            </article>
           </div>
         </main>
       </Background>

@@ -3,11 +3,10 @@ import { h1, h2, p, ul, li } from '@/shared/components/typography'
 
 export function FoundationModelsPage() {
   return (
-    <motion.article
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="prose prose-lg max-w-none"
     >
       {h1({ children: 'Modelos de Fundação AWS' })}
 
@@ -123,7 +122,7 @@ export function FoundationModelsPage() {
           </>
         )
       })}
-    </motion.article>
+    </motion.div>
   )
 }
 
