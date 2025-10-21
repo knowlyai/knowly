@@ -194,7 +194,7 @@ function LogoCarousel() {
               className="h-26 w-26 rounded-md bg-white object-cover shadow-lg select-none"
             />
             {logo.comingSoon && (
-              <span className="bg-primary/90 absolute right-1 bottom-1 rounded-xl px-2 py-1 text-[8px] font-medium text-white">
+              <span className="bg-primary/90 absolute right-1 bottom-1 rounded-xl px-2 py-1 text-[9px] font-medium text-white">
                 Em breve
               </span>
             )}
