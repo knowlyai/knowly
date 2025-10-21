@@ -13,6 +13,7 @@ import {
 import { CreditCard, BrainCircuit, X, Check, Bot, File } from 'lucide-react'
 import clsx from 'clsx'
 import { Background } from '@/shared/components/background'
+import { BackgroundBlobs } from '@/shared/components/background-blobs'
 
 const plans = [
   {
@@ -60,7 +61,8 @@ export function SubscriptionManagementPage() {
 
   return (
     <Background className="min-h-full">
-      <Layout className="h-full w-full pl-80 justify-start pt-12">
+      <BackgroundBlobs />
+      <Layout className="h-full w-full justify-start pt-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

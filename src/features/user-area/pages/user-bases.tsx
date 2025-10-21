@@ -1,4 +1,5 @@
 import { Background } from '@/shared/components/background'
+import { BackgroundBlobs } from '@/shared/components/background-blobs'
 import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Layout } from '@/shared/components/layout'
@@ -99,7 +100,8 @@ export function UserBasesPage() {
 
   return (
     <Background className="min-h-full">
-      <Layout className="h-full w-full pl-80 justify-start pt-12">
+      <BackgroundBlobs />
+      <Layout className="h-full w-full justify-start pt-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

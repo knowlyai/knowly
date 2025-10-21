@@ -83,7 +83,6 @@
   --destructive: oklch(0.6 0.2 300);
   --red: oklch(55.387% 0.21655 28.599 / 0.799); /* vermelho mais saturado para ações destrutivas */
 
-
   /* bordas, inputs e foco */
   --border: oklch(0.25 0 280 / 10%);
   --input: oklch(0.25 0 280 / 15%);

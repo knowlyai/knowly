@@ -54,7 +54,11 @@ export function DocsPageWithSidebar() {
       <Navbar />
       <div className="mt-18 flex min-h-screen w-full">
         <SidebarProvider>
-          <MainSidebar sections={sections} />
+          <MainSidebar
+            sections={sections}
+            variant="sidebar"
+            showTrigger={false}
+          />
           <main>
             <div className="items-center justify-center">
               <Outlet />
