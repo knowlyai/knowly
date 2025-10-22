@@ -8,7 +8,10 @@ import {
   Eye,
   EyeOff,
   Copy,
-  Check
+  Check,
+  Code2,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react'
 import {
   Dialog,
@@ -36,6 +39,9 @@ export function KnowledgeBaseDetailModal({
   const navigate = useNavigate()
   const [visibleKeys, setVisibleKeys] = useState<Set<string>>(new Set())
   const [copiedKeys, setCopiedKeys] = useState<Set<string>>(new Set())
+  const [selectedLanguage, setSelectedLanguage] = useState('javascript')
+  const [copiedCode, setCopiedCode] = useState(false)
+  const [isCodeSectionExpanded, setIsCodeSectionExpanded] = useState(false)
 
   const formatFileSize = (sizeInMB: number) => {
     if (sizeInMB < 1) {
@@ -108,6 +114,161 @@ export function KnowledgeBaseDetailModal({
   const maskKey = (key: string) => {
     return '•'.repeat(key.length)
   }
+
+  const getCodeSnippet = (language: string, apiKey: string) => {
+    const apiUrl = 'https://api.knowly.dev.br/chat'
+
+    switch (language) {
+      case 'javascript':
+        return `// JavaScript
+fetch('${apiUrl}', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    kb_key: '${apiKey}',
+    model: 'MISTRAL_SMALL',
+    prompt: 'Sua pergunta aqui'
+  })
+})
+  .then(response => response.json())
+  .then(data => console.log(data.response));`
+
+      case 'python':
+        return `# Python
+import requests
+
+response = requests.post(
+    '${apiUrl}',
+    headers={
+        'Content-Type': 'application/json',
+    },
+    json={
+        'kb_key': '${apiKey}',
+        'model': 'MISTRAL_SMALL',
+        'prompt': 'Sua pergunta aqui'
+    }
+)
+
+data = response.json()
+print(data['response'])`
+
+      case 'java':
+        return `// Java
+import java.net.http.*;
+import java.net.URI;
+
+HttpClient client = HttpClient.newHttpClient();
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("${apiUrl}"))
+    .header("Content-Type", "application/json")
+    .POST(HttpRequest.BodyPublishers.ofString(
+        "{\\"prompt\\":\\"Sua pergunta aqui\\",\\"model\\":\\"MISTRAL_SMALL\\",\\"kb_key\\":\\"${apiKey}\\"}"
+    ))
+    .build();
+
+HttpResponse<String> response = client.send(request,
+    HttpResponse.BodyHandlers.ofString());
+System.out.println(response.body());`
+
+      case 'csharp':
+        return `// C# (.NET)
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
+
+var client = new HttpClient();
+
+var content = new StringContent(
+    JsonSerializer.Serialize(new {
+        prompt = "Sua pergunta aqui",
+        model = "MISTRAL_SMALL",
+        kb_key = "${apiKey}"
+    }),
+    Encoding.UTF8,
+    "application/json"
+);
+
+var response = await client.PostAsync("${apiUrl}", content);
+var result = await response.Content.ReadAsStringAsync();
+Console.WriteLine(result);`
+
+      case 'go':
+        return `// Go
+package main
+
+import (
+    "bytes"
+    "encoding/json"
+    "fmt"
+    "net/http"
+)
+
+func main() {
+    payload := map[string]interface{}{
+        "prompt": "Sua pergunta aqui",
+        "kb_key":  "${apiKey}",
+        "model":   "MISTRAL_SMALL"
+    }
+    jsonData, _ := json.Marshal(payload)
+
+    req, _ := http.NewRequest("POST", "${apiUrl}",
+        bytes.NewBuffer(jsonData))
+    req.Header.Set("Content-Type", "application/json")
+
+    client := &http.Client{}
+    resp, _ := client.Do(req)
+    defer resp.Body.Close()
+}`
+
+      case 'php':
+        return `<?php
+// PHP
+$ch = curl_init('${apiUrl}');
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Content-Type: application/json'
+]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+    'prompt' => 'Sua pergunta aqui',
+    'kb_key' => '${apiKey}',
+    'model' => 'MISTRAL_SMALL'
+]));
+
+$response = curl_exec($ch);
+curl_close($ch);
+
+$data = json_decode($response, true);
+echo $data['response'];`
+
+      default:
+        return ''
+    }
+  }
+
+  const copyCodeToClipboard = async () => {
+    const firstKey = knowledgeBase.keys[0]?.kbKey || 'YOUR_API_KEY'
+    const code = getCodeSnippet(selectedLanguage, firstKey)
+
+    try {
+      await navigator.clipboard.writeText(code)
+      setCopiedCode(true)
+      setTimeout(() => setCopiedCode(false), 2000)
+    } catch (err) {
+      console.error('Erro ao copiar código:', err)
+    }
+  }
+
+  const languages = [
+    { id: 'javascript', name: 'JavaScript', icon: '📙' },
+    { id: 'python', name: 'Python', icon: '🐍' },
+    { id: 'java', name: 'Java', icon: '☕' },
+    { id: 'csharp', name: 'C# (.NET)', icon: '🔷' },
+    { id: 'go', name: 'Go', icon: '🐹' },
+    { id: 'php', name: 'PHP', icon: '🐘' }
+  ]
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -214,6 +375,92 @@ export function KnowledgeBaseDetailModal({
                 })}
               </div>
             )}
+          </div>
+
+          <Separator />
+
+          {/* Code Snippets */}
+          <div className="space-y-4">
+            <button
+              onClick={() => setIsCodeSectionExpanded(!isCodeSectionExpanded)}
+              className="hover:bg-muted/50 flex w-full items-center justify-between rounded-lg p-2 transition-colors"
+            >
+              <div className="flex items-center gap-2">
+                <Code2 className="h-5 w-5" />
+                <h3 className="text-lg font-semibold">Exemplos de Código</h3>
+              </div>
+              {isCodeSectionExpanded ? (
+                <ChevronUp className="text-muted-foreground h-5 w-5" />
+              ) : (
+                <ChevronDown className="text-muted-foreground h-5 w-5" />
+              )}
+            </button>
+
+            <div
+              className={`grid transition-all duration-300 ease-in-out ${
+                isCodeSectionExpanded
+                  ? 'grid-rows-[1fr] opacity-100'
+                  : 'grid-rows-[0fr] opacity-0'
+              }`}
+            >
+              <div className="overflow-hidden">
+                {knowledgeBase.keys.length === 0 ? (
+                  <div className="text-muted-foreground py-4 text-center text-sm">
+                    Crie uma API Key para ver os exemplos de código
+                  </div>
+                ) : (
+                  <div className="space-y-3 pt-2">
+                    {/* Language selector */}
+                    <div className="flex flex-wrap gap-2">
+                      {languages.map((lang) => (
+                        <Button
+                          key={lang.id}
+                          onClick={() => setSelectedLanguage(lang.id)}
+                          size="sm"
+                          variant={
+                            selectedLanguage === lang.id ? 'default' : 'outline'
+                          }
+                          className="flex items-center gap-1.5"
+                        >
+                          <span>{lang.icon}</span>
+                          <span>{lang.name}</span>
+                        </Button>
+                      ))}
+                    </div>
+
+                    {/* Code snippet */}
+                    <div className="relative">
+                      <pre className="bg-muted max-h-96 overflow-y-auto rounded-lg p-4 pr-20 text-sm">
+                        <code className="text-foreground block break-words whitespace-pre-wrap">
+                          {getCodeSnippet(
+                            selectedLanguage,
+                            knowledgeBase.keys[0]?.kbKey || 'YOUR_API_KEY'
+                          )}
+                        </code>
+                      </pre>
+                      <Button
+                        onClick={copyCodeToClipboard}
+                        size="sm"
+                        variant="secondary"
+                        className="absolute top-2 right-2 flex items-center gap-1"
+                      >
+                        {copiedCode ? (
+                          <>
+                            <Check className="h-4 w-4" />
+                            Copiado!
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="h-4 w-4" />
+                            Copiar
+                          </>
+                        )}
+                      </Button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
 
           <Separator />
