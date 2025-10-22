@@ -109,13 +109,11 @@ export function PlaygroundPage() {
 
       setMessages((prev) => [...prev, botMessage])
     } catch (error) {
-      console.error('Erro ao enviar mensagem:', error)
       toast.error('Erro ao enviar mensagem. Tente novamente.')
 
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content:
-          'Desculpe, ocorreu um erro ao processar sua mensagem. Tente novamente.',
+        content: `Desculpe, ocorreu um erro ao processar sua mensagem. Tente novamente. ${(error as { details: string }).details}`,
         type: 'bot',
         timestamp: new Date()
       }
