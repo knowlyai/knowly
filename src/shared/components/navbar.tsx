@@ -80,6 +80,9 @@ export function Navbar() {
           <a href="/#pricing" className="hover:text-primary transition-colors">
             Preços
           </a>
+          <a href="/docs" className="hover:text-primary transition-colors">
+            Documentação
+          </a>
           <a href="/faq" className="hover:text-primary transition-colors">
             FAQ
           </a>
@@ -213,6 +216,18 @@ export function Navbar() {
                 transition={{ duration: 0.5, ease: 'easeOut' }}
               >
                 Preços
+              </motion.a>
+              <motion.a
+                href="/docs"
+                className="hover:text-primary text-xl transition-colors"
+                onClick={closeMobileMenu}
+                variants={{
+                  hidden: { y: 20, opacity: 0 },
+                  visible: { y: 0, opacity: 1 }
+                }}
+                transition={{ duration: 0.5, ease: 'easeOut' }}
+              >
+                Documentação
               </motion.a>
               <motion.a
                 href="/faq"
