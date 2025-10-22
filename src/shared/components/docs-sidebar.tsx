@@ -108,7 +108,7 @@ export function DocsSidebar() {
       {/* Sidebar */}
       <motion.aside
         className={cn(
-          'bg-background/95 border-border fixed top-16 left-0 z-50 flex h-[calc(100vh-4rem)] flex-col border-r-1 backdrop-blur transition-all duration-300',
+          'bg-background/95 border-border fixed top-16 left-0 z-30 flex h-[calc(100vh-4rem)] flex-col border-r-1 backdrop-blur transition-all duration-300',
           // Desktop styles
           'hidden md:flex',
           isCollapsed ? 'md:w-20' : 'md:w-64',
