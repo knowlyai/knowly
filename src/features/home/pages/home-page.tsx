@@ -119,7 +119,7 @@ const owners = [
   {
     name: 'Izabel Sampaio Goes',
     image: 'https://d1b8zs4rmj3xdl.cloudfront.net/iza.jpeg',
-    role: 'Estagiária de Ciência de Dados e IA na Evo Systems',
+    role: 'Estagiária de Business Analytics na Amazon',
     linkedin: 'https://www.linkedin.com/in/izabel-sampaio-goes/'
   },
   {
@@ -228,14 +228,6 @@ export function HomePage() {
           whileInView="visible"
           transition={{ staggerChildren: 0.04 }}
         >
-          <motion.div
-            className="bg-primary/10 text-primary border-primary/20 rounded-full border px-4 py-2 text-sm font-medium backdrop-blur-sm"
-            transition={transition}
-            variants={variants}
-          >
-            🚀 Transforme documentos em conhecimento de IA
-          </motion.div>
-
           <h1 className="text-center text-4xl font-bold tracking-tight drop-shadow-xl sm:text-6xl md:text-8xl lg:leading-tight">
             {words.map((word, index) => (
               <Fragment key={index}>
@@ -261,7 +253,7 @@ export function HomePage() {
           </motion.p>
 
           <motion.div
-            className="mt-4 flex flex-col gap-4 sm:flex-row sm:gap-6"
+            className="mt-4 flex flex-col items-center gap-4 sm:flex-row sm:gap-6"
             transition={transition}
             variants={variants}
           >
@@ -306,7 +298,7 @@ export function HomePage() {
             </p>
           </motion.div>
           <motion.div
-            className="grid w-full grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3"
+            className="grid w-full grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-3"
             transition={transition}
             variants={variants}
           >
