@@ -16,6 +16,7 @@ import {
 import { ArrowDown, ArrowRight, Check } from 'lucide-react'
 import { BackgroundBlobs } from '@/shared/components/background-blobs'
 import { Footer } from '@/features/home/components/footer'
+import { Link } from 'react-router-dom'
 
 const plans = [
   {
@@ -130,7 +131,8 @@ const owners = [
   {
     name: 'Júlia Galhardi Cerqueira',
     image: 'https://d1b8zs4rmj3xdl.cloudfront.net/julia.jpeg',
-    role: 'Estagiária'
+    role: 'Estagiária',
+    linkedin: 'https://www.linkedin.com/in/j%C3%BAliacerqueira/'
   },
   {
     name: 'Vinícius Berti',
@@ -255,14 +257,16 @@ export function HomePage() {
             transition={transition}
             variants={variants}
           >
-            <Button>Começar</Button>
-            <a
-              href="https://github.com/knowlyai/knowly"
+            <Link to="/docs">
+              <Button>Começar</Button>
+            </Link>
+            <Link
+              to="https://github.com/knowlyai/knowly"
               target="_blank"
               rel="noreferrer"
             >
               <Button variant="outline">GitHub</Button>
-            </a>
+            </Link>
           </motion.div>
           <LogoCarousel />
         </motion.section>
@@ -444,9 +448,9 @@ export function HomePage() {
             variants={variants}
           >
             {owners.map((owner, index) => (
-              <a
+              <Link
                 key={index}
-                href={owner.linkedin}
+                to={owner.linkedin}
                 target="_blank"
                 rel="noreferrer"
                 className="flex h-full w-full items-center justify-center"
@@ -464,7 +468,7 @@ export function HomePage() {
                     {owner.role}
                   </span>
                 </Card>
-              </a>
+              </Link>
             ))}
           </motion.div>
         </motion.section>
