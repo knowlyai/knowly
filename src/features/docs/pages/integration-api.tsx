@@ -1,0 +1,84 @@
+import { motion } from 'framer-motion'
+import { h1, h2, p, ul, li, pre } from '@/shared/components/typography'
+
+export function IntegrationApiPage() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      {h1({ children: 'Integração via API' })}
+
+      {h2({ children: 'Integração simples via API' })}
+      {p({
+        children: (
+          <>
+            Depois de criar sua base de conhecimento no Knowly, você pode
+            integrá-la facilmente ao seu sistema usando nossa API. O
+            funcionamento é parecido com a API da OpenAI, muito usada em
+            chatbots de atendimento, como no WhatsApp.
+          </>
+        )
+      })}
+
+      {h2({ children: 'Como funciona?' })}
+      {ul({
+        children: (
+          <>
+            {li({
+              children: (
+                <>
+                  Você envia um <strong>prompt</strong> (mensagem ou pergunta)
+                  para a API, junto com sua chave de acesso.
+                </>
+              )
+            })}
+            {li({
+              children: (
+                <>
+                  A API responde com a melhor resposta baseada nos documentos
+                  que você enviou para sua base.
+                </>
+              )
+            })}
+            {li({
+              children: (
+                <>
+                  É possível usar essa integração em sites, sistemas internos,
+                  chatbots e muito mais.
+                </>
+              )
+            })}
+          </>
+        )
+      })}
+
+      {h2({ children: 'Exemplo de requisição' })}
+      {pre({
+        children: `POST https://api.knowly.dev.br/chat
+Headers:
+  Content-Type: application/json
+Body:
+{
+  "kb_key": "knowly_c81a7410-4c69-45e2-b6c6-79205c3a99fd",
+  "model": "MISTRAL_SMALL",
+  "prompt": "Como faço para atualizar meus dados cadastrais?"
+}`
+      })}
+
+      {p({
+        children: (
+          <>
+            A resposta virá em formato JSON, com o texto gerado pela IA usando o
+            conhecimento da sua base. Assim, você pode automatizar atendimentos,
+            responder dúvidas de clientes ou integrar a IA ao seu sistema de
+            forma simples e eficiente.
+          </>
+        )
+      })}
+    </motion.div>
+  )
+}
+
+export default IntegrationApiPage

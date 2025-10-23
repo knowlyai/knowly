@@ -21,11 +21,16 @@ import { CreateBasePipeline } from '@/features/user-area/pages/create-base-pipel
 import { PlaygroundPage } from '@/features/playground/pages/playground'
 import { DocsLayout } from '@/shared/components/docs-layout'
 import { AboutProjectPage } from '@/features/docs/pages/about-project'
+import { GettingStartedPage } from '@/features/docs/pages/getting-started'
 import { FoundationModelsPage } from '@/features/docs/pages/foundation-models'
 import { KnowledgeBasesPage } from '@/features/docs/pages/knowledge-bases'
 import { IntegrationPage } from '@/features/docs/pages/integration'
+import { IntegrationApiPage } from '@/features/docs/pages/integration-api'
+import { IntegrationWhatsAppPage } from '@/features/docs/pages/integration-whatsapp'
+import { IntegrationInstagramPage } from '@/features/docs/pages/integration-instagram'
 import { PlaygroundTestingPage } from '@/features/docs/pages/playground-testing'
 import { SubscriptionManagementPage as DocsSubscriptionPage } from '@/features/docs/pages/subscription-management'
+import { NextStepsPage } from '@/features/docs/pages/next-steps'
 
 export function AppRoutes() {
   return (
@@ -70,12 +75,22 @@ export function AppRoutes() {
 
         <Route element={<DocsLayout />}>
           <Route path="docs" element={<AboutProjectPage />} />
+          <Route path="docs/getting-started" element={<GettingStartedPage />} />
           <Route
             path="docs/foundation-models"
             element={<FoundationModelsPage />}
           />
           <Route path="docs/knowledge-bases" element={<KnowledgeBasesPage />} />
           <Route path="docs/integration" element={<IntegrationPage />} />
+          <Route path="docs/integration/api" element={<IntegrationApiPage />} />
+          <Route
+            path="docs/integration/whatsapp"
+            element={<IntegrationWhatsAppPage />}
+          />
+          <Route
+            path="docs/integration/instagram"
+            element={<IntegrationInstagramPage />}
+          />
           <Route
             path="docs/playground-testing"
             element={<PlaygroundTestingPage />}
@@ -84,6 +99,7 @@ export function AppRoutes() {
             path="docs/subscription-management"
             element={<DocsSubscriptionPage />}
           />
+          <Route path="docs/next-steps" element={<NextStepsPage />} />
         </Route>
       </Routes>
     </Suspense>
