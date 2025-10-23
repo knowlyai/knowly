@@ -21,6 +21,7 @@ import { CreateBasePipeline } from '@/features/user-area/pages/create-base-pipel
 import { PlaygroundPage } from '@/features/playground/pages/playground'
 import { DocsLayout } from '@/shared/components/docs-layout'
 import { AboutProjectPage } from '@/features/docs/pages/about-project'
+import { GettingStartedPage } from '@/features/docs/pages/getting-started'
 import { FoundationModelsPage } from '@/features/docs/pages/foundation-models'
 import { KnowledgeBasesPage } from '@/features/docs/pages/knowledge-bases'
 import { IntegrationPage } from '@/features/docs/pages/integration'
@@ -70,6 +71,7 @@ export function AppRoutes() {
 
         <Route element={<DocsLayout />}>
           <Route path="docs" element={<AboutProjectPage />} />
+          <Route path="docs/getting-started" element={<GettingStartedPage />} />
           <Route
             path="docs/foundation-models"
             element={<FoundationModelsPage />}

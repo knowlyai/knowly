@@ -9,7 +9,8 @@ import {
   TestTube,
   CreditCard,
   Menu,
-  X
+  X,
+  Rocket
 } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { Button } from '@/shared/components/button'
@@ -25,6 +26,11 @@ const docsItems: DocsSidebarItem[] = [
     label: 'Sobre o Projeto',
     icon: BookOpen,
     path: '/docs'
+  },
+  {
+    label: 'Comece a Usar',
+    icon: Rocket,
+    path: '/docs/getting-started'
   },
   {
     label: 'Modelos de Fundação',
