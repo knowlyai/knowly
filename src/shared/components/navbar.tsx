@@ -1,6 +1,6 @@
 import brain from '@/assets/brain.png'
 import { Button } from '@/shared/components/button'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -72,23 +72,20 @@ export function Navbar() {
           variants={variants}
         >
           <a
-            href="/#how-knowly-works"
+            href="#how-knowly-works"
             className="hover:text-primary transition-colors"
           >
             Nosso produto
           </a>
-          <a href="/#pricing" className="hover:text-primary transition-colors">
+          <a href="#pricing" className="hover:text-primary transition-colors">
             Preços
           </a>
-          <a href="/docs" className="hover:text-primary transition-colors">
+          <Link to="/docs" className="hover:text-primary transition-colors">
             Documentação
-          </a>
-          <a href="/faq" className="hover:text-primary transition-colors">
+          </Link>
+          <Link to="/faq" className="hover:text-primary transition-colors">
             FAQ
-          </a>
-          <a href="/#about-us" className="hover:text-primary transition-colors">
-            Sobre nós
-          </a>
+          </Link>
           <DropdownMenu>
             <DropdownMenuTrigger className="outline-none">
               {theme === 'dark' ? (
@@ -240,18 +237,6 @@ export function Navbar() {
                 transition={{ duration: 0.5, ease: 'easeOut' }}
               >
                 FAQ
-              </motion.a>
-              <motion.a
-                href="/#about-us"
-                className="hover:text-primary text-xl transition-colors"
-                onClick={closeMobileMenu}
-                variants={{
-                  hidden: { y: 20, opacity: 0 },
-                  visible: { y: 0, opacity: 1 }
-                }}
-                transition={{ duration: 0.5, ease: 'easeOut' }}
-              >
-                Sobre nós
               </motion.a>
             </motion.div>
           </motion.div>
