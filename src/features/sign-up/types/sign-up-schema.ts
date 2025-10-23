@@ -68,7 +68,7 @@ export const signUpFormSchema = z
       })
     }
 
-    if (data.documentType === 'individual' && !data.birthDate) {
+    if (data.documentType === DOCUMENT_TYPE.INDIVIDUAL && !data.birthDate) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: 'A data de nascimento é obrigatória para pessoa física.',
@@ -76,7 +76,7 @@ export const signUpFormSchema = z
       })
     }
 
-    if (data.documentType === 'individual') {
+    if (data.documentType === DOCUMENT_TYPE.INDIVIDUAL) {
       // Validação CPF
       const cpfRegex = /^\d{3}\.?\d{3}\.?\d{3}-?\d{2}$/
       if (!cpfRegex.test(data.document)) {
@@ -104,7 +104,7 @@ export const signUpFormInitialValues: SignUpFormData = {
   name: '',
   email: '',
   phone: '',
-  documentType: 'individual',
+  documentType: DOCUMENT_TYPE.INDIVIDUAL,
   document: '',
   birthDate: undefined,
   password: '',
