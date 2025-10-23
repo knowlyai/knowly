@@ -52,8 +52,8 @@ export function IntegrationWhatsAppPage() {
             {li({
               children: (
                 <>
-                  <strong>Provedores terceiros</strong> - Como Twilio, 360Dialog,
-                  ou MessageBird
+                  <strong>Provedores terceiros</strong> - Como Twilio,
+                  360Dialog, ou MessageBird
                 </>
               )
             })}
@@ -216,29 +216,22 @@ def send_whatsapp_message(to, message):
           <>
             {li({
               children: (
-                <>
-                  Envie uma mensagem para seu número do WhatsApp Business
-                </>
+                <>Envie uma mensagem para seu número do WhatsApp Business</>
+              )
+            })}
+            {li({
+              children: <>Verifique se o webhook está recebendo a mensagem</>
+            })}
+            {li({
+              children: (
+                <>Confirme que a API do Knowly está retornando respostas</>
               )
             })}
             {li({
               children: (
                 <>
-                  Verifique se o webhook está recebendo a mensagem
-                </>
-              )
-            })}
-            {li({
-              children: (
-                <>
-                  Confirme que a API do Knowly está retornando respostas
-                </>
-              )
-            })}
-            {li({
-              children: (
-                <>
-                  Valide se as respostas estão sendo enviadas de volta ao cliente
+                  Valide se as respostas estão sendo enviadas de volta ao
+                  cliente
                 </>
               )
             })}
@@ -289,9 +282,10 @@ def send_whatsapp_message(to, message):
       {p({
         children: (
           <>
-            Com essa integração, seu WhatsApp Business responderá automaticamente
-            aos clientes usando o conhecimento da sua base, proporcionando
-            atendimento 24/7 e reduzindo a carga de trabalho da equipe.
+            Com essa integração, seu WhatsApp Business responderá
+            automaticamente aos clientes usando o conhecimento da sua base,
+            proporcionando atendimento 24/7 e reduzindo a carga de trabalho da
+            equipe.
           </>
         )
       })}

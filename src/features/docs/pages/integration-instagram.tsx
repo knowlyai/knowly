@@ -13,9 +13,9 @@ export function IntegrationInstagramPage() {
       {p({
         children: (
           <>
-            Automatize respostas nas mensagens diretas (DMs) do Instagram usando a
-            API do Knowly para responder automaticamente perguntas dos usuários
-            com base na sua base de conhecimento.
+            Automatize respostas nas mensagens diretas (DMs) do Instagram usando
+            a API do Knowly para responder automaticamente perguntas dos
+            usuários com base na sua base de conhecimento.
           </>
         )
       })}
@@ -50,9 +50,7 @@ export function IntegrationInstagramPage() {
             })}
             {li({
               children: (
-                <>
-                  Conecte sua conta do Instagram a uma Página do Facebook
-                </>
+                <>Conecte sua conta do Instagram a uma Página do Facebook</>
               )
             })}
             {li({
@@ -66,7 +64,8 @@ export function IntegrationInstagramPage() {
               children: (
                 <>
                   Configure as permissões necessárias:{' '}
-                  <code>instagram_basic</code>, <code>instagram_manage_messages</code>
+                  <code>instagram_basic</code>,{' '}
+                  <code>instagram_manage_messages</code>
                 </>
               )
             })}
@@ -301,16 +300,13 @@ def verify_webhook():
               )
             })}
             {li({
-              children: (
-                <>
-                  Verifique se o webhook está recebendo a notificação
-                </>
-              )
+              children: <>Verifique se o webhook está recebendo a notificação</>
             })}
             {li({
               children: (
                 <>
-                  Confirme que a API do Knowly está retornando respostas adequadas
+                  Confirme que a API do Knowly está retornando respostas
+                  adequadas
                 </>
               )
             })}
@@ -333,8 +329,8 @@ def verify_webhook():
             {li({
               children: (
                 <>
-                  <strong>Respostas rápidas:</strong> Configure botões de resposta
-                  rápida para melhorar a experiência
+                  <strong>Respostas rápidas:</strong> Configure botões de
+                  resposta rápida para melhorar a experiência
                 </>
               )
             })}
@@ -381,8 +377,8 @@ def verify_webhook():
             {li({
               children: (
                 <>
-                  <strong>Escalação:</strong> Ofereça opção de falar com atendente
-                  humano quando necessário
+                  <strong>Escalação:</strong> Ofereça opção de falar com
+                  atendente humano quando necessário
                 </>
               )
             })}
@@ -397,16 +393,16 @@ def verify_webhook():
             {li({
               children: (
                 <>
-                  <strong>Monitoramento:</strong> Acompanhe métricas de satisfação
-                  e qualidade das respostas
+                  <strong>Monitoramento:</strong> Acompanhe métricas de
+                  satisfação e qualidade das respostas
                 </>
               )
             })}
             {li({
               children: (
                 <>
-                  <strong>Políticas do Instagram:</strong> Respeite as diretrizes
-                  de mensagens automatizadas da plataforma
+                  <strong>Políticas do Instagram:</strong> Respeite as
+                  diretrizes de mensagens automatizadas da plataforma
                 </>
               )
             })}

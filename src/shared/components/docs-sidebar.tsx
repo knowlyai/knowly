@@ -107,9 +107,7 @@ export function DocsSidebar() {
 
   function toggleExpanded(path: string) {
     setExpandedItems((prev) =>
-      prev.includes(path)
-        ? prev.filter((p) => p !== path)
-        : [...prev, path]
+      prev.includes(path) ? prev.filter((p) => p !== path) : [...prev, path]
     )
   }
 
@@ -228,7 +226,7 @@ export function DocsSidebar() {
               const isExpanded = expandedItems.includes(item.path)
               const hasSubItems = item.subItems && item.subItems.length > 0
               const IconComponent = item.icon
-              
+
               return (
                 <motion.div
                   key={item.path}
@@ -288,33 +286,36 @@ export function DocsSidebar() {
                   </div>
 
                   {/* Sub-items */}
-                  {hasSubItems && isExpanded && (!isCollapsed || isMobileOpen) && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="ml-6 mt-1 flex flex-col gap-1"
-                    >
-                      {item.subItems?.map((subItem) => {
-                        const isSubItemActive = location.pathname === subItem.path
-                        return (
-                          <Link
-                            key={subItem.path}
-                            to={subItem.path}
-                            className={cn(
-                              'rounded-lg px-3 py-2 text-sm font-medium transition-colors',
-                              isSubItemActive
-                                ? 'bg-primary/10 text-primary'
-                                : 'hover:bg-muted/50 text-foreground/60 hover:text-foreground'
-                            )}
-                          >
-                            {subItem.label}
-                          </Link>
-                        )
-                      })}
-                    </motion.div>
-                  )}
+                  {hasSubItems &&
+                    isExpanded &&
+                    (!isCollapsed || isMobileOpen) && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="mt-1 ml-6 flex flex-col gap-1"
+                      >
+                        {item.subItems?.map((subItem) => {
+                          const isSubItemActive =
+                            location.pathname === subItem.path
+                          return (
+                            <Link
+                              key={subItem.path}
+                              to={subItem.path}
+                              className={cn(
+                                'rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+                                isSubItemActive
+                                  ? 'bg-primary/10 text-primary'
+                                  : 'hover:bg-muted/50 text-foreground/60 hover:text-foreground'
+                              )}
+                            >
+                              {subItem.label}
+                            </Link>
+                          )
+                        })}
+                      </motion.div>
+                    )}
                 </motion.div>
               )
             })}

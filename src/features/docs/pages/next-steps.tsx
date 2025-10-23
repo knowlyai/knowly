@@ -13,9 +13,9 @@ export function NextStepsPage() {
       {p({
         children: (
           <>
-            Estamos constantemente inovando e desenvolvendo novas funcionalidades
-            para tornar o Knowly ainda mais poderoso e fácil de usar. Confira o
-            que estamos planejando para o futuro da plataforma.
+            Estamos constantemente inovando e desenvolvendo novas
+            funcionalidades para tornar o Knowly ainda mais poderoso e fácil de
+            usar. Confira o que estamos planejando para o futuro da plataforma.
           </>
         )
       })}
@@ -65,9 +65,9 @@ export function NextStepsPage() {
             {li({
               children: (
                 <>
-                  <strong>Zero configuração de infraestrutura:</strong> Não
-                  será mais necessário criar e manter servidores para consumir
-                  as APIs das bases de conhecimento
+                  <strong>Zero configuração de infraestrutura:</strong> Não será
+                  mais necessário criar e manter servidores para consumir as
+                  APIs das bases de conhecimento
                 </>
               )
             })}
@@ -83,8 +83,8 @@ export function NextStepsPage() {
             {li({
               children: (
                 <>
-                  <strong>Gerenciamento centralizado:</strong> Controle todos
-                  os seus chatbots de diferentes plataformas em um único lugar
+                  <strong>Gerenciamento centralizado:</strong> Controle todos os
+                  seus chatbots de diferentes plataformas em um único lugar
                 </>
               )
             })}
@@ -133,7 +133,8 @@ export function NextStepsPage() {
             {li({ children: 'Telegram (Em breve)' })}
             {li({ children: 'Slack (Em breve)' })}
             {li({
-              children: 'E-commerce (integração com Shopify, WooCommerce, etc.) (Em breve)'
+              children:
+                'E-commerce (integração com Shopify, WooCommerce, etc.) (Em breve)'
             })}
           </>
         )
@@ -153,7 +154,7 @@ export function NextStepsPage() {
               children: (
                 <>
                   <strong>Passo 1:</strong> No painel do Knowly, acesse a seção
-                  "Chatbots"
+                  &quot;Chatbots&quot;
                 </>
               )
             })}
@@ -244,10 +245,12 @@ export function NextStepsPage() {
                 'Templates personalizáveis para diferentes tipos de perguntas'
             })}
             {li({
-              children: 'Tom de voz configurável (formal, casual, técnico, etc.)'
+              children:
+                'Tom de voz configurável (formal, casual, técnico, etc.)'
             })}
             {li({
-              children: 'Regras de negócio customizadas para tratamento especial de certos tópicos'
+              children:
+                'Regras de negócio customizadas para tratamento especial de certos tópicos'
             })}
             {li({
               children: 'Respostas com rich media (imagens, vídeos, carrosséis)'
@@ -264,7 +267,8 @@ export function NextStepsPage() {
               children: 'Detecção automática do idioma do usuário'
             })}
             {li({
-              children: 'Respostas em múltiplos idiomas a partir da mesma base de conhecimento'
+              children:
+                'Respostas em múltiplos idiomas a partir da mesma base de conhecimento'
             })}
             {li({
               children: 'Tradução automática de documentos'
@@ -281,7 +285,8 @@ export function NextStepsPage() {
               children: 'Integração nativa com Salesforce, HubSpot, Pipedrive'
             })}
             {li({
-              children: 'Webhooks personalizados para integração com qualquer sistema'
+              children:
+                'Webhooks personalizados para integração com qualquer sistema'
             })}
             {li({
               children: 'API de eventos para rastreamento de conversas'
