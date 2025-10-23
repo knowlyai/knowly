@@ -23,6 +23,9 @@ export function Navbar() {
   const { theme, setTheme } = useTheme()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
+  // Determine if user is logged in based on presence of token in localStorage
+  const isLoggedIn = Boolean(localStorage.getItem('token'))
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
   }
@@ -77,6 +80,9 @@ export function Navbar() {
           <a href="/#pricing" className="hover:text-primary transition-colors">
             Preços
           </a>
+          <a href="/docs" className="hover:text-primary transition-colors">
+            Documentação
+          </a>
           <a href="/faq" className="hover:text-primary transition-colors">
             FAQ
           </a>
@@ -106,9 +112,9 @@ export function Navbar() {
           <Button
             className="px-6"
             variant="secondary"
-            onClick={() => navigate('/login')}
+            onClick={() => navigate(isLoggedIn ? '/bases' : '/login')}
           >
-            Login
+            {isLoggedIn ? 'Minhas bases' : 'Login'}
           </Button>
         </motion.div>
 
@@ -142,9 +148,9 @@ export function Navbar() {
           <Button
             variant="secondary"
             className="px-6"
-            onClick={() => navigate('/login')}
+            onClick={() => navigate(isLoggedIn ? '/bases' : '/login')}
           >
-            Login
+            {isLoggedIn ? 'Minhas bases' : 'Login'}
           </Button>
 
           <button
@@ -210,6 +216,18 @@ export function Navbar() {
                 transition={{ duration: 0.5, ease: 'easeOut' }}
               >
                 Preços
+              </motion.a>
+              <motion.a
+                href="/docs"
+                className="hover:text-primary text-xl transition-colors"
+                onClick={closeMobileMenu}
+                variants={{
+                  hidden: { y: 20, opacity: 0 },
+                  visible: { y: 0, opacity: 1 }
+                }}
+                transition={{ duration: 0.5, ease: 'easeOut' }}
+              >
+                Documentação
               </motion.a>
               <motion.a
                 href="/faq"

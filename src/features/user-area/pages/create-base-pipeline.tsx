@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import {
@@ -47,6 +47,9 @@ export function CreateBasePipeline() {
   const formData = location.state?.formData as CreateBaseData
 
   const createKnowledgeBaseMutation = useCreateKnowledgeBaseMutation()
+
+  // Guard to prevent double-run under React StrictMode in development
+  const didRunRef = useRef(false)
 
   const [pipeline, setPipeline] = useState<PipelineState>({
     currentStep: 0,
@@ -143,81 +146,108 @@ export function CreateBasePipeline() {
     }
 
     try {
-      // Step 1: Create Knowledge Base
-      updateStepStatus(0, 'loading')
-      const createResult = await createKnowledgeBaseMutation.mutateAsync({
-        name: formData.slug,
-        displayName: formData.name,
-        description: formData.description
-      })
+      let kbId = pipeline.kbId
 
-      setPipeline((prev) => ({ ...prev, kbId: createResult.kb_id }))
-      updateStepStatus(0, 'success')
-      moveToNextStep()
+      // Step 1: Create Knowledge Base (skip if already created)
+      if (pipeline.steps[0].status !== 'success') {
+        updateStepStatus(0, 'loading')
+        const createResult = await createKnowledgeBaseMutation.mutateAsync({
+          name: formData.slug,
+          displayName: formData.name,
+          description: formData.description
+        })
 
-      // Step 2: Upload Files
-      updateStepStatus(1, 'loading')
-
-      const presignedResponse = await knowledgeBaseService.getUrlPresigned({
-        bucketName,
-        kbId: createResult.kb_id
-      })
-
-      for (let i = 0; i < formData.files.length; i++) {
-        const file = formData.files[i]
-
-        try {
-          // Upload file to S3
-          await uploadFileToS3(
-            file,
-            presignedResponse.url,
-            presignedResponse.fields
-          )
-
-          // Update description to show progress
-          setPipeline((prev) => ({
-            ...prev,
-            steps: prev.steps.map((step, index) =>
-              index === 1
-                ? {
-                    ...step,
-                    description: `Enviando arquivo ${i + 1} de ${
-                      formData.files.length
-                    }: ${file.name}`
-                  }
-                : step
-            )
-          }))
-        } catch (error) {
-          console.error(`Error uploading file ${file.name}:`, error)
-          updateStepStatus(1, 'error', `Erro ao enviar arquivo: ${file.name}`)
-          return
-        }
+        kbId = createResult.kb_id
+        setPipeline((prev) => ({ ...prev, kbId }))
+        updateStepStatus(0, 'success')
+        moveToNextStep()
+      } else {
+        // Already succeeded, just move forward
+        console.log('Step 1 já concluído, pulando...')
+        setPipeline((prev) => ({
+          ...prev,
+          currentStep: Math.max(prev.currentStep, 1)
+        }))
       }
 
-      updateStepStatus(1, 'success')
-      setPipeline((prev) => ({
-        ...prev,
-        steps: prev.steps.map((step, index) =>
-          index === 1
-            ? {
-                ...step,
-                description: `${formData.files.length} arquivos enviados com sucesso`
-              }
-            : step
-        )
-      }))
-      moveToNextStep()
+      if (!kbId) {
+        throw new Error('KB ID não encontrado')
+      }
 
-      // Step 3: Sync Knowledge Base
-      updateStepStatus(2, 'loading')
-      await new Promise((resolve) => setTimeout(resolve, 5000)) // Sleep
-      await knowledgeBaseService.syncKnowledgeBase({
-        bucketName,
-        kbId: createResult.kb_id
-      })
+      // Step 2: Upload Files (skip if already uploaded)
+      if (pipeline.steps[1].status !== 'success') {
+        updateStepStatus(1, 'loading')
 
-      updateStepStatus(2, 'success')
+        const presignedResponse = await knowledgeBaseService.getUrlPresigned({
+          bucketName,
+          kbId
+        })
+
+        for (let i = 0; i < formData.files.length; i++) {
+          const file = formData.files[i]
+
+          try {
+            // Upload file to S3
+            await uploadFileToS3(
+              file,
+              presignedResponse.url,
+              presignedResponse.fields
+            )
+
+            // Update description to show progress
+            setPipeline((prev) => ({
+              ...prev,
+              steps: prev.steps.map((step, index) =>
+                index === 1
+                  ? {
+                      ...step,
+                      description: `Enviando arquivo ${i + 1} de ${
+                        formData.files.length
+                      }: ${file.name}`
+                    }
+                  : step
+              )
+            }))
+          } catch (error) {
+            console.error(`Error uploading file ${file.name}:`, error)
+            updateStepStatus(1, 'error', `Erro ao enviar arquivo: ${file.name}`)
+            return
+          }
+        }
+
+        updateStepStatus(1, 'success')
+        setPipeline((prev) => ({
+          ...prev,
+          steps: prev.steps.map((step, index) =>
+            index === 1
+              ? {
+                  ...step,
+                  description: `${formData.files.length} arquivos enviados com sucesso`
+                }
+              : step
+          )
+        }))
+        moveToNextStep()
+      } else {
+        // Already succeeded, just move forward
+        console.log('Step 2 já concluído, pulando...')
+        setPipeline((prev) => ({
+          ...prev,
+          currentStep: Math.max(prev.currentStep, 2)
+        }))
+      }
+
+      // Step 3: Sync Knowledge Base (skip if already synced)
+      if (pipeline.steps[2].status !== 'success') {
+        updateStepStatus(2, 'loading')
+        await new Promise((resolve) => setTimeout(resolve, 5000)) // Sleep
+        await knowledgeBaseService.syncKnowledgeBase({
+          bucketName,
+          kbId
+        })
+
+        updateStepStatus(2, 'success')
+      }
 
       // Success!
       toast.success('Base de conhecimento criada com sucesso!')
@@ -234,17 +264,47 @@ export function CreateBasePipeline() {
         'error',
         'Erro inesperado durante o processo'
       )
-      toast.error('Erro ao criar base de conhecimento')
+      toast.error(
+        'Erro ao criar base de conhecimento: ' + (error as Error).message
+      )
     }
   }
 
   useEffect(() => {
+    if (didRunRef.current) return
+    didRunRef.current = true
+
     if (formData) {
       executeSteps()
     } else {
       navigate('/bases/create')
     }
   }, [])
+
+  const handleRetry = () => {
+    // Reset error states but keep success states
+    setPipeline((prev) => ({
+      ...prev,
+      steps: prev.steps.map((step) =>
+        step.status === 'error'
+          ? { ...step, status: 'pending', errorMessage: undefined }
+          : step
+      )
+    }))
+
+    // Show info about resuming
+    const successCount = pipeline.steps.filter(
+      (s) => s.status === 'success'
+    ).length
+    if (successCount > 0) {
+      toast.success(
+        `Retomando do ponto de falha. ${successCount} etapa(s) já concluída(s) serão puladas.`
+      )
+    }
+
+    // Execute steps again (will skip already successful steps)
+    executeSteps()
+  }
 
   const getStepIcon = (step: PipelineStep) => {
     switch (step.status) {
@@ -382,10 +442,16 @@ export function CreateBasePipeline() {
                 <Button
                   variant="outline"
                   onClick={() => navigate('/bases/create')}
+                  disabled={pipeline.steps.some((s) => s.status === 'loading')}
                 >
                   Voltar ao Formulário
                 </Button>
-                <Button onClick={executeSteps}>Tentar Novamente</Button>
+                <Button
+                  onClick={handleRetry}
+                  disabled={pipeline.steps.some((s) => s.status === 'loading')}
+                >
+                  Tentar Novamente
+                </Button>
               </div>
             )}
           </motion.div>

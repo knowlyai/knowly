@@ -1,5 +1,5 @@
 import { KnowledgeBase } from '@/domain/knowledge-base'
-import { api } from '@/shared/api'
+import { api, apiChat, getAuthHeader } from '@/shared/api'
 import { MODELS } from '@/shared/enums/models'
 import { STATUS } from '@/shared/enums/status'
 
@@ -58,11 +58,16 @@ export type GetKnowledgeBaseResponse = {
       url: string
     }[]
     total_size_mb: number
+    keys: {
+      kb_key: string
+      kb_key_alias: string
+    }[]
   }[]
 }
 
 export type ChatWithKnowledgeBaseRequest = {
   kbId: string
+  kbKey: string
   model: MODELS
   prompt: string
   topK?: number
@@ -79,9 +84,9 @@ export const knowledgeBaseService = {
     // If kbId is not provided, fetch all knowledge bases
     const response = await api.get<GetKnowledgeBaseResponse>('/kb', {
       params: {
-        user_id: 'a9de692c-0ee3-41c6-aecc-44e79b8d739e', // This should be replaced with the actual user ID from your authentication context
         kb_id: request.kbId
-      }
+      },
+      headers: getAuthHeader()
     })
     const data = response.data.knowledge_bases
     return data.map((kb) => {
@@ -98,7 +103,11 @@ export const knowledgeBaseService = {
           sizeMB: file.size_bytes / (1024 * 1024),
           url: file.url
         })),
-        totalSizeMB: kb.total_size_mb
+        totalSizeMB: kb.total_size_mb,
+        keys: kb.keys.map((key) => ({
+          kbKey: key.kb_key,
+          kbKeyAlias: key.kb_key_alias
+        }))
       }
     })
   },
@@ -106,11 +115,17 @@ export const knowledgeBaseService = {
   async createKnowledgeBase(
     request: CreateKnowledgeBaseRequest
   ): Promise<CreateKnowledgeBaseResponse> {
-    const response = await api.post<CreateKnowledgeBaseResponse>('/kb', {
-      kb_name: request.name,
-      kb_display_name: request.displayName,
-      kb_description: request.description
-    })
+    const response = await api.post<CreateKnowledgeBaseResponse>(
+      '/kb',
+      {
+        kb_name: request.name,
+        kb_display_name: request.displayName,
+        kb_description: request.description
+      },
+      {
+        headers: getAuthHeader()
+      }
+    )
     return response.data
   },
 
@@ -122,9 +137,9 @@ export const knowledgeBaseService = {
       {
         params: {
           bucket: request.bucketName,
-          user_id: 'a9de692c-0ee3-41c6-aecc-44e79b8d739e', // This should be replaced with the actual user ID from your authentication context
           kb_id: request.kbId
-        }
+        },
+        headers: getAuthHeader()
       }
     )
     return response.data
@@ -134,9 +149,9 @@ export const knowledgeBaseService = {
     await api.get('/kb/sync', {
       params: {
         bucket_name: request.bucketName,
-        user_id: 'a9de692c-0ee3-41c6-aecc-44e79b8d739e', // This should be replaced with the actual user ID from your authentication context
         kb_id: request.kbId
-      }
+      },
+      headers: getAuthHeader()
     })
   },
 
@@ -144,22 +159,29 @@ export const knowledgeBaseService = {
     await api.delete('/kb/file', {
       params: {
         bucket: request.bucketName,
-        user_id: 'a9de692c-0ee3-41c6-aecc-44e79b8d739e', // This should be replaced with the actual user ID from your authentication context
         kb_id: request.kbId,
         file_name: request.fileName
-      }
+      },
+      headers: getAuthHeader()
     })
   },
 
   async chatWithKnowledgeBase(
     request: ChatWithKnowledgeBaseRequest
   ): Promise<ChatWithKnowledgeBaseResponse> {
-    const response = await api.post<ChatWithKnowledgeBaseResponse>('/chat', {
-      kb_id: request.kbId,
-      model: request.model,
-      prompt: request.prompt,
-      top_k: request.topK
-    })
+    const response = await apiChat.post<ChatWithKnowledgeBaseResponse>(
+      '/chat',
+      {
+        kb_id: request.kbId,
+        kb_key: request.kbKey,
+        model: request.model,
+        prompt: request.prompt,
+        top_k: request.topK
+      },
+      {
+        headers: getAuthHeader()
+      }
+    )
     return response.data
   }
 }

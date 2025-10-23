@@ -25,7 +25,8 @@ export function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(true)
 
   function handleLogout() {
-    // Adicionar lógica de desfazer o login (deslogar o usuário)
+    // Remover token e redirecionar para home
+    localStorage.removeItem('token')
     navigate('/')
   }
 
@@ -45,7 +46,7 @@ export function Sidebar() {
 
   return (
     <motion.aside
-      className={`bg-background border-r-border fixed z-10 flex h-full flex-col justify-between border-1 px-4 py-8 pt-24 transition-all duration-300 ${
+      className={`bg-background border-border fixed z-10 flex h-full flex-col justify-between border-1 px-4 py-8 pt-24 transition-all duration-300 ${
         isCollapsed ? 'w-20' : 'w-96'
       }`}
       initial="hidden"

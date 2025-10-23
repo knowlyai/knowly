@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Send, Bot, User, ArrowLeft } from 'lucide-react'
 import toast from 'react-hot-toast'
@@ -36,6 +36,8 @@ type Message = {
 export function PlaygroundPage() {
   const { kbId } = useParams<{ kbId: string }>()
   const navigate = useNavigate()
+  const location = useLocation()
+  const kbKey = location.state?.kbKey as string | undefined
   const [messages, setMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState('')
   const [selectedModel, setSelectedModel] = useState<MODELS>(
@@ -48,6 +50,19 @@ export function PlaygroundPage() {
 
   const currentKnowledgeBase = knowledgeBases?.find((kb) => kb.id === kbId)
 
+  useEffect(() => {
+    // Validate if kbKey is available
+    if (!kbKey && currentKnowledgeBase) {
+      const firstKey = currentKnowledgeBase.keys[0]?.kbKey
+      if (!firstKey) {
+        toast.error(
+          'Nenhuma chave de API disponível para esta base de conhecimento'
+        )
+        navigate('/bases')
+      }
+    }
+  }, [kbKey, currentKnowledgeBase, navigate])
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
@@ -58,6 +73,14 @@ export function PlaygroundPage() {
 
   const handleSendMessage = async () => {
     if (!inputValue.trim() || !kbId) return
+
+    // Get the kbKey to use (from state or from current KB)
+    const keyToUse = kbKey || currentKnowledgeBase?.keys[0]?.kbKey
+
+    if (!keyToUse) {
+      toast.error('Chave de API não disponível')
+      return
+    }
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -72,6 +95,7 @@ export function PlaygroundPage() {
     try {
       const response = await chatMutation.mutateAsync({
         kbId,
+        kbKey: keyToUse,
         model: selectedModel,
         prompt: inputValue
       })
@@ -85,13 +109,11 @@ export function PlaygroundPage() {
 
       setMessages((prev) => [...prev, botMessage])
     } catch (error) {
-      console.error('Erro ao enviar mensagem:', error)
       toast.error('Erro ao enviar mensagem. Tente novamente.')
 
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content:
-          'Desculpe, ocorreu um erro ao processar sua mensagem. Tente novamente.',
+        content: `Desculpe, ocorreu um erro ao processar sua mensagem. Tente novamente. ${(error as { details: string }).details}`,
         type: 'bot',
         timestamp: new Date()
       }
@@ -177,7 +199,7 @@ export function PlaygroundPage() {
             </div>
 
             {/* Chat Container */}
-            <Card className="flex min-h-0 flex-1 flex-col overflow-hidden">
+            <Card className="flex min-h-0 max-w-2xl flex-1 flex-col overflow-hidden">
               <CardHeader className="flex-shrink-0 pb-3">
                 <CardTitle className="flex items-center gap-2">
                   <Bot className="h-5 w-5" />
@@ -231,7 +253,7 @@ export function PlaygroundPage() {
                                 : 'bg-muted text-foreground'
                             }`}
                           >
-                            <p className="text-sm whitespace-pre-wrap">
+                            <p className="p-[6px] text-sm whitespace-pre-wrap">
                               {message.content}
                             </p>
                             <p className={`mt-1 text-xs opacity-70`}>

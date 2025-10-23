@@ -10,10 +10,16 @@ export type KnowledgeBase = {
   status: STATUS
   files: KnowledgeBaseFile[]
   totalSizeMB: number
+  keys: KnowledgeBaseKey[]
 }
 
 export type KnowledgeBaseFile = {
   fileName: string
   sizeMB: number
   url: string
+}
+
+export type KnowledgeBaseKey = {
+  kbKey: string
+  kbKeyAlias: string
 }

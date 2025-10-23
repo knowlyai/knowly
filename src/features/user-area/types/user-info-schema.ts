@@ -9,10 +9,10 @@ export const userInfoSchema = z
       .min(4, { message: 'O nome deve ter pelo menos 4 caracteres.' })
       .max(50, { message: 'O nome deve ter no máximo 50 caracteres.' }),
     email: z.string().email({ message: 'O e-mail deve ser válido.' }),
-    phone: z
+    cellphone: z
       .string()
       .min(11, { message: 'O telefone deve ter pelo menos 11 dígitos.' }),
-    documentType: z
+    personType: z
       .string()
       .refine(
         (val) => Object.values(DOCUMENT_TYPE).includes(val as DOCUMENT_TYPE),
@@ -20,7 +20,7 @@ export const userInfoSchema = z
           message: 'Selecione um tipo de pessoa válido.'
         }
       ),
-    document: z.string().min(1, { message: 'O documento é obrigatório.' }),
+    cpfCnpj: z.string().min(1, { message: 'O documento é obrigatório.' }),
     birthDate: z
       .date()
       .refine((date) => !isNaN(date.getTime()), {
@@ -38,7 +38,7 @@ export const userInfoSchema = z
       .optional()
   })
   .superRefine((data, ctx) => {
-    if (data.documentType === 'individual' && !data.birthDate) {
+    if (data.personType === DOCUMENT_TYPE.INDIVIDUAL && !data.birthDate) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: 'A data de nascimento é obrigatória para pessoa física.',
@@ -46,20 +46,20 @@ export const userInfoSchema = z
       })
     }
 
-    if (data.documentType === 'individual') {
+    if (data.personType === DOCUMENT_TYPE.INDIVIDUAL) {
       // Validação CPF
       const cpfRegex = /^\d{3}\.?\d{3}\.?\d{3}-?\d{2}$/
-      if (!cpfRegex.test(data.document)) {
+      if (!cpfRegex.test(data.cpfCnpj)) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: 'CPF inválido. Use o formato: 000.000.000-00',
           path: ['document']
         })
       }
-    } else if (data.documentType === 'business') {
+    } else if (data.personType === DOCUMENT_TYPE.BUSINESS) {
       // Validação CNPJ
       const cnpjRegex = /^(\d{2}\.?\d{3}\.?\d{3}\/?\d{4}-?\d{2})$/
-      if (!cnpjRegex.test(data.document)) {
+      if (!cnpjRegex.test(data.cpfCnpj)) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: 'CNPJ inválido. Use o formato: 00.000.000/0000-00',
