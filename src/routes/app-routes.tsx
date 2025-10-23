@@ -25,6 +25,9 @@ import { GettingStartedPage } from '@/features/docs/pages/getting-started'
 import { FoundationModelsPage } from '@/features/docs/pages/foundation-models'
 import { KnowledgeBasesPage } from '@/features/docs/pages/knowledge-bases'
 import { IntegrationPage } from '@/features/docs/pages/integration'
+import { IntegrationApiPage } from '@/features/docs/pages/integration-api'
+import { IntegrationWhatsAppPage } from '@/features/docs/pages/integration-whatsapp'
+import { IntegrationInstagramPage } from '@/features/docs/pages/integration-instagram'
 import { PlaygroundTestingPage } from '@/features/docs/pages/playground-testing'
 import { SubscriptionManagementPage as DocsSubscriptionPage } from '@/features/docs/pages/subscription-management'
 
@@ -78,6 +81,15 @@ export function AppRoutes() {
           />
           <Route path="docs/knowledge-bases" element={<KnowledgeBasesPage />} />
           <Route path="docs/integration" element={<IntegrationPage />} />
+          <Route path="docs/integration/api" element={<IntegrationApiPage />} />
+          <Route
+            path="docs/integration/whatsapp"
+            element={<IntegrationWhatsAppPage />}
+          />
+          <Route
+            path="docs/integration/instagram"
+            element={<IntegrationInstagramPage />}
+          />
           <Route
             path="docs/playground-testing"
             element={<PlaygroundTestingPage />}
