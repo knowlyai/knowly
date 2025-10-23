@@ -220,12 +220,12 @@ export function GettingStartedPage() {
 
       {pre({
         children: `# Exemplo usando cURL
-curl -X POST https://api.knowly.ai/v1/query \\
+curl -X POST https://api.knowly.dev.br/chat \\
   -H "Content-Type: application/json" \\
-  -H "Authorization: Bearer SUA_CHAVE_DE_API" \\
   -d '{
-    "prompt": "Qual é o horário de atendimento?",
-    "baseId": "SUA_BASE_ID"
+    "kb_key": "knowly_c81a7410-4c69-45e2-b6c6-79205c3a99fd",
+    "model": "MISTRAL_SMALL",
+    "prompt": "Qual é o horário de atendimento?"
   }'`
       })}
 
@@ -238,20 +238,19 @@ curl -X POST https://api.knowly.ai/v1/query \\
       })}
 
       {pre({
-        children: `const response = await fetch('https://api.knowly.ai/v1/query', {
+        children: `fetch('https://api.knowly.dev.br/chat', {
   method: 'POST',
   headers: {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer SUA_CHAVE_DE_API'
+    'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-    prompt: 'Qual é o horário de atendimento?',
-    baseId: 'SUA_BASE_ID'
+    kb_key: 'knowly_c81a7410-4c69-45e2-b6c6-79205c3a99fd',
+    model: 'MISTRAL_SMALL',
+    prompt: 'Qual é o horário de atendimento?'
   })
-});
-
-const data = await response.json();
-console.log(data.response);`
+})
+  .then(response => response.json())
+  .then(data => console.log(data.response));`
       })}
 
       {p({
@@ -265,18 +264,20 @@ console.log(data.response);`
       {pre({
         children: `import requests
 
-url = "https://api.knowly.ai/v1/query"
-headers = {
-    "Content-Type": "application/json",
-    "Authorization": "Bearer SUA_CHAVE_DE_API"
-}
-data = {
-    "prompt": "Qual é o horário de atendimento?",
-    "baseId": "SUA_BASE_ID"
-}
+response = requests.post(
+    'https://api.knowly.dev.br/chat',
+    headers={
+        'Content-Type': 'application/json',
+    },
+    json={
+        'kb_key': 'knowly_c81a7410-4c69-45e2-b6c6-79205c3a99fd',
+        'model': 'MISTRAL_SMALL',
+        'prompt': 'Qual é o horário de atendimento?'
+    }
+)
 
-response = requests.post(url, json=data, headers=headers)
-print(response.json()["response"])`
+data = response.json()
+print(data['response'])`
       })}
 
       {h2({ children: 'Próximos Passos' })}

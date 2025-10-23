@@ -56,13 +56,14 @@ export function IntegrationApiPage() {
 
       {h2({ children: 'Exemplo de requisição' })}
       {pre({
-        children: `POST https://api.knowly.ai/v1/query
+        children: `POST https://api.knowly.dev.br/chat
 Headers:
-  Authorization: Bearer SUA_CHAVE_DE_API
+  Content-Type: application/json
 Body:
 {
-  "prompt": "Como faço para atualizar meus dados cadastrais?",
-  "baseId": "sua-base-id"
+  "kb_key": "knowly_c81a7410-4c69-45e2-b6c6-79205c3a99fd",
+  "model": "MISTRAL_SMALL",
+  "prompt": "Como faço para atualizar meus dados cadastrais?"
 }`
       })}
 

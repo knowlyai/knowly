@@ -117,15 +117,15 @@ app.post('/webhook/whatsapp', async (req, res) => {
   const { from, message } = req.body;
   
   // Consultar API do Knowly
-  const knowlyResponse = await fetch('https://api.knowly.ai/v1/query', {
+  const knowlyResponse = await fetch('https://api.knowly.dev.br/chat', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer SUA_CHAVE_DE_API'
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      prompt: message,
-      baseId: 'SUA_BASE_ID'
+      kb_key: 'knowly_c81a7410-4c69-45e2-b6c6-79205c3a99fd',
+      model: 'MISTRAL_SMALL',
+      prompt: message
     })
   });
   
@@ -177,14 +177,14 @@ def whatsapp_webhook():
     
     # Consultar API do Knowly
     knowly_response = requests.post(
-        'https://api.knowly.ai/v1/query',
+        'https://api.knowly.dev.br/chat',
         headers={
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer SUA_CHAVE_DE_API'
         },
         json={
-            'prompt': message,
-            'baseId': 'SUA_BASE_ID'
+            'kb_key': 'knowly_c81a7410-4c69-45e2-b6c6-79205c3a99fd',
+            'model': 'MISTRAL_SMALL',
+            'prompt': message
         }
     )
     
