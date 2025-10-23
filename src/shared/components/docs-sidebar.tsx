@@ -12,7 +12,8 @@ import {
   X,
   Rocket,
   ChevronDown,
-  ChevronRight
+  ChevronRight,
+  TrendingUp
 } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { Button } from '@/shared/components/button'
@@ -78,6 +79,11 @@ const docsItems: DocsSidebarItem[] = [
     label: 'Gerenciar Assinatura',
     icon: CreditCard,
     path: '/docs/subscription-management'
+  },
+  {
+    label: 'Próximos Passos',
+    icon: TrendingUp,
+    path: '/docs/next-steps'
   }
 ]
 

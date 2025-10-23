@@ -30,6 +30,7 @@ import { IntegrationWhatsAppPage } from '@/features/docs/pages/integration-whats
 import { IntegrationInstagramPage } from '@/features/docs/pages/integration-instagram'
 import { PlaygroundTestingPage } from '@/features/docs/pages/playground-testing'
 import { SubscriptionManagementPage as DocsSubscriptionPage } from '@/features/docs/pages/subscription-management'
+import { NextStepsPage } from '@/features/docs/pages/next-steps'
 
 export function AppRoutes() {
   return (
@@ -98,6 +99,7 @@ export function AppRoutes() {
             path="docs/subscription-management"
             element={<DocsSubscriptionPage />}
           />
+          <Route path="docs/next-steps" element={<NextStepsPage />} />
         </Route>
       </Routes>
     </Suspense>
