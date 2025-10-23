@@ -72,12 +72,12 @@ export function Navbar() {
           variants={variants}
         >
           <a
-            href="#how-knowly-works"
+            href="/#how-knowly-works"
             className="hover:text-primary transition-colors"
           >
             Nosso produto
           </a>
-          <a href="#pricing" className="hover:text-primary transition-colors">
+          <a href="/#pricing" className="hover:text-primary transition-colors">
             Preços
           </a>
           <Link to="/docs" className="hover:text-primary transition-colors">
