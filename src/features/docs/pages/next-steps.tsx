@@ -22,7 +22,7 @@ export function NextStepsPage() {
 
       {h2({ children: 'Roadmap de Novas Features' })}
 
-      {h2({ children: '🤖 Sistema de Chatbot Multi-Tenant (Em Desenvolvimento)' })}
+      {h2({ children: 'Sistema de Chatbot Multi-Tenant (Em Desenvolvimento)' })}
       {p({
         children: (
           <>
@@ -126,14 +126,14 @@ export function NextStepsPage() {
       {ul({
         children: (
           <>
-            {li({ children: '✅ WhatsApp Business' })}
-            {li({ children: '✅ Instagram Direct Messages' })}
-            {li({ children: '✅ Website (Widget de chat embarcado)' })}
-            {li({ children: '🔜 Facebook Messenger' })}
-            {li({ children: '🔜 Telegram' })}
-            {li({ children: '🔜 Slack' })}
+            {li({ children: 'WhatsApp Business' })}
+            {li({ children: 'Instagram Direct Messages' })}
+            {li({ children: 'Website (Widget de chat embarcado)' })}
+            {li({ children: 'Facebook Messenger (Em breve)' })}
+            {li({ children: 'Telegram (Em breve)' })}
+            {li({ children: 'Slack (Em breve)' })}
             {li({
-              children: '🔜 E-commerce (integração com Shopify, WooCommerce, etc.)'
+              children: 'E-commerce (integração com Shopify, WooCommerce, etc.) (Em breve)'
             })}
           </>
         )
@@ -201,7 +201,7 @@ export function NextStepsPage() {
         )
       })}
 
-      {h2({ children: '📊 Análises e Insights Avançados' })}
+      {h2({ children: 'Análises e Insights Avançados' })}
       {p({
         children: (
           <>
@@ -235,7 +235,7 @@ export function NextStepsPage() {
         )
       })}
 
-      {h2({ children: '🔧 Customização Avançada de Respostas' })}
+      {h2({ children: 'Customização Avançada de Respostas' })}
       {ul({
         children: (
           <>
@@ -256,7 +256,7 @@ export function NextStepsPage() {
         )
       })}
 
-      {h2({ children: '🌐 Suporte Multilíngue' })}
+      {h2({ children: 'Suporte Multilíngue' })}
       {ul({
         children: (
           <>
@@ -273,7 +273,7 @@ export function NextStepsPage() {
         )
       })}
 
-      {h2({ children: '🔗 Integrações com CRMs e Ferramentas' })}
+      {h2({ children: 'Integrações com CRMs e Ferramentas' })}
       {ul({
         children: (
           <>
