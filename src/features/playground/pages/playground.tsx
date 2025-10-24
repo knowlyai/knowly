@@ -25,6 +25,7 @@ import { Badge } from '@/shared/components/badge'
 import { MODELS } from '@/shared/enums/models'
 import { useChatWithKnowledgeBaseMutation } from '@/features/playground/hooks/use-chat'
 import { useGetKnowledgeBaseQuery } from '@/features/user-area/hooks/use-kb'
+import { AxiosError } from 'axios'
 
 type Message = {
   id: string
@@ -111,9 +112,14 @@ export function PlaygroundPage() {
     } catch (error) {
       toast.error('Erro ao enviar mensagem. Tente novamente.')
 
+      const message =
+        (error as AxiosError<{ details: string }>).response?.data.details ??
+        (error as Error).message ??
+        ''
+
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: `Desculpe, ocorreu um erro ao processar sua mensagem. Tente novamente. ${(error as { details: string }).details}`,
+        content: `Desculpe, ocorreu um erro ao processar sua mensagem. Tente novamente. ${message}`,
         type: 'bot',
         timestamp: new Date()
       }
