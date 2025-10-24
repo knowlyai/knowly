@@ -354,7 +354,7 @@ export function CreateBasePipeline() {
   return (
     <Background className="justify-start">
       <Layout className="h-full w-full pt-28">
-        <main className="flex flex-col p-6 md:p-12">
+        <main className="flex flex-col p-6 pb-24 md:p-12 md:pb-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

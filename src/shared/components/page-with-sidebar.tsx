@@ -7,7 +7,11 @@ import { UserProvider } from '@/shared/contexts/user-context'
 export function PageWithSidebar() {
   return (
     <UserProvider>
-      <Toaster position="bottom-right" reverseOrder={false} />
+      <Toaster
+        position="bottom-right"
+        reverseOrder={false}
+        containerClassName="mb-16 md:mb-0"
+      />
       <Navbar />
       <Sidebar />
       <Outlet />

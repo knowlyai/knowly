@@ -223,7 +223,7 @@ export function HomePage() {
       <Layout className="space-y-32 md:space-y-0">
         <motion.section
           id="home"
-          className="flex h-screen max-w-4/5 flex-col items-center justify-center gap-8 sm:max-w-none"
+          className="flex h-screen max-w-4/5 flex-col items-center justify-center gap-8 pt-32 sm:max-w-none sm:pt-0"
           initial="hidden"
           whileInView="visible"
           transition={{ staggerChildren: 0.04 }}

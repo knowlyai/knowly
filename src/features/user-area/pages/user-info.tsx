@@ -117,7 +117,7 @@ export function UserInfoPage() {
   return (
     <Background>
       <Layout className="h-full w-full">
-        <main className="flex flex-col items-center justify-center p-12">
+        <main className="flex flex-col items-center justify-center p-6 pb-24 md:p-12 md:pb-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
