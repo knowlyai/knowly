@@ -272,20 +272,22 @@ echo $data['response'];`
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[80vh] max-w-2xl overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="text-foreground flex items-center gap-2">
-            {knowledgeBase.displayName}
+      <DialogContent className="max-h-[90vh] w-[96vw] max-w-2xl overflow-y-auto rounded-2xl p-5 md:max-h-[85vh] md:rounded-lg md:p-6">
+        <DialogHeader className="space-y-3">
+          <DialogTitle className="text-foreground flex flex-col items-start gap-2 sm:flex-row sm:items-center">
+            <span className="break-words">{knowledgeBase.displayName}</span>
             <Badge className={getStatusColor(knowledgeBase.status)}>
               {knowledgeBase.status}
             </Badge>
           </DialogTitle>
-          <DialogDescription>{knowledgeBase.description}</DialogDescription>
+          <DialogDescription className="break-words">
+            {knowledgeBase.description}
+          </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-6">
+        <div className="space-y-5 md:space-y-6">
           {/* Informações gerais */}
-          <div className="grid grid-cols-2 gap-4 text-sm">
+          <div className="grid grid-cols-1 gap-3 text-sm sm:grid-cols-2 sm:gap-4">
             <div>
               <span className="text-foreground font-medium">Criada em:</span>
               <p className="text-muted-foreground">
@@ -338,41 +340,51 @@ echo $data['response'];`
                   return (
                     <div
                       key={keyId}
-                      className="hover:bg-muted/50 border-border rounded-lg border-1 p-4 transition-colors"
+                      className="hover:bg-muted/50 border-border rounded-xl border-1 p-4 transition-colors md:rounded-lg md:p-4"
                     >
                       <div className="mb-2 flex items-center justify-between">
                         <span className="text-foreground text-sm font-medium">
                           {key.kbKeyAlias}
                         </span>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <div className="bg-muted text-muted-foreground flex-1 rounded px-3 py-2 font-mono text-sm">
-                          {isVisible ? key.kbKey : maskKey(key.kbKey)}
+                      <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+                        <div className="bg-muted text-muted-foreground flex-1 overflow-hidden rounded-lg px-3 py-2 font-mono text-xs sm:text-sm">
+                          <span className="block overflow-x-auto whitespace-nowrap">
+                            {isVisible ? key.kbKey : maskKey(key.kbKey)}
+                          </span>
                         </div>
-                        <Button
-                          onClick={() => toggleKeyVisibility(keyId)}
-                          size="sm"
-                          variant="outline"
-                          className="flex items-center gap-1"
-                        >
-                          {isVisible ? (
-                            <EyeOff className="text-foreground h-4 w-4" />
-                          ) : (
-                            <Eye className="text-foreground h-4 w-4" />
-                          )}
-                        </Button>
-                        <Button
-                          onClick={() => copyKeyToClipboard(key.kbKey, keyId)}
-                          size="sm"
-                          variant="outline"
-                          className="flex items-center gap-1"
-                        >
-                          {isCopied ? (
-                            <Check className="text-foreground h-4 w-4" />
-                          ) : (
-                            <Copy className="text-foreground h-4 w-4" />
-                          )}
-                        </Button>
+                        <div className="flex gap-2">
+                          <Button
+                            onClick={() => toggleKeyVisibility(keyId)}
+                            size="sm"
+                            variant="outline"
+                            className="flex flex-1 items-center justify-center gap-1 rounded-lg sm:flex-initial"
+                          >
+                            {isVisible ? (
+                              <EyeOff className="text-foreground h-4 w-4" />
+                            ) : (
+                              <Eye className="text-foreground h-4 w-4" />
+                            )}
+                            <span className="sm:hidden">
+                              {isVisible ? 'Ocultar' : 'Mostrar'}
+                            </span>
+                          </Button>
+                          <Button
+                            onClick={() => copyKeyToClipboard(key.kbKey, keyId)}
+                            size="sm"
+                            variant="outline"
+                            className="flex flex-1 items-center justify-center gap-1 rounded-lg sm:flex-initial"
+                          >
+                            {isCopied ? (
+                              <Check className="text-foreground h-4 w-4" />
+                            ) : (
+                              <Copy className="text-foreground h-4 w-4" />
+                            )}
+                            <span className="sm:hidden">
+                              {isCopied ? 'Copiado' : 'Copiar'}
+                            </span>
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   )
@@ -428,7 +440,7 @@ echo $data['response'];`
                               ? 'secondary'
                               : 'outline'
                           }
-                          className="text-foreground flex items-center gap-1.5"
+                          className="text-foreground flex items-center gap-1.5 rounded-lg"
                         >
                           <span>{lang.icon}</span>
                           <span>{lang.name}</span>
@@ -438,7 +450,7 @@ echo $data['response'];`
 
                     {/* Code snippet */}
                     <div className="relative">
-                      <pre className="bg-muted max-h-96 overflow-y-auto rounded-lg p-4 pr-20 text-sm">
+                      <pre className="bg-muted max-h-96 overflow-y-auto rounded-xl p-4 pr-12 text-xs sm:p-4 sm:pr-20 sm:text-sm">
                         <code className="text-foreground block break-words whitespace-pre-wrap">
                           {getCodeSnippet(
                             selectedLanguage,
@@ -450,17 +462,17 @@ echo $data['response'];`
                         onClick={copyCodeToClipboard}
                         size="sm"
                         variant="secondary"
-                        className="absolute top-2 right-2 flex items-center gap-1"
+                        className="absolute top-2 right-2 flex items-center gap-1 rounded-lg text-xs sm:text-sm"
                       >
                         {copiedCode ? (
                           <>
-                            <Check className="h-4 w-4" />
-                            Copiado!
+                            <Check className="h-3 w-3 sm:h-4 sm:w-4" />
+                            <span className="hidden sm:inline">Copiado!</span>
                           </>
                         ) : (
                           <>
-                            <Copy className="h-4 w-4" />
-                            Copiar
+                            <Copy className="h-3 w-3 sm:h-4 sm:w-4" />
+                            <span className="hidden sm:inline">Copiar</span>
                           </>
                         )}
                       </Button>
@@ -475,7 +487,7 @@ echo $data['response'];`
 
           {/* Lista de arquivos */}
           <div className="space-y-4">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               <h3 className="text-foreground text-lg font-semibold">
                 Arquivos
               </h3>
@@ -483,10 +495,10 @@ echo $data['response'];`
                 onClick={handleAddFiles}
                 size="sm"
                 variant="outline"
-                className="text-foreground flex items-center gap-2"
+                className="text-foreground flex items-center justify-center gap-2 rounded-lg"
               >
                 <Plus className="h-4 w-4" />
-                Adicionar arquivos
+                <span>Adicionar arquivos</span>
               </Button>
             </div>
 
@@ -500,10 +512,10 @@ echo $data['response'];`
                 {knowledgeBase.files.map((file, index) => (
                   <div
                     key={`${file.fileName}-${index}`}
-                    className="hover:bg-muted/50 border-border flex items-center justify-between rounded-lg border-1 p-3 transition-colors"
+                    className="hover:bg-muted/50 border-border flex flex-col gap-2 rounded-xl border-1 p-4 transition-colors sm:flex-row sm:items-center sm:justify-between md:rounded-lg"
                   >
                     <div
-                      className="flex min-w-0 flex-1 items-center gap-3"
+                      className="flex min-w-0 flex-1 cursor-pointer items-center gap-3"
                       onClick={() => window.open(file.url, '_blank')}
                     >
                       <FileText className="text-primary h-5 w-5 flex-shrink-0" />
@@ -523,10 +535,10 @@ echo $data['response'];`
                       onClick={() => handleRemoveFile(file.fileName)}
                       size="sm"
                       variant="ghost"
-                      className="text-destructive hover:text-destructive hover:bg-destructive/10 flex items-center gap-1"
+                      className="text-destructive hover:text-destructive hover:bg-destructive/10 flex w-full items-center justify-center gap-1 rounded-lg sm:w-auto"
                     >
                       <Trash2 className="h-4 w-4" />
-                      Remover
+                      <span>Remover</span>
                     </Button>
                   </div>
                 ))}
@@ -537,17 +549,17 @@ echo $data['response'];`
           <Separator />
 
           {/* Botões de ação */}
-          <div className="flex justify-end gap-3">
+          <div className="flex flex-col gap-2 sm:flex-row sm:justify-end sm:gap-3">
             <Button
               onClick={() => onOpenChange(false)}
               variant="outline"
-              className="text-foreground"
+              className="text-foreground w-full rounded-lg sm:w-auto"
             >
               Fechar
             </Button>
             <Button
               onClick={handleTestKnowledgeBase}
-              className="flex items-center gap-2"
+              className="flex w-full items-center justify-center gap-2 rounded-lg sm:w-auto"
             >
               <Play className="h-4 w-4" />
               Testar
