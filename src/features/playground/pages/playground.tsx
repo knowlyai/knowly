@@ -90,7 +90,14 @@ export function PlaygroundPage() {
       timestamp: new Date()
     }
 
-    setMessages((prev) => [...prev, userMessage])
+    const loadingMessage: Message = {
+      id: 'loading',
+      content: 'Pensando...',
+      type: 'bot',
+      timestamp: new Date()
+    }
+
+    setMessages((prev) => [...prev, userMessage, loadingMessage])
     setInputValue('')
 
     try {
@@ -108,7 +115,9 @@ export function PlaygroundPage() {
         timestamp: new Date()
       }
 
-      setMessages((prev) => [...prev, botMessage])
+      setMessages((prev) =>
+        prev.filter((msg) => msg.id !== 'loading').concat(botMessage)
+      )
     } catch (error) {
       toast.error('Erro ao enviar mensagem. Tente novamente.')
 
@@ -124,7 +133,9 @@ export function PlaygroundPage() {
         timestamp: new Date()
       }
 
-      setMessages((prev) => [...prev, errorMessage])
+      setMessages((prev) =>
+        prev.filter((msg) => msg.id !== 'loading').concat(errorMessage)
+      )
     }
   }
 
@@ -259,12 +270,27 @@ export function PlaygroundPage() {
                                 : 'bg-muted text-foreground'
                             }`}
                           >
-                            <p className="p-[6px] text-sm whitespace-pre-wrap">
-                              {message.content}
-                            </p>
-                            <p className={`mt-1 text-xs opacity-70`}>
-                              {formatTime(message.timestamp)}
-                            </p>
+                            {message.id === 'loading' ? (
+                              <div className="flex items-center gap-2 p-[6px]">
+                                <div className="flex gap-1">
+                                  <div className="bg-primary h-2 w-2 animate-bounce rounded-full [animation-delay:-0.3s]"></div>
+                                  <div className="bg-primary h-2 w-2 animate-bounce rounded-full [animation-delay:-0.15s]"></div>
+                                  <div className="bg-primary h-2 w-2 animate-bounce rounded-full"></div>
+                                </div>
+                                <span className="text-muted-foreground text-sm">
+                                  {message.content}
+                                </span>
+                              </div>
+                            ) : (
+                              <>
+                                <p className="p-[6px] text-sm whitespace-pre-wrap">
+                                  {message.content}
+                                </p>
+                                <p className={`mt-1 text-xs opacity-70`}>
+                                  {formatTime(message.timestamp)}
+                                </p>
+                              </>
+                            )}
                           </div>
 
                           {message.type === 'user' && (
