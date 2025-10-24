@@ -40,6 +40,9 @@ jobs:
           npm run build
         env:
           VITE_STAGE: ${{ github.ref_name }}
+          VITE_API_URL: ${{vars.API_URL}}
+          VITE_BUCKET_NAME: ${{vars.BUCKET_NAME}}
+          VITE_API_CHAT_URL: ${{vars.API_CHAT_URL}}
       - name: Setup envs
         run: |
           echo AWS_REGION=${{ vars.AWS_REGION }} >> $GITHUB_ENV
