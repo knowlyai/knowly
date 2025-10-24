@@ -8,7 +8,7 @@ export function Layout({ children, className, ...props }: LayoutProps) {
   return (
     <div
       className={cn(
-        'flex w-5/6 max-w-[1920px] flex-col items-center justify-center',
+        'flex w-5/6 max-w-[1920px] flex-col items-center justify-center pb-20 md:pb-0',
         className
       )}
       {...props}
