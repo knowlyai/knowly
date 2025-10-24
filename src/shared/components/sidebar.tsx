@@ -46,7 +46,7 @@ export function Sidebar() {
 
   return (
     <motion.aside
-      className={`bg-background border-border fixed z-10 flex h-full flex-col justify-between border-1 px-4 py-8 pt-24 transition-all duration-300 ${
+      className={`bg-background fixed z-10 flex h-full flex-col justify-between border-r-[1px] border-gray-100/20 px-4 py-8 pt-24 transition-all duration-300 ${
         isCollapsed ? 'w-20' : 'w-96'
       }`}
       initial="hidden"

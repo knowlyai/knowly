@@ -25,6 +25,7 @@ import { CreateBaseData } from '../types/create-base-schema'
 import { useCreateKnowledgeBaseMutation } from '../hooks/use-kb'
 import { knowledgeBaseService } from '@/services/knowledge-base'
 import { bucketName } from '@/shared/enviroment'
+import { AxiosError } from 'axios'
 
 type PipelineStep = {
   id: string
@@ -257,7 +258,6 @@ export function CreateBasePipeline() {
         navigate('/bases')
       }, 5000)
     } catch (error) {
-      console.error('Pipeline error:', error)
       const currentStepIndex = pipeline.currentStep
       updateStepStatus(
         currentStepIndex,
@@ -265,7 +265,9 @@ export function CreateBasePipeline() {
         'Erro inesperado durante o processo'
       )
       toast.error(
-        'Erro ao criar base de conhecimento: ' + (error as Error).message
+        'Erro ao criar base de conhecimento: ' +
+          (error as AxiosError<{ details: string }>).response?.data?.details ||
+          (error as Error).message
       )
     }
   }

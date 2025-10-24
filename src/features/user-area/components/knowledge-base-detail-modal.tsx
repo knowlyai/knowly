@@ -274,7 +274,7 @@ echo $data['response'];`
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-h-[80vh] max-w-2xl overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
+          <DialogTitle className="text-foreground flex items-center gap-2">
             {knowledgeBase.displayName}
             <Badge className={getStatusColor(knowledgeBase.status)}>
               {knowledgeBase.status}
@@ -287,31 +287,35 @@ echo $data['response'];`
           {/* Informações gerais */}
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
-              <span className="text-muted-foreground font-medium">
-                Criada em:
-              </span>
-              <p>{knowledgeBase.createdAt.toLocaleDateString('pt-BR')}</p>
+              <span className="text-foreground font-medium">Criada em:</span>
+              <p className="text-muted-foreground">
+                {knowledgeBase.createdAt.toLocaleDateString('pt-BR')}
+              </p>
             </div>
             <div>
-              <span className="text-muted-foreground font-medium">
+              <span className="text-foreground font-medium">
                 Última modificação:
               </span>
-              <p>{knowledgeBase.updatedAt.toLocaleDateString('pt-BR')}</p>
+              <p className="text-muted-foreground">
+                {knowledgeBase.updatedAt.toLocaleDateString('pt-BR')}
+              </p>
             </div>
             <div>
-              <span className="text-muted-foreground font-medium">
+              <span className="text-foreground font-medium">
                 Total de arquivos:
               </span>
-              <p>
+              <p className="text-muted-foreground">
                 {knowledgeBase.files.length} arquivo
                 {knowledgeBase.files.length !== 1 ? 's' : ''}
               </p>
             </div>
             <div>
-              <span className="text-muted-foreground font-medium">
+              <span className="text-foreground font-medium">
                 Tamanho total:
               </span>
-              <p>{knowledgeBase.totalSizeMB.toFixed(1)} MB</p>
+              <p className="text-muted-foreground">
+                {knowledgeBase.totalSizeMB.toFixed(1)} MB
+              </p>
             </div>
           </div>
 
@@ -319,9 +323,9 @@ echo $data['response'];`
 
           {/* API Keys */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">API Keys</h3>
+            <h3 className="text-foreground text-lg font-semibold">API Keys</h3>
             {knowledgeBase.keys.length === 0 ? (
-              <div className="text-muted-foreground py-4 text-center text-sm">
+              <div className="text-foreground py-4 text-center text-sm">
                 Nenhuma chave de API encontrada
               </div>
             ) : (
@@ -337,12 +341,12 @@ echo $data['response'];`
                       className="hover:bg-muted/50 border-border rounded-lg border-1 p-4 transition-colors"
                     >
                       <div className="mb-2 flex items-center justify-between">
-                        <span className="text-sm font-medium">
+                        <span className="text-foreground text-sm font-medium">
                           {key.kbKeyAlias}
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <div className="bg-muted flex-1 rounded px-3 py-2 font-mono text-sm">
+                        <div className="bg-muted text-muted-foreground flex-1 rounded px-3 py-2 font-mono text-sm">
                           {isVisible ? key.kbKey : maskKey(key.kbKey)}
                         </div>
                         <Button
@@ -352,9 +356,9 @@ echo $data['response'];`
                           className="flex items-center gap-1"
                         >
                           {isVisible ? (
-                            <EyeOff className="h-4 w-4" />
+                            <EyeOff className="text-foreground h-4 w-4" />
                           ) : (
-                            <Eye className="h-4 w-4" />
+                            <Eye className="text-foreground h-4 w-4" />
                           )}
                         </Button>
                         <Button
@@ -364,9 +368,9 @@ echo $data['response'];`
                           className="flex items-center gap-1"
                         >
                           {isCopied ? (
-                            <Check className="h-4 w-4" />
+                            <Check className="text-foreground h-4 w-4" />
                           ) : (
-                            <Copy className="h-4 w-4" />
+                            <Copy className="text-foreground h-4 w-4" />
                           )}
                         </Button>
                       </div>
@@ -386,13 +390,15 @@ echo $data['response'];`
               className="hover:bg-muted/50 flex w-full items-center justify-between rounded-lg p-2 transition-colors"
             >
               <div className="flex items-center gap-2">
-                <Code2 className="h-5 w-5" />
-                <h3 className="text-lg font-semibold">Exemplos de Código</h3>
+                <Code2 className="text-foreground h-5 w-5" />
+                <h3 className="text-foreground text-lg font-semibold">
+                  Exemplos de Código
+                </h3>
               </div>
               {isCodeSectionExpanded ? (
-                <ChevronUp className="text-muted-foreground h-5 w-5" />
+                <ChevronUp className="text-foreground h-5 w-5" />
               ) : (
-                <ChevronDown className="text-muted-foreground h-5 w-5" />
+                <ChevronDown className="text-foreground h-5 w-5" />
               )}
             </button>
 
@@ -405,7 +411,7 @@ echo $data['response'];`
             >
               <div className="overflow-hidden">
                 {knowledgeBase.keys.length === 0 ? (
-                  <div className="text-muted-foreground py-4 text-center text-sm">
+                  <div className="text-foreground py-4 text-center text-sm">
                     Crie uma API Key para ver os exemplos de código
                   </div>
                 ) : (
@@ -418,9 +424,11 @@ echo $data['response'];`
                           onClick={() => setSelectedLanguage(lang.id)}
                           size="sm"
                           variant={
-                            selectedLanguage === lang.id ? 'default' : 'outline'
+                            selectedLanguage === lang.id
+                              ? 'secondary'
+                              : 'outline'
                           }
-                          className="flex items-center gap-1.5"
+                          className="text-foreground flex items-center gap-1.5"
                         >
                           <span>{lang.icon}</span>
                           <span>{lang.name}</span>
@@ -468,12 +476,14 @@ echo $data['response'];`
           {/* Lista de arquivos */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold">Arquivos</h3>
+              <h3 className="text-foreground text-lg font-semibold">
+                Arquivos
+              </h3>
               <Button
                 onClick={handleAddFiles}
                 size="sm"
                 variant="outline"
-                className="flex items-center gap-2"
+                className="text-foreground flex items-center gap-2"
               >
                 <Plus className="h-4 w-4" />
                 Adicionar arquivos
@@ -481,7 +491,7 @@ echo $data['response'];`
             </div>
 
             {knowledgeBase.files.length === 0 ? (
-              <div className="text-muted-foreground py-8 text-center">
+              <div className="text-foreground py-8 text-center">
                 <FileText className="mx-auto mb-2 h-12 w-12 opacity-50" />
                 <p>Nenhum arquivo encontrado</p>
               </div>
@@ -499,12 +509,12 @@ echo $data['response'];`
                       <FileText className="text-primary h-5 w-5 flex-shrink-0" />
                       <div className="min-w-0 flex-1">
                         <p
-                          className="truncate text-sm font-medium"
+                          className="text-muted-foreground truncate text-sm font-medium"
                           title={file.fileName}
                         >
                           {file.fileName}
                         </p>
-                        <p className="text-muted-foreground text-xs">
+                        <p className="text-foreground text-xs">
                           {formatFileSize(file.sizeMB)}
                         </p>
                       </div>
@@ -528,7 +538,11 @@ echo $data['response'];`
 
           {/* Botões de ação */}
           <div className="flex justify-end gap-3">
-            <Button onClick={() => onOpenChange(false)} variant="outline">
+            <Button
+              onClick={() => onOpenChange(false)}
+              variant="outline"
+              className="text-foreground"
+            >
               Fechar
             </Button>
             <Button

@@ -27,11 +27,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { Checkbox } from '@/shared/components/checkbox'
 import { Label } from '@/shared/components/label'
-import {
-  formatCNPJ,
-  formatCPF,
-  formatPhone
-} from '@/shared/utils/format-documents'
 import toast from 'react-hot-toast'
 import { BackgroundBlobs } from '@/shared/components/background-blobs'
 import { motion } from 'framer-motion'
@@ -41,6 +36,12 @@ import { containerVariants, cardVariants } from '@/shared/utils/animations'
 import { useCreateUserMutation } from '@/shared/hooks/use-user'
 import { AxiosError } from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { DOCUMENT_TYPE } from '@/shared/enums/document-type'
+import {
+  handleCNPJChange,
+  handleCPFChange,
+  handlePhoneChange
+} from '@/shared/utils/string-extensions'
 
 export function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false)
@@ -55,33 +56,9 @@ export function SignUpPage() {
     mode: 'onBlur'
   })
 
-  const handleCPFChange = (
-    value: string,
-    onChange: (value: string) => void
-  ) => {
-    const formattedValue = formatCPF(value)
-    onChange(formattedValue)
-  }
-
-  const handleCNPJChange = (
-    value: string,
-    onChange: (value: string) => void
-  ) => {
-    const formattedValue = formatCNPJ(value)
-    onChange(formattedValue)
-  }
-
-  const handlePhoneChange = (
-    value: string,
-    onChange: (value: string) => void
-  ) => {
-    const formattedValue = formatPhone(value)
-    onChange(formattedValue)
-  }
-
   async function onSubmit(values: SignUpFormData) {
     try {
-      const isIndividual = values.documentType === 'individual'
+      const isIndividual = values.documentType === DOCUMENT_TYPE.INDIVIDUAL
 
       // Convert birthDate to seconds since epoch if provided
       const birthDateSeconds = values.birthDate
@@ -196,9 +173,11 @@ export function SignUpPage() {
                             >
                               <Checkbox
                                 id="type-individual"
-                                checked={field.value === 'individual'}
+                                checked={
+                                  field.value === DOCUMENT_TYPE.INDIVIDUAL
+                                }
                                 onCheckedChange={() => {
-                                  field.onChange('individual')
+                                  field.onChange(DOCUMENT_TYPE.INDIVIDUAL)
                                   form.setValue('document', '')
                                 }}
                               />
@@ -210,9 +189,9 @@ export function SignUpPage() {
                             >
                               <Checkbox
                                 id="type-business"
-                                checked={field.value === 'business'}
+                                checked={field.value === DOCUMENT_TYPE.BUSINESS}
                                 onCheckedChange={() => {
-                                  field.onChange('business')
+                                  field.onChange(DOCUMENT_TYPE.BUSINESS)
                                   form.setValue('document', '')
                                   form.setValue('birthDate', undefined)
                                 }}
@@ -231,7 +210,8 @@ export function SignUpPage() {
                     render={({ field }) => (
                       <FormItem className="w-full">
                         <FormLabel>
-                          {form.getValues('documentType') === 'individual'
+                          {form.getValues('documentType') ===
+                          DOCUMENT_TYPE.INDIVIDUAL
                             ? 'CPF'
                             : 'CNPJ'}
                         </FormLabel>
@@ -240,7 +220,8 @@ export function SignUpPage() {
                             {...field}
                             onChange={(e) => {
                               if (
-                                form.getValues('documentType') === 'individual'
+                                form.getValues('documentType') ===
+                                DOCUMENT_TYPE.INDIVIDUAL
                               ) {
                                 handleCPFChange(e.target.value, field.onChange)
                               } else {
@@ -248,12 +229,14 @@ export function SignUpPage() {
                               }
                             }}
                             placeholder={
-                              form.getValues('documentType') === 'individual'
+                              form.getValues('documentType') ===
+                              DOCUMENT_TYPE.INDIVIDUAL
                                 ? '000.000.000-00'
                                 : '00.000.000/0000-00'
                             }
                             maxLength={
-                              form.getValues('documentType') === 'individual'
+                              form.getValues('documentType') ===
+                              DOCUMENT_TYPE.INDIVIDUAL
                                 ? 14
                                 : 18
                             }
@@ -263,7 +246,8 @@ export function SignUpPage() {
                       </FormItem>
                     )}
                   />
-                  {form.getValues('documentType') === 'individual' && (
+                  {form.getValues('documentType') ===
+                    DOCUMENT_TYPE.INDIVIDUAL && (
                     <FormField
                       control={form.control}
                       name="birthDate"

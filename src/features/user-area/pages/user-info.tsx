@@ -23,15 +23,15 @@ import {
   TooltipTrigger
 } from '@/shared/components/tooltip'
 import { DOCUMENT_TYPE } from '@/shared/enums/document-type'
-import {
-  formatCNPJ,
-  formatCPF,
-  formatPhone
-} from '@/shared/utils/format-documents'
 import { Background } from '@/shared/components/background'
 import { useUpdateUserMutation, useUser } from '@/shared/hooks/use-user'
 import { UpdateUserRequest } from '@/services/user'
 import toast from 'react-hot-toast'
+import {
+  formatCPF,
+  formatCNPJ,
+  handlePhoneChange
+} from '@/shared/utils/string-extensions'
 
 export function UserInfoPage() {
   const [isEditing, setIsEditing] = useState(false)
@@ -45,7 +45,7 @@ export function UserInfoPage() {
       name: user?.name || '',
       email: user?.email || '',
       cellphone: user?.cellphone || '',
-      personType: user?.personType || 'individual',
+      personType: user?.personType || DOCUMENT_TYPE.INDIVIDUAL,
       cpfCnpj: user?.cpfCnpj || '',
       birthDate: user?.birthDate
     },
@@ -54,30 +54,6 @@ export function UserInfoPage() {
 
   if (isPending || !user) {
     return <div>Loading</div>
-  }
-
-  const handleCPFChange = (
-    value: string,
-    onChange: (value: string) => void
-  ) => {
-    const formattedValue = formatCPF(value)
-    onChange(formattedValue)
-  }
-
-  const handleCNPJChange = (
-    value: string,
-    onChange: (value: string) => void
-  ) => {
-    const formattedValue = formatCNPJ(value)
-    onChange(formattedValue)
-  }
-
-  const handlePhoneChange = (
-    value: string,
-    onChange: (value: string) => void
-  ) => {
-    const formattedValue = formatPhone(value)
-    onChange(formattedValue)
   }
 
   function handleEdit() {
@@ -129,8 +105,10 @@ export function UserInfoPage() {
       await updateUser(changedData as UpdateUserRequest)
       refetch?.()
     } catch (error) {
-      console.error('Failed to update user:', error)
-      toast.error('Erro ao atualizar os dados. Tente novamente.')
+      toast.error(
+        'Erro ao atualizar os dados. Tente novamente. ' +
+          (error as Error).message || (error as { details: string }).details
+      )
     } finally {
       setIsEditing(false)
     }
@@ -258,7 +236,7 @@ export function UserInfoPage() {
                       <FormField
                         control={form.control}
                         name="personType"
-                        render={({ field: _ }) => (
+                        render={({ field }) => (
                           <FormItem>
                             <FormLabel>Tipo de Pessoa</FormLabel>
                             <FormControl>
@@ -266,8 +244,7 @@ export function UserInfoPage() {
                                 <TooltipTrigger asChild>
                                   <Input
                                     value={
-                                      user.personType ===
-                                      DOCUMENT_TYPE.INDIVIDUAL
+                                      field.value === DOCUMENT_TYPE.INDIVIDUAL
                                         ? 'Pessoa física'
                                         : 'Pessoa jurídica'
                                     }
@@ -290,25 +267,22 @@ export function UserInfoPage() {
                           <FormItem>
                             <FormLabel>Documento</FormLabel>
                             <FormControl>
-                              <Input
-                                {...field}
-                                onChange={(e) => {
-                                  if (
-                                    form.getValues('personType') ===
-                                    'individual'
-                                  ) {
-                                    handleCPFChange(
-                                      e.target.value,
-                                      field.onChange
-                                    )
-                                  } else {
-                                    handleCNPJChange(
-                                      e.target.value,
-                                      field.onChange
-                                    )
-                                  }
-                                }}
-                              />
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <Input
+                                    value={
+                                      form.getValues('personType') ===
+                                      DOCUMENT_TYPE.INDIVIDUAL
+                                        ? formatCPF(field.value)
+                                        : formatCNPJ(field.value)
+                                    }
+                                    disabled
+                                  />
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                  <p>Não é possível alterar o documento</p>
+                                </TooltipContent>
+                              </Tooltip>
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -331,9 +305,7 @@ export function UserInfoPage() {
                                           .split('T')[0]
                                       : ''
                                   }
-                                  onChange={(e) =>
-                                    field.onChange(new Date(e.target.value))
-                                  }
+                                  disabled
                                 />
                               </FormControl>
                               <FormMessage />

@@ -16,6 +16,7 @@ import {
 import { ArrowDown, ArrowRight, Check } from 'lucide-react'
 import { BackgroundBlobs } from '@/shared/components/background-blobs'
 import { Footer } from '@/features/home/components/footer'
+import { Link } from 'react-router-dom'
 
 const plans = [
   {
@@ -118,7 +119,7 @@ const owners = [
   {
     name: 'Izabel Sampaio Goes',
     image: 'https://d1b8zs4rmj3xdl.cloudfront.net/iza.jpeg',
-    role: 'Estagiária de Ciência de Dados e IA na Evo Systems',
+    role: 'Estagiária de Business Analytics na Amazon',
     linkedin: 'https://www.linkedin.com/in/izabel-sampaio-goes/'
   },
   {
@@ -130,7 +131,8 @@ const owners = [
   {
     name: 'Júlia Galhardi Cerqueira',
     image: 'https://d1b8zs4rmj3xdl.cloudfront.net/julia.jpeg',
-    role: 'Estagiária'
+    role: 'Estagiária',
+    linkedin: 'https://www.linkedin.com/in/j%C3%BAliacerqueira/'
   },
   {
     name: 'Vinícius Berti',
@@ -221,16 +223,16 @@ export function HomePage() {
       <Layout className="space-y-32 md:space-y-0">
         <motion.section
           id="home"
-          className="flex h-screen max-w-4/5 flex-col items-center justify-center gap-6 sm:max-w-none"
+          className="flex h-screen max-w-4/5 flex-col items-center justify-center gap-8 sm:max-w-none"
           initial="hidden"
           whileInView="visible"
           transition={{ staggerChildren: 0.04 }}
         >
-          <h1 className="text-center text-4xl font-semibold tracking-tight drop-shadow-xl sm:text-5xl md:text-7xl">
+          <h1 className="text-center text-4xl font-bold tracking-tight drop-shadow-xl sm:text-6xl md:text-8xl lg:leading-tight">
             {words.map((word, index) => (
               <Fragment key={index}>
                 <motion.span
-                  className={`inline-block ${word === 'Knowly' ? 'from-primary to-foreground bg-gradient-to-r bg-clip-text text-transparent' : ''}`}
+                  className={`inline-block ${word === 'Knowly' ? 'from-primary bg-gradient-to-r via-purple-500 to-pink-500 bg-clip-text text-transparent' : ''}`}
                   transition={transition}
                   variants={variants}
                 >
@@ -241,7 +243,7 @@ export function HomePage() {
             ))}
           </h1>
           <motion.p
-            className="text-foreground/70 max-w-3xl text-center text-base font-light sm:text-lg md:text-2xl"
+            className="text-foreground/70 max-w-3xl text-center text-base leading-relaxed font-light sm:text-xl md:text-2xl"
             transition={transition}
             variants={variants}
           >
@@ -251,18 +253,27 @@ export function HomePage() {
           </motion.p>
 
           <motion.div
-            className="mt-2 flex gap-6"
+            className="mt-4 flex flex-col items-center gap-4 sm:flex-row sm:gap-6"
             transition={transition}
             variants={variants}
           >
-            <Button>Começar</Button>
-            <a
-              href="https://github.com/knowlyai/knowly"
+            <Link to="/docs">
+              <Button className="px-8 py-6 text-lg font-semibold shadow-lg transition-all hover:scale-105 hover:shadow-xl">
+                Começar Gratuitamente
+              </Button>
+            </Link>
+            <Link
+              to="https://github.com/knowlyai/knowly"
               target="_blank"
               rel="noreferrer"
             >
-              <Button variant="outline">GitHub</Button>
-            </a>
+              <Button
+                variant="outline"
+                className="hover:bg-primary/10 px-8 py-6 text-lg font-semibold backdrop-blur-sm transition-all hover:scale-105"
+              >
+                Ver no GitHub
+              </Button>
+            </Link>
           </motion.div>
           <LogoCarousel />
         </motion.section>
@@ -274,25 +285,33 @@ export function HomePage() {
           whileInView="visible"
           transition={{ staggerChildren: 0.04 }}
         >
-          <motion.h1
-            className="text-center text-4xl font-semibold sm:text-6xl"
+          <motion.div
+            className="mb-8 space-y-4 text-center"
             transition={transition}
             variants={variants}
           >
-            Como o Knowly Funciona
-          </motion.h1>
+            <h1 className="from-primary bg-gradient-to-r to-purple-600 bg-clip-text text-4xl font-bold text-transparent sm:text-6xl">
+              Como o Knowly Funciona
+            </h1>
+            <p className="text-foreground/60 mx-auto max-w-2xl text-lg">
+              Três passos simples para transformar seus documentos em IA
+            </p>
+          </motion.div>
           <motion.div
-            className="grid w-full grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3"
+            className="grid w-full grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-3"
             transition={transition}
             variants={variants}
           >
             {process.map((content, idx) => (
               <Card
                 key={idx}
-                className="bg-background relative flex flex-col items-center"
+                className="from-background to-background/50 hover:border-primary/50 relative flex flex-col items-center border-2 bg-gradient-to-br backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-2xl"
               >
                 <CardHeader>
-                  <CardTitle className="text-foreground mb-4 text-3xl font-semibold">
+                  <div className="bg-primary/20 text-primary absolute top-4 left-4 flex h-10 w-10 items-center justify-center rounded-full text-lg font-bold">
+                    {idx + 1}
+                  </div>
+                  <CardTitle className="text-foreground mb-4 pt-8 text-3xl font-bold">
                     {content.title}
                   </CardTitle>
                 </CardHeader>
@@ -302,15 +321,15 @@ export function HomePage() {
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <p className="text-foreground/80 text-center text-xl break-words">
+                  <p className="text-foreground/80 text-center text-xl leading-relaxed break-words">
                     {content.content}
                   </p>
                 </CardFooter>
                 {idx < process.length - 1 && window.innerWidth >= 768 && (
-                  <ArrowRight className="bg-background animate-bounce-right absolute inset-0 top-1/2 left-full ml-[6px] h-8 w-8 rounded-full p-2" />
+                  <ArrowRight className="bg-primary/20 text-primary animate-bounce-right absolute inset-0 top-1/2 left-full ml-[6px] h-10 w-10 rounded-full p-2 shadow-lg backdrop-blur-sm" />
                 )}
                 {idx < process.length - 1 && window.innerWidth < 768 && (
-                  <ArrowDown className="bg-background absolute inset-0 top-full left-1/2 mt-[10px] h-8 w-8 -translate-x-1/2 transform animate-bounce rounded-full p-2" />
+                  <ArrowDown className="bg-primary/20 text-primary absolute inset-0 top-full left-1/2 mt-[10px] h-10 w-10 -translate-x-1/2 transform animate-bounce rounded-full p-2 shadow-lg backdrop-blur-sm" />
                 )}
               </Card>
             ))}
@@ -324,13 +343,18 @@ export function HomePage() {
           whileInView="visible"
           transition={{ staggerChildren: 0.04 }}
         >
-          <motion.h1
-            className="mb-12 text-6xl font-semibold"
+          <motion.div
+            className="mb-16 space-y-4 text-center"
             transition={transition}
             variants={variants}
           >
-            Preços
-          </motion.h1>
+            <h1 className="from-primary bg-gradient-to-r to-purple-600 bg-clip-text text-5xl font-bold text-transparent sm:text-6xl">
+              Preços Simples e Transparentes
+            </h1>
+            <p className="text-foreground/60 mx-auto max-w-2xl text-lg">
+              Escolha o plano perfeito para suas necessidades
+            </p>
+          </motion.div>
           <motion.div
             className="grid w-full max-w-7xl grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
             transition={transition}
@@ -339,30 +363,47 @@ export function HomePage() {
             {plans.map((plan, idx) => (
               <Card
                 key={idx}
-                className="from-background to-background/80 w-full bg-gradient-to-b text-center"
+                className={`from-background to-background/80 w-full bg-gradient-to-b text-center backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-2xl ${
+                  idx === 1
+                    ? 'border-primary shadow-primary/20 border-2 shadow-xl lg:scale-105'
+                    : 'border-2'
+                }`}
               >
-                <CardHeader>
-                  <CardDescription>{plan.title}</CardDescription>
-                  <CardTitle className="text-4xl font-extrabold">
-                    {plan.price}{' '}
-                    <span className="text-muted-foreground text-base font-normal">
-                      p/mês
-                    </span>
+                {idx === 1 && (
+                  <div className="from-primary absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r to-purple-600 px-4 py-1 text-sm font-semibold text-white shadow-lg">
+                    Mais Popular
+                  </div>
+                )}
+                <CardHeader className="pt-8">
+                  <CardDescription className="text-lg font-semibold">
+                    {plan.title}
+                  </CardDescription>
+                  <CardTitle className="from-primary bg-gradient-to-r to-purple-600 bg-clip-text text-5xl font-extrabold text-transparent">
+                    {plan.price}
                   </CardTitle>
+                  <span className="text-muted-foreground text-base font-normal">
+                    p/mês
+                  </span>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-4 py-6">
                   {plan.features.map((feature, idx) => (
                     <div
                       key={idx}
-                      className="text-primary/50 flex items-center gap-4 text-left"
+                      className="text-foreground/70 flex items-center gap-4 text-left"
                     >
-                      <Check className="text-green-60 h-5 w-5" />
+                      <div className="rounded-full bg-green-500/20 p-1">
+                        <Check className="h-5 w-5 text-green-600" />
+                      </div>
                       {feature}
                     </div>
                   ))}
                 </CardContent>
-                <CardFooter>
-                  <Button className="w-full">{plan.buttonText}</Button>
+                <CardFooter className="pb-8">
+                  <Button
+                    className={`w-full py-6 text-lg font-semibold ${idx === 1 ? 'shadow-primary/30 shadow-lg' : ''}`}
+                  >
+                    {plan.buttonText}
+                  </Button>
                 </CardFooter>
               </Card>
             ))}
@@ -381,19 +422,24 @@ export function HomePage() {
           }}
           variants={variants}
         >
-          <motion.h1
-            className="mb-8 text-center text-5xl font-semibold sm:mb-12 md:text-6xl"
+          <motion.div
+            className="mb-12 space-y-4 text-center"
             transition={transition}
             variants={variants}
           >
-            FAQ
-          </motion.h1>
+            <h1 className="from-primary bg-gradient-to-r to-purple-600 bg-clip-text text-5xl font-bold text-transparent sm:text-6xl">
+              Perguntas Frequentes
+            </h1>
+            <p className="text-foreground/60 mx-auto max-w-2xl text-lg">
+              Tudo o que você precisa saber sobre o Knowly
+            </p>
+          </motion.div>
           <motion.div
             className="w-full max-w-4xl"
             transition={transition}
             variants={variants}
           >
-            <Accordion className="w-full">
+            <Accordion className="w-full space-y-4">
               {faqs.map((faq, i) => (
                 <AccordionItem key={i} title={faq.title}>
                   {faq.content}
@@ -404,7 +450,7 @@ export function HomePage() {
                   <span>Acesse a página completa de FAQ</span>
                   <Button
                     variant="outline"
-                    className="ml-4"
+                    className="ml-4 transition-transform hover:scale-105"
                     onClick={() => (window.location.href = '/faq')}
                   >
                     Ir para FAQ
@@ -422,15 +468,20 @@ export function HomePage() {
           whileInView="visible"
           transition={{ staggerChildren: 0.04 }}
         >
-          <motion.h1
-            className="mb-6 text-center text-4xl font-semibold sm:mb-8 sm:text-5xl md:text-6xl"
+          <motion.div
+            className="mb-8 space-y-4 text-center md:mb-12"
             transition={transition}
             variants={variants}
           >
-            Sobre nós
-          </motion.h1>
+            <h1 className="from-primary bg-gradient-to-r to-purple-600 bg-clip-text text-4xl font-bold text-transparent sm:text-5xl md:text-6xl">
+              Sobre Nós
+            </h1>
+            <p className="text-foreground/60 mx-auto max-w-2xl text-lg">
+              Conheça a equipe por trás do Knowly
+            </p>
+          </motion.div>
           <motion.div
-            className="mb-8 max-w-4xl text-justify text-base leading-relaxed sm:text-lg md:mb-12 md:text-xl"
+            className="text-foreground/80 mb-8 max-w-4xl text-justify text-base leading-relaxed sm:text-lg md:mb-12 md:text-xl"
             transition={transition}
             variants={variants}
           >
@@ -444,27 +495,30 @@ export function HomePage() {
             variants={variants}
           >
             {owners.map((owner, index) => (
-              <a
+              <Link
                 key={index}
-                href={owner.linkedin}
+                to={owner.linkedin}
                 target="_blank"
                 rel="noreferrer"
                 className="flex h-full w-full items-center justify-center"
               >
-                <Card className="flex h-[180px] w-full max-w-[280px] flex-col items-center justify-center p-4 transition-transform hover:scale-105 sm:h-[200px] md:max-w-none lg:h-[220px]">
-                  <img
-                    src={owner.image}
-                    alt={owner.name}
-                    className="h-16 w-16 rounded-full object-cover shadow-lg sm:h-20 sm:w-20 md:h-24 md:w-24"
-                  />
-                  <span className="mt-3 text-center text-xs leading-tight font-medium sm:text-sm md:mt-4">
+                <Card className="hover:border-primary/50 from-background to-background/50 flex h-[180px] w-full max-w-[280px] flex-col items-center justify-center bg-gradient-to-br p-4 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:shadow-2xl sm:h-[200px] md:max-w-none lg:h-[220px]">
+                  <div className="relative">
+                    <img
+                      src={owner.image}
+                      alt={owner.name}
+                      className="ring-primary/20 hover:ring-primary/50 h-16 w-16 rounded-full object-cover shadow-lg ring-2 transition-all sm:h-20 sm:w-20 md:h-24 md:w-24"
+                    />
+                    <div className="border-background absolute -right-1 -bottom-1 h-6 w-6 rounded-full border-2 bg-green-500"></div>
+                  </div>
+                  <span className="mt-3 text-center text-xs leading-tight font-semibold sm:text-sm md:mt-4">
                     {owner.name}
                   </span>
                   <span className="text-muted-foreground mt-2 text-center text-xs leading-tight font-light sm:text-sm">
                     {owner.role}
                   </span>
                 </Card>
-              </a>
+              </Link>
             ))}
           </motion.div>
         </motion.section>
