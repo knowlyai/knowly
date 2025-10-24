@@ -131,7 +131,7 @@ const owners = [
   {
     name: 'Júlia Galhardi Cerqueira',
     image: 'https://d1b8zs4rmj3xdl.cloudfront.net/julia.jpeg',
-    role: 'Estagiária',
+    role: 'Estagiária de Implementação e Suporte na Bastos Tecnologia',
     linkedin: 'https://www.linkedin.com/in/j%C3%BAliacerqueira/'
   },
   {
