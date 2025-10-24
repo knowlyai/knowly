@@ -161,7 +161,7 @@ export function PlaygroundPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mx-auto flex h-full max-h-full w-full flex-col pl-24"
+            className="mx-auto flex h-full max-h-full w-full flex-col sm:pl-24"
           >
             {/* Header */}
             <div className="mb-4 flex-shrink-0">

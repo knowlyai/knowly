@@ -12,7 +12,7 @@ export type SidebarItem = {
 
 const items: SidebarItem[] = [
   { label: 'Dados de cadastro', icon: <User />, key: 'user' },
-  { label: 'Minhas bases', icon: <BrainCircuit />, key: 'bases' },
+  { label: 'Bases', icon: <BrainCircuit />, key: 'bases' },
   { label: 'Assinatura', icon: <Wallet />, key: 'subscription' }
 ]
 
@@ -45,58 +45,96 @@ export function Sidebar() {
   }
 
   return (
-    <motion.aside
-      className={`bg-background fixed z-10 flex h-full flex-col justify-between border-r-[1px] border-gray-100/20 px-4 py-8 pt-24 transition-all duration-300 ${
-        isCollapsed ? 'w-20' : 'w-96'
-      }`}
-      initial="hidden"
-      whileInView="visible"
-      transition={{ staggerChildren: 0.04 }}
-    >
-      {/* Botão para toggle da sidebar */}
-      <div className="flex flex-col justify-center gap-4">
-        <motion.div transition={transition} variants={variants}>
-          <Button
-            variant="ghost"
-            className="hover:bg-muted/50 text-foreground self-start"
-            onClick={toggleSidebar}
-          >
-            <Menu />
-          </Button>
-        </motion.div>
-
-        <motion.nav className="flex flex-col gap-2">
-          {items.map((item) => (
-            <motion.button
-              key={item.key}
-              className={`flex items-center gap-3 rounded-lg font-medium transition-colors ${
-                selected === item.key
-                  ? 'bg-primary/10 text-primary'
-                  : 'hover:bg-muted/50 text-foreground/80'
-              } ${isCollapsed ? 'justify-center px-2 py-3' : 'px-4 py-3'}`}
-              onClick={() => handleNavigation(item.key)}
-              title={isCollapsed ? item.label : undefined}
-              transition={transition}
-              variants={variants}
-            >
-              {item.icon}
-              {!isCollapsed && item.label}
-            </motion.button>
-          ))}
-        </motion.nav>
-      </div>
-
-      <Button
-        variant="ghost"
-        className={`hover:bg-muted/50 flex items-center text-red-600 ${
-          isCollapsed ? 'justify-center px-2 py-3' : 'gap-2 px-4 py-3'
+    <>
+      {/* Desktop Sidebar */}
+      <motion.aside
+        className={`bg-background fixed z-10 hidden h-full flex-col justify-between border-r-[1px] border-gray-100/20 px-4 py-8 pt-24 transition-all duration-300 md:flex ${
+          isCollapsed ? 'w-20' : 'w-96'
         }`}
-        onClick={handleLogout}
-        title={isCollapsed ? 'Sair' : undefined}
+        initial="hidden"
+        whileInView="visible"
+        transition={{ staggerChildren: 0.04 }}
       >
-        <LogOut className="h-5 w-5" />
-        {!isCollapsed && 'Sair'}
-      </Button>
-    </motion.aside>
+        {/* Botão para toggle da sidebar */}
+        <div className="flex flex-col justify-center gap-4">
+          <motion.div transition={transition} variants={variants}>
+            <Button
+              variant="ghost"
+              className="hover:bg-muted/50 text-foreground self-start"
+              onClick={toggleSidebar}
+            >
+              <Menu />
+            </Button>
+          </motion.div>
+
+          <motion.nav className="flex flex-col gap-2">
+            {items.map((item) => (
+              <motion.button
+                key={item.key}
+                className={`flex items-center gap-3 rounded-lg font-medium transition-colors ${
+                  selected === item.key
+                    ? 'bg-primary/10 text-primary'
+                    : 'hover:bg-muted/50 text-foreground/80'
+                } ${isCollapsed ? 'justify-center px-2 py-3' : 'px-4 py-3'}`}
+                onClick={() => handleNavigation(item.key)}
+                title={isCollapsed ? item.label : undefined}
+                transition={transition}
+                variants={variants}
+              >
+                {item.icon}
+                {!isCollapsed && item.label}
+              </motion.button>
+            ))}
+          </motion.nav>
+        </div>
+
+        <Button
+          variant="ghost"
+          className={`hover:bg-muted/50 flex items-center text-red-600 ${
+            isCollapsed ? 'justify-center px-2 py-3' : 'gap-2 px-4 py-3'
+          }`}
+          onClick={handleLogout}
+          title={isCollapsed ? 'Sair' : undefined}
+        >
+          <LogOut className="h-5 w-5" />
+          {!isCollapsed && 'Sair'}
+        </Button>
+      </motion.aside>
+
+      {/* Mobile Bottom Navigation */}
+      <motion.nav
+        className="bg-background/95 fixed right-0 bottom-0 left-0 z-10 flex items-center justify-around border-t border-gray-100/20 px-4 py-3 backdrop-blur-lg md:hidden"
+        initial="hidden"
+        whileInView="visible"
+        transition={{ staggerChildren: 0.04 }}
+      >
+        {items.map((item) => (
+          <motion.button
+            key={item.key}
+            className={`flex flex-col items-center gap-1 rounded-lg px-4 py-2 font-medium transition-colors ${
+              selected === item.key
+                ? 'text-primary'
+                : 'text-foreground/60 hover:text-foreground'
+            }`}
+            onClick={() => handleNavigation(item.key)}
+            transition={transition}
+            variants={variants}
+          >
+            <span className="text-xl">{item.icon}</span>
+            <span className="text-xs">{item.label.split(' ')[0]}</span>
+          </motion.button>
+        ))}
+
+        <motion.button
+          className="flex flex-col items-center gap-1 rounded-lg px-4 py-2 font-medium text-red-600 transition-colors hover:text-red-700"
+          onClick={handleLogout}
+          transition={transition}
+          variants={variants}
+        >
+          <LogOut className="h-5 w-5" />
+          <span className="text-xs">Sair</span>
+        </motion.button>
+      </motion.nav>
+    </>
   )
 }

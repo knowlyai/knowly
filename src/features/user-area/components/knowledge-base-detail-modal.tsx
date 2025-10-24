@@ -272,286 +272,304 @@ echo $data['response'];`
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[80vh] max-w-2xl overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="text-foreground flex items-center gap-2">
-            {knowledgeBase.displayName}
-            <Badge className={getStatusColor(knowledgeBase.status)}>
-              {knowledgeBase.status}
-            </Badge>
-          </DialogTitle>
-          <DialogDescription>{knowledgeBase.description}</DialogDescription>
-        </DialogHeader>
-
-        <div className="space-y-6">
-          {/* Informações gerais */}
-          <div className="grid grid-cols-2 gap-4 text-sm">
-            <div>
-              <span className="text-foreground font-medium">Criada em:</span>
-              <p className="text-muted-foreground">
-                {knowledgeBase.createdAt.toLocaleDateString('pt-BR')}
-              </p>
-            </div>
-            <div>
-              <span className="text-foreground font-medium">
-                Última modificação:
+      <DialogContent className="max-h-[90vh] w-[96vw] max-w-2xl overflow-hidden rounded-2xl p-5 md:max-h-[85vh] md:rounded-lg md:p-6">
+        <div className="max-h-[calc(90vh-2.5rem)] overflow-x-hidden overflow-y-auto md:max-h-[calc(85vh-3rem)]">
+          <DialogHeader className="space-y-3 pr-2">
+            <DialogTitle className="text-foreground flex flex-col items-start gap-2 sm:flex-row sm:items-center">
+              <span className="max-w-full pr-2 break-words">
+                {knowledgeBase.displayName}
               </span>
-              <p className="text-muted-foreground">
-                {knowledgeBase.updatedAt.toLocaleDateString('pt-BR')}
-              </p>
-            </div>
-            <div>
-              <span className="text-foreground font-medium">
-                Total de arquivos:
-              </span>
-              <p className="text-muted-foreground">
-                {knowledgeBase.files.length} arquivo
-                {knowledgeBase.files.length !== 1 ? 's' : ''}
-              </p>
-            </div>
-            <div>
-              <span className="text-foreground font-medium">
-                Tamanho total:
-              </span>
-              <p className="text-muted-foreground">
-                {knowledgeBase.totalSizeMB.toFixed(1)} MB
-              </p>
-            </div>
-          </div>
+              <Badge className={getStatusColor(knowledgeBase.status)}>
+                {knowledgeBase.status}
+              </Badge>
+            </DialogTitle>
+            <DialogDescription className="max-w-full items-start pr-2 break-words">
+              {knowledgeBase.description}
+            </DialogDescription>
+          </DialogHeader>
 
-          <Separator />
-
-          {/* API Keys */}
-          <div className="space-y-4">
-            <h3 className="text-foreground text-lg font-semibold">API Keys</h3>
-            {knowledgeBase.keys.length === 0 ? (
-              <div className="text-foreground py-4 text-center text-sm">
-                Nenhuma chave de API encontrada
+          <div className="space-y-5 pr-2 md:space-y-6">
+            {/* Informações gerais */}
+            <div className="grid w-full max-w-full grid-cols-1 gap-3 text-sm sm:grid-cols-2 sm:gap-4">
+              <div className="min-w-0 overflow-hidden">
+                <span className="text-foreground font-medium">Criada em:</span>
+                <p className="text-muted-foreground truncate">
+                  {knowledgeBase.createdAt.toLocaleDateString('pt-BR')}
+                </p>
               </div>
-            ) : (
-              <div className="space-y-3">
-                {knowledgeBase.keys.map((key, index) => {
-                  const keyId = `${key.kbKey}-${index}`
-                  const isVisible = visibleKeys.has(keyId)
-                  const isCopied = copiedKeys.has(keyId)
-
-                  return (
-                    <div
-                      key={keyId}
-                      className="hover:bg-muted/50 border-border rounded-lg border-1 p-4 transition-colors"
-                    >
-                      <div className="mb-2 flex items-center justify-between">
-                        <span className="text-foreground text-sm font-medium">
-                          {key.kbKeyAlias}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="bg-muted text-muted-foreground flex-1 rounded px-3 py-2 font-mono text-sm">
-                          {isVisible ? key.kbKey : maskKey(key.kbKey)}
-                        </div>
-                        <Button
-                          onClick={() => toggleKeyVisibility(keyId)}
-                          size="sm"
-                          variant="outline"
-                          className="flex items-center gap-1"
-                        >
-                          {isVisible ? (
-                            <EyeOff className="text-foreground h-4 w-4" />
-                          ) : (
-                            <Eye className="text-foreground h-4 w-4" />
-                          )}
-                        </Button>
-                        <Button
-                          onClick={() => copyKeyToClipboard(key.kbKey, keyId)}
-                          size="sm"
-                          variant="outline"
-                          className="flex items-center gap-1"
-                        >
-                          {isCopied ? (
-                            <Check className="text-foreground h-4 w-4" />
-                          ) : (
-                            <Copy className="text-foreground h-4 w-4" />
-                          )}
-                        </Button>
-                      </div>
-                    </div>
-                  )
-                })}
+              <div className="min-w-0 overflow-hidden">
+                <span className="text-foreground font-medium">
+                  Última modificação:
+                </span>
+                <p className="text-muted-foreground truncate">
+                  {knowledgeBase.updatedAt.toLocaleDateString('pt-BR')}
+                </p>
               </div>
-            )}
-          </div>
-
-          <Separator />
-
-          {/* Code Snippets */}
-          <div className="space-y-4">
-            <button
-              onClick={() => setIsCodeSectionExpanded(!isCodeSectionExpanded)}
-              className="hover:bg-muted/50 flex w-full items-center justify-between rounded-lg p-2 transition-colors"
-            >
-              <div className="flex items-center gap-2">
-                <Code2 className="text-foreground h-5 w-5" />
-                <h3 className="text-foreground text-lg font-semibold">
-                  Exemplos de Código
-                </h3>
+              <div className="min-w-0 overflow-hidden">
+                <span className="text-foreground font-medium">
+                  Total de arquivos:
+                </span>
+                <p className="text-muted-foreground truncate">
+                  {knowledgeBase.files.length} arquivo
+                  {knowledgeBase.files.length !== 1 ? 's' : ''}
+                </p>
               </div>
-              {isCodeSectionExpanded ? (
-                <ChevronUp className="text-foreground h-5 w-5" />
+              <div className="min-w-0 overflow-hidden">
+                <span className="text-foreground font-medium">
+                  Tamanho total:
+                </span>
+                <p className="text-muted-foreground truncate">
+                  {knowledgeBase.totalSizeMB.toFixed(1)} MB
+                </p>
+              </div>
+            </div>
+
+            <Separator />
+
+            {/* API Keys */}
+            <div className="w-full max-w-full space-y-4 overflow-hidden">
+              <h3 className="text-foreground text-lg font-semibold">
+                API Keys
+              </h3>
+              {knowledgeBase.keys.length === 0 ? (
+                <div className="text-foreground py-4 text-center text-sm">
+                  Nenhuma chave de API encontrada
+                </div>
               ) : (
-                <ChevronDown className="text-foreground h-5 w-5" />
-              )}
-            </button>
+                <div className="w-full max-w-full space-y-3">
+                  {knowledgeBase.keys.map((key, index) => {
+                    const keyId = `${key.kbKey}-${index}`
+                    const isVisible = visibleKeys.has(keyId)
+                    const isCopied = copiedKeys.has(keyId)
 
-            <div
-              className={`grid transition-all duration-300 ease-in-out ${
-                isCodeSectionExpanded
-                  ? 'grid-rows-[1fr] opacity-100'
-                  : 'grid-rows-[0fr] opacity-0'
-              }`}
-            >
-              <div className="overflow-hidden">
-                {knowledgeBase.keys.length === 0 ? (
-                  <div className="text-foreground py-4 text-center text-sm">
-                    Crie uma API Key para ver os exemplos de código
-                  </div>
-                ) : (
-                  <div className="space-y-3 pt-2">
-                    {/* Language selector */}
-                    <div className="flex flex-wrap gap-2">
-                      {languages.map((lang) => (
-                        <Button
-                          key={lang.id}
-                          onClick={() => setSelectedLanguage(lang.id)}
-                          size="sm"
-                          variant={
-                            selectedLanguage === lang.id
-                              ? 'secondary'
-                              : 'outline'
-                          }
-                          className="text-foreground flex items-center gap-1.5"
-                        >
-                          <span>{lang.icon}</span>
-                          <span>{lang.name}</span>
-                        </Button>
-                      ))}
-                    </div>
-
-                    {/* Code snippet */}
-                    <div className="relative">
-                      <pre className="bg-muted max-h-96 overflow-y-auto rounded-lg p-4 pr-20 text-sm">
-                        <code className="text-foreground block break-words whitespace-pre-wrap">
-                          {getCodeSnippet(
-                            selectedLanguage,
-                            knowledgeBase.keys[0]?.kbKey || 'YOUR_API_KEY'
-                          )}
-                        </code>
-                      </pre>
-                      <Button
-                        onClick={copyCodeToClipboard}
-                        size="sm"
-                        variant="secondary"
-                        className="absolute top-2 right-2 flex items-center gap-1"
+                    return (
+                      <div
+                        key={keyId}
+                        className="hover:bg-muted/50 border-border w-full max-w-full overflow-hidden rounded-xl border-1 p-4 transition-colors md:rounded-lg md:p-4"
                       >
-                        {copiedCode ? (
-                          <>
-                            <Check className="h-4 w-4" />
-                            Copiado!
-                          </>
-                        ) : (
-                          <>
-                            <Copy className="h-4 w-4" />
-                            Copiar
-                          </>
-                        )}
+                        <div className="mb-2 flex min-w-0 items-center justify-between overflow-hidden">
+                          <span className="text-foreground max-w-full truncate text-sm font-medium">
+                            {key.kbKeyAlias}
+                          </span>
+                        </div>
+                        <div className="flex w-full max-w-full min-w-0 flex-col gap-2 sm:flex-row sm:items-center">
+                          <div className="bg-muted text-muted-foreground w-full min-w-0 flex-1 overflow-hidden rounded-lg px-3 py-2 font-mono text-xs break-all sm:text-sm">
+                            {isVisible ? key.kbKey : maskKey(key.kbKey)}
+                          </div>
+                          <div className="flex flex-shrink-0 gap-2">
+                            <Button
+                              onClick={() => toggleKeyVisibility(keyId)}
+                              size="sm"
+                              variant="outline"
+                              className="flex flex-1 items-center justify-center gap-1 rounded-lg sm:flex-initial"
+                            >
+                              {isVisible ? (
+                                <EyeOff className="text-foreground h-4 w-4" />
+                              ) : (
+                                <Eye className="text-foreground h-4 w-4" />
+                              )}
+                              <span className="sm:hidden">
+                                {isVisible ? 'Ocultar' : 'Mostrar'}
+                              </span>
+                            </Button>
+                            <Button
+                              onClick={() =>
+                                copyKeyToClipboard(key.kbKey, keyId)
+                              }
+                              size="sm"
+                              variant="outline"
+                              className="flex flex-1 items-center justify-center gap-1 rounded-lg sm:flex-initial"
+                            >
+                              {isCopied ? (
+                                <Check className="text-foreground h-4 w-4" />
+                              ) : (
+                                <Copy className="text-foreground h-4 w-4" />
+                              )}
+                              <span className="sm:hidden">
+                                {isCopied ? 'Copiado' : 'Copiar'}
+                              </span>
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
+            </div>
+
+            <Separator />
+
+            {/* Code Snippets */}
+            <div className="w-full max-w-full space-y-4">
+              <button
+                onClick={() => setIsCodeSectionExpanded(!isCodeSectionExpanded)}
+                className="hover:bg-muted/50 flex w-full items-center justify-between rounded-lg p-2 transition-colors"
+              >
+                <div className="flex min-w-0 items-center gap-2">
+                  <Code2 className="text-foreground h-5 w-5 flex-shrink-0" />
+                  <h3 className="text-foreground truncate text-lg font-semibold">
+                    Exemplos de Código
+                  </h3>
+                </div>
+                {isCodeSectionExpanded ? (
+                  <ChevronUp className="text-foreground h-5 w-5 flex-shrink-0" />
+                ) : (
+                  <ChevronDown className="text-foreground h-5 w-5 flex-shrink-0" />
+                )}
+              </button>
+
+              <div
+                className={`grid transition-all duration-300 ease-in-out ${
+                  isCodeSectionExpanded
+                    ? 'grid-rows-[1fr] opacity-100'
+                    : 'grid-rows-[0fr] opacity-0'
+                }`}
+              >
+                <div className="min-w-0 overflow-hidden">
+                  {knowledgeBase.keys.length === 0 ? (
+                    <div className="text-foreground py-4 text-center text-sm">
+                      Crie uma API Key para ver os exemplos de código
+                    </div>
+                  ) : (
+                    <div className="w-full max-w-full space-y-3 pt-2">
+                      {/* Language selector */}
+                      <div className="flex w-full flex-wrap gap-2">
+                        {languages.map((lang) => (
+                          <Button
+                            key={lang.id}
+                            onClick={() => setSelectedLanguage(lang.id)}
+                            size="sm"
+                            variant={
+                              selectedLanguage === lang.id
+                                ? 'secondary'
+                                : 'outline'
+                            }
+                            className="text-foreground flex items-center gap-1.5 rounded-lg"
+                          >
+                            <span>{lang.icon}</span>
+                            <span>{lang.name}</span>
+                          </Button>
+                        ))}
+                      </div>
+
+                      {/* Code snippet */}
+                      <div className="relative w-full max-w-full">
+                        <pre className="bg-muted max-h-96 w-full overflow-x-auto overflow-y-auto rounded-xl p-4 pr-12 text-xs sm:p-4 sm:pr-20 sm:text-sm">
+                          <code className="text-foreground block break-words whitespace-pre-wrap">
+                            {getCodeSnippet(
+                              selectedLanguage,
+                              knowledgeBase.keys[0]?.kbKey || 'YOUR_API_KEY'
+                            )}
+                          </code>
+                        </pre>
+                        <Button
+                          onClick={copyCodeToClipboard}
+                          size="sm"
+                          variant="secondary"
+                          className="absolute top-2 right-2 flex items-center gap-1 rounded-lg text-xs sm:text-sm"
+                        >
+                          {copiedCode ? (
+                            <>
+                              <Check className="h-3 w-3 sm:h-4 sm:w-4" />
+                              <span className="hidden sm:inline">Copiado!</span>
+                            </>
+                          ) : (
+                            <>
+                              <Copy className="h-3 w-3 sm:h-4 sm:w-4" />
+                              <span className="hidden sm:inline">Copiar</span>
+                            </>
+                          )}
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <Separator />
+
+            {/* Lista de arquivos */}
+            <div className="w-full max-w-full space-y-4">
+              <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                <h3 className="text-foreground text-lg font-semibold">
+                  Arquivos
+                </h3>
+                <Button
+                  onClick={handleAddFiles}
+                  size="sm"
+                  variant="outline"
+                  className="text-foreground flex flex-shrink-0 items-center justify-center gap-2 rounded-lg"
+                >
+                  <Plus className="h-4 w-4" />
+                  <span>Adicionar arquivos</span>
+                </Button>
+              </div>
+
+              {knowledgeBase.files.length === 0 ? (
+                <div className="text-foreground py-8 text-center">
+                  <FileText className="mx-auto mb-2 h-12 w-12 opacity-50" />
+                  <p>Nenhum arquivo encontrado</p>
+                </div>
+              ) : (
+                <div className="max-h-60 w-full space-y-2 overflow-x-hidden overflow-y-auto">
+                  {knowledgeBase.files.map((file, index) => (
+                    <div
+                      key={`${file.fileName}-${index}`}
+                      className="hover:bg-muted/50 border-border flex w-full max-w-full min-w-0 flex-col gap-2 rounded-xl border-1 p-4 transition-colors sm:flex-row sm:items-center sm:justify-between md:rounded-lg"
+                    >
+                      <div
+                        className="flex min-w-0 flex-1 cursor-pointer items-center gap-3 overflow-hidden"
+                        onClick={() => window.open(file.url, '_blank')}
+                      >
+                        <FileText className="text-primary h-5 w-5 flex-shrink-0" />
+                        <div className="min-w-0 flex-1 overflow-hidden">
+                          <p
+                            className="text-muted-foreground truncate text-sm font-medium"
+                            title={file.fileName}
+                          >
+                            {file.fileName}
+                          </p>
+                          <p className="text-foreground text-xs">
+                            {formatFileSize(file.sizeMB)}
+                          </p>
+                        </div>
+                      </div>
+                      <Button
+                        onClick={() => handleRemoveFile(file.fileName)}
+                        size="sm"
+                        variant="ghost"
+                        className="text-destructive hover:text-destructive hover:bg-destructive/10 flex w-full flex-shrink-0 items-center justify-center gap-1 rounded-lg sm:w-auto"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                        <span>Remover</span>
                       </Button>
                     </div>
-                  </div>
-                )}
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
-          </div>
 
-          <Separator />
+            <Separator />
 
-          {/* Lista de arquivos */}
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-foreground text-lg font-semibold">
-                Arquivos
-              </h3>
+            {/* Botões de ação */}
+            <div className="flex w-full flex-col gap-2 sm:flex-row sm:justify-end sm:gap-3">
               <Button
-                onClick={handleAddFiles}
-                size="sm"
+                onClick={() => onOpenChange(false)}
                 variant="outline"
-                className="text-foreground flex items-center gap-2"
+                className="text-foreground w-full rounded-lg sm:w-auto"
               >
-                <Plus className="h-4 w-4" />
-                Adicionar arquivos
+                Fechar
+              </Button>
+              <Button
+                onClick={handleTestKnowledgeBase}
+                className="flex w-full items-center justify-center gap-2 rounded-lg sm:w-auto"
+              >
+                <Play className="h-4 w-4" />
+                Testar
               </Button>
             </div>
-
-            {knowledgeBase.files.length === 0 ? (
-              <div className="text-foreground py-8 text-center">
-                <FileText className="mx-auto mb-2 h-12 w-12 opacity-50" />
-                <p>Nenhum arquivo encontrado</p>
-              </div>
-            ) : (
-              <div className="max-h-60 space-y-2 overflow-y-auto">
-                {knowledgeBase.files.map((file, index) => (
-                  <div
-                    key={`${file.fileName}-${index}`}
-                    className="hover:bg-muted/50 border-border flex items-center justify-between rounded-lg border-1 p-3 transition-colors"
-                  >
-                    <div
-                      className="flex min-w-0 flex-1 items-center gap-3"
-                      onClick={() => window.open(file.url, '_blank')}
-                    >
-                      <FileText className="text-primary h-5 w-5 flex-shrink-0" />
-                      <div className="min-w-0 flex-1">
-                        <p
-                          className="text-muted-foreground truncate text-sm font-medium"
-                          title={file.fileName}
-                        >
-                          {file.fileName}
-                        </p>
-                        <p className="text-foreground text-xs">
-                          {formatFileSize(file.sizeMB)}
-                        </p>
-                      </div>
-                    </div>
-                    <Button
-                      onClick={() => handleRemoveFile(file.fileName)}
-                      size="sm"
-                      variant="ghost"
-                      className="text-destructive hover:text-destructive hover:bg-destructive/10 flex items-center gap-1"
-                    >
-                      <Trash2 className="h-4 w-4" />
-                      Remover
-                    </Button>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <Separator />
-
-          {/* Botões de ação */}
-          <div className="flex justify-end gap-3">
-            <Button
-              onClick={() => onOpenChange(false)}
-              variant="outline"
-              className="text-foreground"
-            >
-              Fechar
-            </Button>
-            <Button
-              onClick={handleTestKnowledgeBase}
-              className="flex items-center gap-2"
-            >
-              <Play className="h-4 w-4" />
-              Testar
-            </Button>
           </div>
         </div>
       </DialogContent>
