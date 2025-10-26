@@ -141,7 +141,7 @@ export function DocsSidebar() {
       {/* Mobile menu button */}
       <Button
         variant="ghost"
-        className="hover:bg-muted/50 text-foreground fixed top-20 left-4 z-50 md:hidden"
+        className="hover:bg-muted/50 text-foreground fixed top-20 left-4 z-20 md:hidden"
         onClick={toggleMobileSidebar}
       >
         <Menu className="h-6 w-6" />
@@ -154,7 +154,7 @@ export function DocsSidebar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="bg-background/80 fixed inset-0 top-16 z-40 backdrop-blur-sm md:hidden"
+            className="bg-background/80 fixed inset-0 top-16 z-30 backdrop-blur-sm md:hidden"
             onClick={closeMobileSidebar}
           />
         )}
@@ -163,7 +163,7 @@ export function DocsSidebar() {
       {/* Sidebar */}
       <motion.aside
         className={cn(
-          'bg-background/95 fixed top-16 left-0 z-30 flex h-[calc(100vh-4rem)] flex-col border-r-1 border-gray-100/20 backdrop-blur transition-all duration-300',
+          'bg-background/95 fixed top-16 left-0 z-40 flex h-[calc(100vh-4rem)] flex-col border-r-1 border-gray-100/20 backdrop-blur transition-all duration-300',
           // Desktop styles
           'hidden md:flex',
           isCollapsed ? 'md:w-20' : 'md:w-64',

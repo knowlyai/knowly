@@ -42,7 +42,7 @@ export function PlaygroundPage() {
   const [messages, setMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState('')
   const [selectedModel, setSelectedModel] = useState<MODELS>(
-    MODELS.MISTRAL_SMALL
+    MODELS.AMAZON_NOVA_MICRO
   )
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
